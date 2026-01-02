@@ -7,7 +7,7 @@
   <meta name="description" content="Asesoría comercial B2B para logística y flotillas. Contacta a Lic. Ramón Daniel Rivera Ayala para optimizar tu operación.">
   <meta property="og:title" content="Lic. Ramón Daniel Rivera Ayala">
   <meta property="og:description" content="Asesoría comercial B2B · Soluciones para logística y flotillas.">
-  <meta property="og:image" content="WhatsApp Image 2025-12-30 at 5.11.52 PM.jpeg">
+  <meta property="og:image" content="client/public/ramon-daniel.jpg">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
   <meta name="twitter:card" content="summary_large_image">
@@ -33,10 +33,24 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f9f9f9;
       color: #333;
-@@ -84,50 +91,61 @@
+      margin: 0;
+      padding: 32px;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, var(--primary), var(--primary-soft));
+      color: #fff;
       padding: 28px;
       border-radius: 16px;
       display: grid;
@@ -98,24 +112,61 @@
       font-weight: 600;
       color: #15345f;
     }
-@@ -172,172 +190,152 @@
-      padding: 8px 16px;
-      margin: 5px;
-      background-color: #3498db;
-      color: white;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+
+    .tag {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      font-weight: 600;
+    }
+
+    .contact-grid {
+      display: grid;
+      gap: 12px 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+    }
+
+    .contact-item:hover {
+      border-color: var(--border);
+      background: var(--background);
+    }
+
+    .label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+      min-width: 120px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
       padding: 10px 16px;
       background-color: var(--accent);
       color: #fff;
       text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
       border-radius: 999px;
       font-weight: 600;
       border: 1px solid transparent;
       transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn.secondary {
@@ -130,7 +181,6 @@
     }
 
     .btn:hover {
-      background-color: #2980b9;
       background-color: #11538c;
       text-decoration: none;
     }
@@ -183,7 +233,7 @@
   <div class="page">
     <section class="hero">
       <div class="hero-title">
-<h1 style="color: white;">Lic. Ramón Daniel Rivera Ayala</h1>
+        <h1>Lic. Ramón Daniel Rivera Ayala</h1>
         <p class="hero-subtitle">Vendedor Profesional</p>
         <p class="hero-meta">Asesoría comercial B2B · Soluciones para logística y flotillas</p>
         <div class="hero-actions">
@@ -192,7 +242,7 @@
           <a class="btn secondary" href="mailto:daniel.rivera@elambajio.com">Agendar por correo</a>
         </div>
       </div>
-      <img class="photo" src="WhatsApp Image 2025-12-30 at 5.11.52 PM.jpeg" alt="Ramón Daniel Rivera Ayala">
+      <img class="photo" src="client/public/ramon-daniel.jpg" alt="Ramón Daniel Rivera Ayala">
     </section>
 
     <section class="section">
@@ -224,7 +274,7 @@
       </div>
       <p class="note">Respondo en horario comercial y puedo coordinar visitas o llamadas de seguimiento.</p>
     </section>
-  
+
     <section class="section">
       <div class="section-header">Redes profesionales</div>
       <div class="button-group">
@@ -239,12 +289,12 @@
         <a href="https://open.spotify.com/track/5t8yddZze4jLTAoTzDRFtC?si=piAMinzfSKmkWuXJzekLdw" target="_blank" rel="noreferrer" class="btn secondary">Escuchar en Spotify</a>
       </div>
     </section>
-      <section class="section">
+    <section class="section">
       <div class="section-header">Documentos</div>
       <div class="button-group">
         <a href="https://firebasestorage.googleapis.com/v0/b/mi-nfc-hub.appspot.com/o/resume.pdf?alt=media&token=..." target="_blank" rel="noreferrer" class="btn">Descargar CV</a>
         <a href="https://firebasestorage.googleapis.com/v0/b/mi-nfc-hub.appspot.com/o/portfolio.pdf?alt=media&token=..." target="_blank" rel="noreferrer" class="btn secondary">Ver portafolio</a>
-        <a href="main/ramon-daniel-rivera.vcf" class="btn secondary" download>Guardar contacto</a>
+        <a href="client/public/ramon-daniel-rivera.vcf" class="btn secondary" download>Guardar contacto</a>
       </div>
     </section>
   </div>
