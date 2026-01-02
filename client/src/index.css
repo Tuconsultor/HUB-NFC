@@ -45,68 +45,68 @@
 
 :root {
   color-scheme: light;
-  --primary: #0f2a4f;
-  --primary-soft: #15345f;
-  --accent: #1b6db6;
-  --accent-soft: #e6f0fb;
-  --text: #1c2331;
-  --muted: #5b667a;
-  --border: #dbe3ef;
+  --primary: #0b1f3b;
+  --primary-soft: #123255;
+  --accent: #2f6f8f;
+  --accent-soft: #e8f0f6;
+  --text: #1a2233;
+  --muted: #5a667a;
+  --border: #d7dee8;
   --surface: #ffffff;
-  --background: #f5f7fb;
+  --background: #f2f5f9;
 
-  --primary-foreground: #f0f0f0;
-  --secondary: #1b6db6;
+  --primary-foreground: #f4f6f9;
+  --secondary: #2f6f8f;
   --secondary-foreground: #ffffff;
   --accent-foreground: #ffffff;
-  --sidebar-primary: #0f2a4f;
-  --sidebar-primary-foreground: #f0f0f0;
-  --chart-1: #0f2a4f;
-  --chart-2: #1b6db6;
-  --chart-3: #15345f;
-  --chart-4: #23456f;
-  --chart-5: #3a7ac6;
+  --sidebar-primary: #0b1f3b;
+  --sidebar-primary-foreground: #f4f6f9;
+  --chart-1: #0b1f3b;
+  --chart-2: #2f6f8f;
+  --chart-3: #123255;
+  --chart-4: #1f4b6d;
+  --chart-5: #3e7da1;
   --radius: 0.75rem;
   --foreground: var(--text);
   --card: #ffffff;
   --card-foreground: var(--text);
   --popover: #ffffff;
   --popover-foreground: var(--text);
-  --muted-foreground: #5b667a;
-  --input: #f3f4f6;
-  --ring: #0f2a4f;
+  --muted-foreground: #5a667a;
+  --input: #eef1f5;
+  --ring: #0b1f3b;
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-  --sidebar: #f5f7fb;
+  --sidebar: #f2f5f9;
   --sidebar-foreground: var(--text);
-  --sidebar-accent: #1b6db6;
+  --sidebar-accent: #2f6f8f;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #dbe3ef;
-  --sidebar-ring: #0f2a4f;
+  --sidebar-border: #d7dee8;
+  --sidebar-ring: #0b1f3b;
 }
 
 .dark {
-  --primary: #2d5a7b;
-  --primary-foreground: #f0f0f0;
-  --secondary: #f4a261;
-  --secondary-foreground: #1a1a1a;
-  --background: oklch(0.15 0 0);
-  --foreground: #f0f0f0;
-  --card: oklch(0.22 0.001 0);
-  --card-foreground: #f0f0f0;
-  --popover: oklch(0.22 0.001 0);
-  --popover-foreground: #f0f0f0;
-  --muted: #9ca3af;
-  --muted-foreground: #d1d5db;
-  --border: #374151;
-  --input: #1f2937;
-  --ring: #f4a261;
-  --sidebar: oklch(0.22 0.001 0);
-  --sidebar-foreground: #f0f0f0;
-  --sidebar-accent: #f4a261;
-  --sidebar-accent-foreground: #1a1a1a;
-  --sidebar-border: #374151;
-  --sidebar-ring: #f4a261;
+  --primary: #4c8db1;
+  --primary-foreground: #f4f6f9;
+  --secondary: #86b2c9;
+  --secondary-foreground: #0b1f3b;
+  --background: #0b111c;
+  --foreground: #e3e9f1;
+  --card: #141c2a;
+  --card-foreground: #e3e9f1;
+  --popover: #141c2a;
+  --popover-foreground: #e3e9f1;
+  --muted: #9aa4b2;
+  --muted-foreground: #c7d0dc;
+  --border: #243042;
+  --input: #1a2333;
+  --ring: #86b2c9;
+  --sidebar: #111827;
+  --sidebar-foreground: #e3e9f1;
+  --sidebar-accent: #86b2c9;
+  --sidebar-accent-foreground: #0b1f3b;
+  --sidebar-border: #243042;
+  --sidebar-ring: #86b2c9;
 }
 
 @layer base {
@@ -122,8 +122,8 @@
     padding: 32px;
     background-color: var(--background);
     background-image:
-      radial-gradient(circle at top right, rgba(27, 109, 182, 0.12), transparent 45%),
-      radial-gradient(circle at 20% 20%, rgba(15, 42, 79, 0.08), transparent 40%);
+      radial-gradient(circle at top right, rgba(47, 111, 143, 0.12), transparent 45%),
+      radial-gradient(circle at 20% 20%, rgba(11, 31, 59, 0.1), transparent 40%);
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -172,7 +172,7 @@
    * - Precision and clarity (like technical drawings)
    * - Hard edges, straight lines, minimal curves
    * - Asymmetric layouts with strategic whitespace
-   * - Steel blue primary + oxidized orange accents
+   * - Corporate navy primary with steel blue accents
    * - Fast, precise interactions (no excessive smoothing)
    */
   
@@ -297,7 +297,7 @@
   /* Hero section with asymmetric layout */
   .hero-section {
     @apply relative overflow-hidden;
-    background: linear-gradient(135deg, var(--primary) 0%, #2d5a7b 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-soft) 100%);
     padding: 3rem 2rem;
     border-radius: 0;
     border-left: 6px solid var(--secondary);
@@ -510,7 +510,7 @@
 
   .section.highlight {
     border-left: 4px solid var(--accent);
-    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    background: linear-gradient(180deg, var(--surface) 0%, var(--background) 100%);
   }
 
   .section-header {
@@ -519,7 +519,7 @@
     gap: 8px;
     margin-bottom: 12px;
     font-weight: 600;
-    color: #15345f;
+    color: var(--primary);
   }
 
   .tag {
@@ -598,7 +598,7 @@
   }
 
   .btn.secondary {
-    background: #fff;
+    background: var(--surface);
     color: var(--accent);
     border-color: var(--accent);
   }
@@ -609,7 +609,7 @@
   }
 
   .btn:hover {
-    background-color: #11538c;
+    background-color: var(--primary-soft);
     text-decoration: none;
   }
 
