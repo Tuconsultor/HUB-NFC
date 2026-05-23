@@ -1,8 +1,6 @@
-const baseUrl = import.meta.env.BASE_URL;
-
 export default function Home() {
   return (
-    <main className="page" id="contenido-principal">
+    <div className="page">
       <section className="hero">
         <div className="hero-title">
           <div className="hero-eyebrow">Ingeniería comercial aplicada</div>
@@ -37,12 +35,8 @@ export default function Home() {
         <div className="hero-card">
           <img
             className="photo"
-            src={`${baseUrl}im.png`}
-            alt="Retrato profesional de Ramón Daniel Rivera Ayala"
-            width={720}
-            height={900}
-            fetchPriority="high"
-            decoding="async"
+            src="/ramon-daniel.jpg"
+            alt="Ramón Daniel Rivera Ayala"
           />
           <div className="hero-metrics">
             <div>
@@ -225,7 +219,7 @@ export default function Home() {
             Ver portafolio
           </a>
           <a
-            href={`${baseUrl}ramon-daniel-rivera.vcf`}
+            href="/ramon-daniel-rivera.vcf"
             className="btn secondary"
             download
           >
@@ -233,6 +227,6 @@ export default function Home() {
           </a>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
