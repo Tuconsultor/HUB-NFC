@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <div className="page">
+    <main className="page" id="contenido-principal">
       <section className="hero">
         <div className="hero-title">
           <div className="hero-eyebrow">Ingeniería comercial aplicada</div>
@@ -35,8 +35,12 @@ export default function Home() {
         <div className="hero-card">
           <img
             className="photo"
-            src="/ramon-daniel.jpg"
-            alt="Ramón Daniel Rivera Ayala"
+            src="/im.png"
+            alt="Retrato profesional de Ramón Daniel Rivera Ayala"
+            width={720}
+            height={900}
+            fetchPriority="high"
+            decoding="async"
           />
           <div className="hero-metrics">
             <div>
@@ -227,6 +231,6 @@ export default function Home() {
           </a>
         </div>
       </section>
-    </div>
+    </main>
   );
 }
