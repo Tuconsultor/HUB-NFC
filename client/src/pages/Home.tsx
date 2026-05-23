@@ -35,7 +35,7 @@ export default function Home() {
         <div className="hero-card">
           <img
             className="photo"
-            src="/ramon-daniel.jpg"
+            src="/im.png"
             alt="Ramón Daniel Rivera Ayala"
           />
           <div className="hero-metrics">
