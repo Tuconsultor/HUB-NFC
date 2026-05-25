@@ -65,8 +65,8 @@
       background-color: #020617;
       color: #e2e8f0;
       background-image:
-        linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+        linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
       background-size: 40px 40px;
       overflow-x: hidden;
     }
@@ -133,6 +133,8 @@
     .tw-cursor { animation: blink 1s step-end infinite; }
 
     .tco-input:focus { border-color: #06b6d4; outline: none; box-shadow: 0 0 0 1px rgba(6,182,212,0.3); }
+    .tco-select:focus { border-color: #06b6d4; outline: none; box-shadow: 0 0 0 1px rgba(6,182,212,0.3); }
+    .tco-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.5rem center; background-size: 1rem; padding-right: 2rem; }
 
     /* Proceso steps */
     .step-line {
@@ -147,12 +149,25 @@
       50% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
     }
     .cta-gold { animation: goldPulse 2.5s ease-in-out infinite; }
+
+    /* Payback bar animation */
+    @keyframes growBar { from { width: 0%; } to { width: var(--bar-width); } }
+    .payback-bar { animation: growBar 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+    /* Saving badge pulse */
+    @keyframes savingPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .saving-badge { animation: savingPulse 2s ease-in-out infinite; }
   </style>
 </head>
 <body class="antialiased selection:bg-accent selection:text-white pb-20">
 
   <div class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/20 blur-[120px] pointer-events-none z-[-1]"></div>
   <div class="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/20 blur-[120px] pointer-events-none z-[-1]"></div>
+  <!-- Orbe dorado central para conectar con CTA -->
+  <div class="fixed top-[40%] left-[35%] w-[30%] h-[30%] rounded-full bg-amber-900/15 blur-[100px] pointer-events-none z-[-1]"></div>
 
   <main class="max-w-6xl mx-auto px-6 pt-16 md:pt-24 flex flex-col gap-6">
 
@@ -221,7 +236,7 @@
       <!-- 2. PHOTO CARD -->
       <article class="bento-card col-span-1 md:col-span-1 md:row-span-2 p-0 overflow-hidden group opacity-0 animate-fade-in-up delay-200">
         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent z-10"></div>
-        <img src="im.jpg" alt="Ramón Daniel Rivera" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105" onerror="this.style.display='none'">
+        <img src="im.jpg" alt="Ramón Daniel Rivera" loading="lazy" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105" onerror="this.style.display='none'">
         <div class="absolute bottom-6 left-6 z-20 w-full pr-6">
           <div class="flex items-center gap-2 mb-2">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -257,7 +272,7 @@
         </div>
       </article>
 
-      <!-- 4. PROCESO 3 PASOS (reemplaza UX para Logística) -->
+      <!-- 4. PROCESO 3 PASOS -->
       <article class="bento-card col-span-1 p-6 opacity-0 animate-fade-in-up delay-400">
         <div class="bento-content h-full flex flex-col">
           <h3 class="font-mono text-xs text-slate-500 mb-4">// workflow.steps</h3>
@@ -296,16 +311,20 @@
         </div>
       </article>
 
-      <!-- 5. TCO CALCULATOR -->
+      <!-- 5. TCO CALCULATOR v2 — Payback + Ahorro anual + Diesel editable + Selector modelo -->
       <article class="bento-card col-span-1 md:col-span-2 p-6 md:p-8 font-mono text-sm opacity-0 animate-fade-in-up" style="animation-delay: 500ms;">
         <div class="bento-content">
-          <div class="flex items-center gap-2 mb-4 border-b border-slate-800 pb-2">
+          <!-- Barra de título estilo terminal -->
+          <div class="flex items-center gap-2 mb-5 border-b border-slate-800 pb-3">
             <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
             <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
             <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-            <span class="text-slate-500 text-xs ml-2">~ /tco-calculator.js</span>
+            <span class="text-slate-500 text-xs ml-2">~ /tco-calculator-v2.js</span>
+            <span class="ml-auto text-xs text-emerald-400 font-mono">● live</span>
           </div>
-          <div class="grid grid-cols-2 gap-3 mb-4">
+
+          <!-- Inputs fila 1: unidades y km/mes -->
+          <div class="grid grid-cols-2 gap-3 mb-3">
             <div>
               <label class="text-xs text-slate-500 block mb-1">// unidades en flotilla</label>
               <input id="tco-units" type="number" value="5" min="1"
@@ -317,10 +336,81 @@
                 class="tco-input w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm transition-colors">
             </div>
           </div>
-          <div class="bg-slate-900/60 rounded-lg p-3 border border-slate-800">
-            <p class="text-slate-500 text-xs mb-1">> resultado.costo_combustible_mensual</p>
-            <p class="text-amber-400 text-xl font-bold" id="tco-result">$ 0.00 MXN</p>
-            <p class="text-slate-600 text-xs mt-1">*Consumo ref. 28 L/100km · Diesel $24.50/L · <span class="text-slate-500 hover:text-accent cursor-pointer underline decoration-dotted" onclick="document.getElementById('wa-cta').click()">Optimiza este número →</span></p>
+
+          <!-- Inputs fila 2: precio diesel y selector modelo FAW/ELAM -->
+          <div class="grid grid-cols-2 gap-3 mb-5">
+            <div>
+              <label class="text-xs text-slate-500 block mb-1">// precio diesel $/L</label>
+              <input id="tco-diesel" type="number" value="24.50" min="10" step="0.10"
+                class="tco-input w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm transition-colors">
+            </div>
+            <div>
+              <label class="text-xs text-slate-500 block mb-1">// modelo FAW / ELAM</label>
+              <!-- data-consume: L/100km  data-precio: precio ref. MXN -->
+              <select id="tco-model"
+                class="tco-select tco-input w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm transition-colors cursor-pointer"
+                data-consume-actual="28">
+                <option value="elam-mamut"  data-consume="22" data-precio="2150000">ELAM MAMUT (22 L/100km)</option>
+                <option value="elam-tiger"  data-consume="24" data-precio="1850000">ELAM TIGER (24 L/100km)</option>
+                <option value="faw-ca1310"  data-consume="25" data-precio="1980000">FAW CA1310 (25 L/100km)</option>
+                <option value="faw-jh6"     data-consume="23" data-precio="2280000">FAW JH6 (23 L/100km)</option>
+                <option value="otro"        data-consume="28" data-precio="0">Mi unidad actual (ref.)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Resultados: bloque principal -->
+          <div class="space-y-3">
+            <!-- Costo combustible mensual actual vs. nuevo -->
+            <div class="bg-slate-900/60 rounded-xl p-4 border border-slate-800">
+              <div class="flex items-center justify-between mb-3">
+                <p class="text-slate-500 text-xs">> resultado.comparativo_combustible</p>
+                <span id="tco-saving-badge" class="saving-badge hidden px-2 py-0.5 rounded-full bg-emerald-900/40 border border-emerald-700/50 text-emerald-400 text-xs font-bold"></span>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <p class="text-slate-500 text-xs mb-1">Flota actual / mes</p>
+                  <p class="text-slate-300 text-lg font-bold" id="tco-result-actual">$ 0 MXN</p>
+                </div>
+                <div>
+                  <p class="text-accent text-xs mb-1" id="tco-model-label">ELAM MAMUT / mes</p>
+                  <p class="text-accent text-lg font-bold" id="tco-result-nuevo">$ 0 MXN</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ahorro anual + Payback -->
+            <div class="grid grid-cols-2 gap-3">
+              <!-- Ahorro anual -->
+              <div class="bg-emerald-900/20 rounded-xl p-3 border border-emerald-800/40">
+                <p class="text-emerald-400 text-xs mb-1">Ahorro anual estimado</p>
+                <p class="text-emerald-300 text-xl font-bold" id="tco-ahorro-anual">$ 0 MXN</p>
+                <p class="text-emerald-700 text-xs mt-1" id="tco-ahorro-pct"></p>
+              </div>
+              <!-- Payback -->
+              <div class="bg-amber-900/20 rounded-xl p-3 border border-amber-800/40">
+                <p class="text-amber-400 text-xs mb-1">Payback inversión</p>
+                <p class="text-amber-300 text-xl font-bold" id="tco-payback">— meses</p>
+                <p class="text-amber-700 text-xs mt-1" id="tco-payback-sub">Ingresa el precio del modelo</p>
+              </div>
+            </div>
+
+            <!-- Barra visual de payback -->
+            <div id="tco-payback-bar-wrap" class="hidden">
+              <div class="flex items-center justify-between mb-1">
+                <p class="text-slate-500 text-xs font-mono">// payback.progress (60 meses max)</p>
+                <p id="tco-payback-bar-label" class="text-xs text-slate-400"></p>
+              </div>
+              <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div id="tco-payback-bar" class="payback-bar h-2 rounded-full bg-gradient-to-r from-amber-500 to-emerald-400" style="--bar-width: 0%; width: 0%;"></div>
+              </div>
+            </div>
+
+            <!-- Nota pie + CTA inline -->
+            <p class="text-slate-600 text-xs mt-1">
+              *Consumo actual ref. 28 L/100km. Precio diesel actualizable. ·
+              <span class="text-slate-500 hover:text-accent cursor-pointer underline decoration-dotted transition-colors" onclick="document.getElementById('wa-cta').scrollIntoView({behavior:'smooth'})">Pide análisis real de tu flotilla →</span>
+            </p>
           </div>
         </div>
       </article>
@@ -385,7 +475,6 @@
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             </a>
           </div>
-          <!-- VCF disponible, CV/Portafolio ocultos hasta tener los archivos -->
           <a href="ramon-daniel-rivera.vcf" download
             class="block text-center text-xs font-mono py-2 rounded-lg border border-slate-700 text-slate-400 hover:border-accent hover:text-accent transition-all">
             ↳ Guardar_Contacto.vcf
@@ -409,8 +498,8 @@
     <!-- FOOTER -->
     <footer class="mt-6 text-center opacity-0 animate-fade-in-up" style="animation-delay: 850ms;">
       <a href="https://rentahuman.ai/humans/yJ4sM0eBbL5ZW2WpSpOn" target="_blank" rel="noopener noreferrer"
-         class="inline-block px-4 py-2 font-mono text-xs text-slate-600 hover:text-accent hover:bg-accent/10 rounded transition-all group">
-        <span class="text-slate-500 group-hover:text-accent">></span> sudo execute human_protocol.exe <span class="animate-pulse">_</span>
+         class="inline-block px-4 py-2 font-mono text-xs text-slate-500 hover:text-accent hover:bg-accent/10 rounded transition-all group">
+        <span class="text-slate-400 group-hover:text-accent">></span> sudo execute human_protocol.exe <span class="animate-pulse">_</span>
       </a>
     </footer>
 
@@ -466,16 +555,84 @@
     }, { threshold: 0.5 });
     counters.forEach(c => counterObserver.observe(c));
 
-    // ── Calculadora TCO ───────────────────────────────────────────────
-    function calcTCO() {
-      const u = Math.max(0, +document.getElementById('tco-units').value || 0);
-      const km = Math.max(0, +document.getElementById('tco-km').value || 0);
-      const costo = (km / 100) * 28 * 24.50 * u;
-      document.getElementById('tco-result').textContent =
-        '$ ' + costo.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' MXN';
+    // ── Calculadora TCO v2 ────────────────────────────────────────────
+    const CONSUME_ACTUAL = 28; // L/100km referencia unidad actual
+
+    function fmt(n) {
+      return '$ ' + n.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' MXN';
     }
-    document.getElementById('tco-units').addEventListener('input', calcTCO);
-    document.getElementById('tco-km').addEventListener('input', calcTCO);
+
+    function calcTCO() {
+      const u       = Math.max(0, +document.getElementById('tco-units').value  || 0);
+      const km      = Math.max(0, +document.getElementById('tco-km').value     || 0);
+      const diesel  = Math.max(0, +document.getElementById('tco-diesel').value || 0);
+      const sel     = document.getElementById('tco-model');
+      const opt     = sel.options[sel.selectedIndex];
+      const consumeNuevo = +opt.dataset.consume;
+      const precioModelo = +opt.dataset.precio;
+      const modelName    = opt.text.split(' (')[0];
+
+      // Costos mensuales
+      const costoActualMes = (km / 100) * CONSUME_ACTUAL  * diesel * u;
+      const costoNuevoMes  = (km / 100) * consumeNuevo    * diesel * u;
+      const ahorroMes      = costoActualMes - costoNuevoMes;
+      const ahorroAnual    = ahorroMes * 12;
+      const pctAhorro      = costoActualMes > 0 ? ((ahorroMes / costoActualMes) * 100) : 0;
+
+      // Payback (meses) = precio modelo / ahorro mensual
+      const paybackMeses = (ahorroMes > 0 && precioModelo > 0) ? (precioModelo / ahorroMes) : null;
+
+      // Actualizar DOM
+      document.getElementById('tco-result-actual').textContent = fmt(costoActualMes);
+      document.getElementById('tco-result-nuevo').textContent  = fmt(costoNuevoMes);
+      document.getElementById('tco-model-label').textContent   = modelName + ' / mes';
+      document.getElementById('tco-ahorro-anual').textContent  = fmt(ahorroAnual);
+
+      const badge = document.getElementById('tco-saving-badge');
+      if (ahorroMes > 0) {
+        badge.textContent = '↓ ' + pctAhorro.toFixed(1) + '% combustible';
+        badge.classList.remove('hidden');
+        document.getElementById('tco-ahorro-pct').textContent = 'vs. flota actual (' + pctAhorro.toFixed(1) + '% menos)';
+      } else if (ahorroMes < 0) {
+        badge.textContent = '↑ Mayor consumo';
+        badge.classList.remove('hidden');
+        document.getElementById('tco-ahorro-pct').textContent = 'Este modelo consume más';
+      } else {
+        badge.classList.add('hidden');
+        document.getElementById('tco-ahorro-pct').textContent = '';
+      }
+
+      // Payback display
+      const paybackEl    = document.getElementById('tco-payback');
+      const paybackSub   = document.getElementById('tco-payback-sub');
+      const barWrap      = document.getElementById('tco-payback-bar-wrap');
+      const bar          = document.getElementById('tco-payback-bar');
+      const barLabel     = document.getElementById('tco-payback-bar-label');
+
+      if (paybackMeses !== null && isFinite(paybackMeses)) {
+        const meses = Math.ceil(paybackMeses);
+        const años  = (meses / 12).toFixed(1);
+        paybackEl.textContent  = meses + ' meses';
+        paybackSub.textContent = años + ' años · precio ref. ' + fmt(precioModelo);
+        barWrap.classList.remove('hidden');
+        const pct = Math.min(100, (meses / 60) * 100);
+        bar.style.setProperty('--bar-width', pct + '%');
+        bar.style.width = pct + '%';
+        barLabel.textContent = meses + ' / 60 meses';
+      } else if (precioModelo === 0) {
+        paybackEl.textContent  = '— meses';
+        paybackSub.textContent = 'Selecciona un modelo FAW/ELAM';
+        barWrap.classList.add('hidden');
+      } else {
+        paybackEl.textContent  = '∞';
+        paybackSub.textContent = 'Sin ahorro con este modelo';
+        barWrap.classList.add('hidden');
+      }
+    }
+
+    ['tco-units','tco-km','tco-diesel','tco-model'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calcTCO);
+    });
     calcTCO();
 
     // ── Status dinámico CST ───────────────────────────────────────────
@@ -486,19 +643,19 @@
       });
       const h = parseInt(hora.split(':')[0]);
       const disponible = h >= 8 && h < 20;
-      const dot = document.getElementById('status-dot');
-      const label = document.getElementById('status-label');
-      const ping = dot.querySelector('span:first-child');
+      const dot    = document.getElementById('status-dot');
+      const label  = document.getElementById('status-label');
+      const ping   = dot.querySelector('span:first-child');
       const circle = dot.querySelector('span:last-child');
       if (disponible) {
-        ping.className = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75';
+        ping.className   = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75';
         circle.className = 'relative inline-flex rounded-full h-3 w-3 bg-accent';
-        label.className = 'font-mono text-sm text-accent';
+        label.className  = 'font-mono text-sm text-accent';
         label.textContent = `Disponible ahora · ${hora} CST`;
       } else {
-        ping.className = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-500 opacity-40';
+        ping.className   = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-500 opacity-40';
         circle.className = 'relative inline-flex rounded-full h-3 w-3 bg-slate-500';
-        label.className = 'font-mono text-sm text-slate-500';
+        label.className  = 'font-mono text-sm text-slate-500';
         label.textContent = 'Fuera de horario · Respondo mañana';
       }
     }
