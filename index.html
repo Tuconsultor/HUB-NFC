@@ -132,41 +132,43 @@
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
     .tw-cursor { animation: blink 1s step-end infinite; }
 
-    .tco-input:focus { border-color: #06b6d4; outline: none; box-shadow: 0 0 0 1px rgba(6,182,212,0.3); }
+    .tco-input:focus  { border-color: #06b6d4; outline: none; box-shadow: 0 0 0 1px rgba(6,182,212,0.3); }
     .tco-select:focus { border-color: #06b6d4; outline: none; box-shadow: 0 0 0 1px rgba(6,182,212,0.3); }
-    .tco-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.5rem center; background-size: 1rem; padding-right: 2rem; }
+    .tco-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      background-size: 1rem;
+      padding-right: 2rem;
+    }
 
-    /* Proceso steps */
     .step-line {
       width: 1px;
       background: linear-gradient(to bottom, #06b6d4, transparent);
       flex-shrink: 0;
     }
 
-    /* CTA gold pulse */
     @keyframes goldPulse {
       0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
-      50% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+      50%       { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
     }
     .cta-gold { animation: goldPulse 2.5s ease-in-out infinite; }
 
-    /* Payback bar animation */
     @keyframes growBar { from { width: 0%; } to { width: var(--bar-width); } }
     .payback-bar { animation: growBar 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
-    /* Saving badge pulse */
-    @keyframes savingPulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
+    @keyframes savingPulse { 0%,100%{opacity:1} 50%{opacity:.7} }
     .saving-badge { animation: savingPulse 2s ease-in-out infinite; }
+
+    /* Nota USD */
+    .usd-note { color: #f59e0b; font-size: 0.65rem; }
   </style>
 </head>
 <body class="antialiased selection:bg-accent selection:text-white pb-20">
 
   <div class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/20 blur-[120px] pointer-events-none z-[-1]"></div>
   <div class="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/20 blur-[120px] pointer-events-none z-[-1]"></div>
-  <!-- Orbe dorado central para conectar con CTA -->
   <div class="fixed top-[40%] left-[35%] w-[30%] h-[30%] rounded-full bg-amber-900/15 blur-[100px] pointer-events-none z-[-1]"></div>
 
   <main class="max-w-6xl mx-auto px-6 pt-16 md:pt-24 flex flex-col gap-6">
@@ -191,7 +193,7 @@
     <!-- BENTO GRID -->
     <div class="grid grid-cols-1 md:grid-cols-4 md:auto-rows-[minmax(180px,auto)] gap-6">
 
-      <!-- 1. HERO / BIO CARD — copy reescrito -->
+      <!-- 1. HERO / BIO CARD -->
       <article class="bento-card col-span-1 md:col-span-2 md:row-span-2 p-8 md:p-10 flex flex-col justify-between opacity-0 animate-fade-in-up delay-100">
         <div class="bento-content">
           <div class="inline-block px-3 py-1 rounded-full border border-cyan-800/60 bg-cyan-900/20 font-mono text-xs text-cyan-400 mb-6">
@@ -203,7 +205,6 @@
           <p class="text-slate-400 text-sm leading-relaxed mb-5">
             Yo soy el segundo tipo. Con formación jurídica, 15 años en ventas consultivas y dominio técnico de camiones ELAM FAW, construyo propuestas que tus comités de compra pueden defender solas.
           </p>
-          <!-- Para quién -->
           <div class="space-y-2 mb-6">
             <p class="font-mono text-xs text-slate-500 mb-2">// cliente.perfil[]</p>
             <div class="flex items-start gap-2">
@@ -277,7 +278,6 @@
         <div class="bento-content h-full flex flex-col">
           <h3 class="font-mono text-xs text-slate-500 mb-4">// workflow.steps</h3>
           <div class="flex flex-col gap-3 flex-grow">
-            <!-- Step 1 -->
             <div class="flex items-start gap-3">
               <div class="flex flex-col items-center">
                 <span class="w-6 h-6 rounded-full bg-accent/20 border border-accent/50 text-accent text-xs font-bold flex items-center justify-center flex-shrink-0">1</span>
@@ -288,7 +288,6 @@
                 <p class="text-slate-500 text-xs mt-0.5">30 min · carga, ruta, horario</p>
               </div>
             </div>
-            <!-- Step 2 -->
             <div class="flex items-start gap-3">
               <div class="flex flex-col items-center">
                 <span class="w-6 h-6 rounded-full bg-accent/20 border border-accent/50 text-accent text-xs font-bold flex items-center justify-center flex-shrink-0">2</span>
@@ -299,7 +298,6 @@
                 <p class="text-slate-500 text-xs mt-0.5">48h · comparativo + TCO</p>
               </div>
             </div>
-            <!-- Step 3 -->
             <div class="flex items-start gap-3">
               <span class="w-6 h-6 rounded-full bg-amber-500/20 border border-amber-500/50 text-amber-400 text-xs font-bold flex items-center justify-center flex-shrink-0">3</span>
               <div>
@@ -311,19 +309,19 @@
         </div>
       </article>
 
-      <!-- 5. TCO CALCULATOR v2 — Payback + Ahorro anual + Diesel editable + Selector modelo -->
+      <!-- 5. TCO CALCULATOR v3 — Modelos y precios reales Lista Mayo 2026 -->
       <article class="bento-card col-span-1 md:col-span-2 p-6 md:p-8 font-mono text-sm opacity-0 animate-fade-in-up" style="animation-delay: 500ms;">
         <div class="bento-content">
-          <!-- Barra de título estilo terminal -->
+          <!-- Terminal title bar -->
           <div class="flex items-center gap-2 mb-5 border-b border-slate-800 pb-3">
             <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
             <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
             <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-            <span class="text-slate-500 text-xs ml-2">~ /tco-calculator-v2.js</span>
-            <span class="ml-auto text-xs text-emerald-400 font-mono">● live</span>
+            <span class="text-slate-500 text-xs ml-2">~ /tco-calculator-v3.js</span>
+            <span class="ml-auto text-xs text-emerald-400 font-mono">● live · Mayo 2026</span>
           </div>
 
-          <!-- Inputs fila 1: unidades y km/mes -->
+          <!-- Fila 1: unidades + km/mes -->
           <div class="grid grid-cols-2 gap-3 mb-3">
             <div>
               <label class="text-xs text-slate-500 block mb-1">// unidades en flotilla</label>
@@ -337,7 +335,7 @@
             </div>
           </div>
 
-          <!-- Inputs fila 2: precio diesel y selector modelo FAW/ELAM -->
+          <!-- Fila 2: precio diesel + selector modelo -->
           <div class="grid grid-cols-2 gap-3 mb-5">
             <div>
               <label class="text-xs text-slate-500 block mb-1">// precio diesel $/L</label>
@@ -345,23 +343,63 @@
                 class="tco-input w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm transition-colors">
             </div>
             <div>
-              <label class="text-xs text-slate-500 block mb-1">// modelo FAW / ELAM</label>
-              <!-- data-consume: L/100km  data-precio: precio ref. MXN -->
+              <label class="text-xs text-slate-500 block mb-1">// modelo (Lista Mayo 2026)</label>
+              <!--
+                data-consume  = L/100km  (conversión desde km/L oficial)
+                data-precio   = precio en MXN (precios USD convertidos a tasa 19.50)
+                data-moneda   = MXN | USD
+                data-carga    = capacidad de carga kg
+                Referencia rendimientos oficiales:
+                  MAMUT T30/T32 = 13 km/L → 7.69 L/100km
+                  MAMUT T50     = 11 km/L → 9.09 L/100km
+                  TIGER 1102D-1605D = 9 km/L → 11.11 L/100km
+                  TIGER 1607D   = 7.5 km/L → 13.33 L/100km
+                  JK6 1910D     = 7 km/L → 14.29 L/100km
+                  JK6 2612D     = 6.7 km/L → 14.93 L/100km
+                  JK6 3220D     = 5.9 km/L → 16.95 L/100km
+                  J7 Tracto     = 2.84 km/L → 35.21 L/100km
+              -->
               <select id="tco-model"
-                class="tco-select tco-input w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm transition-colors cursor-pointer"
-                data-consume-actual="28">
-                <option value="elam-mamut"  data-consume="22" data-precio="2150000">ELAM MAMUT (22 L/100km)</option>
-                <option value="elam-tiger"  data-consume="24" data-precio="1850000">ELAM TIGER (24 L/100km)</option>
-                <option value="faw-ca1310"  data-consume="25" data-precio="1980000">FAW CA1310 (25 L/100km)</option>
-                <option value="faw-jh6"     data-consume="23" data-precio="2280000">FAW JH6 (23 L/100km)</option>
-                <option value="otro"        data-consume="28" data-precio="0">Mi unidad actual (ref.)</option>
+                class="tco-select tco-input w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm transition-colors cursor-pointer">
+                <optgroup label="── MAMUT (Gasolina) ──">
+                  <option value="mamut-t30"  data-consume="7.69"  data-precio="319500"    data-moneda="MXN" data-carga="1,500 kg">MAMUT T30 Cab. Sencilla · $319,500 MXN</option>
+                  <option value="mamut-t32"  data-consume="7.69"  data-precio="389500"    data-moneda="MXN" data-carga="1,500 kg">MAMUT T32 Doble Cab. · $389,500 MXN</option>
+                  <option value="mamut-x30"  data-consume="7.69"  data-precio="349500"    data-moneda="MXN" data-carga="910 kg">MAMUT X30 Van · $349,500 MXN</option>
+                  <option value="mamut-t50"  data-consume="9.09"  data-precio="420000"    data-moneda="MXN" data-carga="2,370 kg">MAMUT T50 · $420,000 MXN ★ bajo pedido</option>
+                </optgroup>
+                <optgroup label="── LÍNEA TIGER (Diésel) ──">
+                  <option value="tiger-1102" data-consume="11.11" data-precio="570960"    data-moneda="MXN" data-carga="2,150 kg">FAW 1102D · $570,960 MXN</option>
+                  <option value="tiger-1303" data-consume="11.11" data-precio="706960"    data-moneda="MXN" data-carga="3,400 kg">FAW 1303D · $706,960 MXN</option>
+                  <option value="tiger-1605" data-consume="11.11" data-precio="890860"    data-moneda="MXN" data-carga="5,380 kg">FAW 1605D · $890,860 MXN</option>
+                  <option value="tiger-1607" data-consume="13.33" data-precio="998860"    data-moneda="MXN" data-carga="7,640 kg">FAW 1607D · $998,860 MXN</option>
+                </optgroup>
+                <optgroup label="── LÍNEA JK6 PESADOS (USD→MXN) ──">
+                  <option value="jk6-1910"   data-consume="14.29" data-precio="1415954"   data-moneda="USD" data-carga="10,000 kg">JK6 1910D Euro VI · USD$72,613</option>
+                  <option value="jk6-2612"   data-consume="14.93" data-precio="1573514"   data-moneda="USD" data-carga="13,000 kg">JK6 2612D Euro VI · USD$80,693</option>
+                  <option value="jk6-3220"   data-consume="16.95" data-precio="1862679"   data-moneda="USD" data-carga="20,000 kg">JK6 3220D Euro VI · USD$95,522</option>
+                  <option value="jk6-4226"   data-consume="14.29" data-precio="2145000"   data-moneda="USD" data-carga="26,320 kg">JK6 4226D Euro VI · USD$110,000</option>
+                  <option value="jk6-mixer"  data-consume="14.29" data-precio="2729220"   data-moneda="USD" data-carga="30,320 kg">JK6 4230D Mixer 8M3 · USD$139,960</option>
+                </optgroup>
+                <optgroup label="── TRACTOS (USD→MXN) ──">
+                  <option value="trk-3220-5r" data-consume="16.95" data-precio="2286960"  data-moneda="MXN" data-carga="30,000 kg">3220D Quinta Rueda · $2,286,960 MXN</option>
+                  <option value="j7-560hp"    data-consume="35.21" data-precio="2649660"   data-moneda="USD" data-carga="75,500 kg">J7 560HP D AMT Euro VI · USD$135,880</option>
+                  <option value="j7-480cng"   data-consume="35.21" data-precio="3058770"   data-moneda="USD" data-carga="50,000 kg">J7 480HP G AMT CNG · USD$156,860</option>
+                  <option value="j7-530cng"   data-consume="35.21" data-precio="3450330"   data-moneda="USD" data-carga="55,000 kg">J7 530HP G AMT CNG · USD$176,940</option>
+                </optgroup>
               </select>
             </div>
           </div>
 
-          <!-- Resultados: bloque principal -->
+          <!-- Chip de info del modelo seleccionado -->
+          <div id="tco-model-info" class="flex flex-wrap gap-2 mb-4">
+            <span class="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs text-slate-400 font-mono" id="tco-chip-carga"></span>
+            <span class="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs text-slate-400 font-mono" id="tco-chip-consumo"></span>
+            <span class="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs text-slate-400 font-mono" id="tco-chip-precio"></span>
+          </div>
+
+          <!-- Resultados -->
           <div class="space-y-3">
-            <!-- Costo combustible mensual actual vs. nuevo -->
+            <!-- Comparativo mensual -->
             <div class="bg-slate-900/60 rounded-xl p-4 border border-slate-800">
               <div class="flex items-center justify-between mb-3">
                 <p class="text-slate-500 text-xs">> resultado.comparativo_combustible</p>
@@ -371,45 +409,45 @@
                 <div>
                   <p class="text-slate-500 text-xs mb-1">Flota actual / mes</p>
                   <p class="text-slate-300 text-lg font-bold" id="tco-result-actual">$ 0 MXN</p>
+                  <p class="text-slate-600 text-xs">ref. diésel 28 L/100km</p>
                 </div>
                 <div>
-                  <p class="text-accent text-xs mb-1" id="tco-model-label">ELAM MAMUT / mes</p>
+                  <p class="text-accent text-xs mb-1" id="tco-model-label">Modelo / mes</p>
                   <p class="text-accent text-lg font-bold" id="tco-result-nuevo">$ 0 MXN</p>
+                  <p class="text-slate-600 text-xs" id="tco-consume-label"></p>
                 </div>
               </div>
             </div>
 
             <!-- Ahorro anual + Payback -->
             <div class="grid grid-cols-2 gap-3">
-              <!-- Ahorro anual -->
               <div class="bg-emerald-900/20 rounded-xl p-3 border border-emerald-800/40">
                 <p class="text-emerald-400 text-xs mb-1">Ahorro anual estimado</p>
                 <p class="text-emerald-300 text-xl font-bold" id="tco-ahorro-anual">$ 0 MXN</p>
                 <p class="text-emerald-700 text-xs mt-1" id="tco-ahorro-pct"></p>
               </div>
-              <!-- Payback -->
               <div class="bg-amber-900/20 rounded-xl p-3 border border-amber-800/40">
                 <p class="text-amber-400 text-xs mb-1">Payback inversión</p>
                 <p class="text-amber-300 text-xl font-bold" id="tco-payback">— meses</p>
-                <p class="text-amber-700 text-xs mt-1" id="tco-payback-sub">Ingresa el precio del modelo</p>
+                <p class="text-amber-700 text-xs mt-1" id="tco-payback-sub">Selecciona un modelo</p>
               </div>
             </div>
 
-            <!-- Barra visual de payback -->
+            <!-- Barra visual payback -->
             <div id="tco-payback-bar-wrap" class="hidden">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-slate-500 text-xs font-mono">// payback.progress (60 meses max)</p>
                 <p id="tco-payback-bar-label" class="text-xs text-slate-400"></p>
               </div>
               <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
-                <div id="tco-payback-bar" class="payback-bar h-2 rounded-full bg-gradient-to-r from-amber-500 to-emerald-400" style="--bar-width: 0%; width: 0%;"></div>
+                <div id="tco-payback-bar" class="payback-bar h-2 rounded-full bg-gradient-to-r from-amber-500 to-emerald-400" style="--bar-width:0%;width:0%"></div>
               </div>
             </div>
 
-            <!-- Nota pie + CTA inline -->
-            <p class="text-slate-600 text-xs mt-1">
-              *Consumo actual ref. 28 L/100km. Precio diesel actualizable. ·
-              <span class="text-slate-500 hover:text-accent cursor-pointer underline decoration-dotted transition-colors" onclick="document.getElementById('wa-cta').scrollIntoView({behavior:'smooth'})">Pide análisis real de tu flotilla →</span>
+            <p class="text-slate-600 text-xs">
+              *Precios Lista Mayo 2026 c/IVA · USD convertido a tasa $19.50 · ref. actual 28L/100km ·
+              <span class="text-slate-500 hover:text-accent cursor-pointer underline decoration-dotted transition-colors"
+                onclick="document.getElementById('wa-cta').scrollIntoView({behavior:'smooth'})">Análisis real de tu flotilla →</span>
             </p>
           </div>
         </div>
@@ -484,7 +522,7 @@
 
     </div>
 
-    <!-- CTA FINAL — pie de grid -->
+    <!-- CTA FINAL -->
     <div class="opacity-0 animate-fade-in-up mt-2" style="animation-delay: 750ms;">
       <a id="wa-cta"
         href="https://wa.me/524775805988?text=Hola%20Ram%C3%B3n%2C%20quiero%20agendar%20un%20diagn%C3%B3stico%20gratuito%20de%2015%20minutos%20para%20mi%20flotilla."
@@ -540,11 +578,11 @@
     const counterObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        const el = entry.target;
+        const el     = entry.target;
         const target = +el.dataset.target;
         const suffix = el.dataset.suffix !== undefined ? el.dataset.suffix : '';
         let count = 0;
-        const step = Math.max(1, Math.ceil(target / 50));
+        const step  = Math.max(1, Math.ceil(target / 50));
         const timer = setInterval(() => {
           count = Math.min(count + step, target);
           el.textContent = count + suffix;
@@ -555,73 +593,87 @@
     }, { threshold: 0.5 });
     counters.forEach(c => counterObserver.observe(c));
 
-    // ── Calculadora TCO v2 ────────────────────────────────────────────
-    const CONSUME_ACTUAL = 28; // L/100km referencia unidad actual
+    // ── Calculadora TCO v3 ────────────────────────────────────────────
+    // Consumo de referencia: unidad actual del cliente (promedio diésel pesado)
+    const CONSUME_ACTUAL_L100 = 28; // L/100km
 
     function fmt(n) {
-      return '$ ' + n.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' MXN';
+      return '$ ' + Math.round(n).toLocaleString('es-MX') + ' MXN';
+    }
+
+    function updateModelChips(opt) {
+      const carga   = opt.dataset.carga   || '—';
+      const consume = opt.dataset.consume || '—';
+      const precio  = opt.dataset.precio  || '0';
+      const moneda  = opt.dataset.moneda  || 'MXN';
+      const kmL     = (100 / +consume).toFixed(1);
+      document.getElementById('tco-chip-carga').textContent    = '⚖ Carga: ' + carga;
+      document.getElementById('tco-chip-consumo').textContent  = '⛽ ' + consume + ' L/100km (' + kmL + ' km/L)';
+      const precioLabel = moneda === 'USD'
+        ? 'USD convertido a $19.50'
+        : '💲 ' + (+precio).toLocaleString('es-MX') + ' MXN c/IVA';
+      document.getElementById('tco-chip-precio').textContent = precioLabel;
     }
 
     function calcTCO() {
-      const u       = Math.max(0, +document.getElementById('tco-units').value  || 0);
-      const km      = Math.max(0, +document.getElementById('tco-km').value     || 0);
-      const diesel  = Math.max(0, +document.getElementById('tco-diesel').value || 0);
-      const sel     = document.getElementById('tco-model');
-      const opt     = sel.options[sel.selectedIndex];
-      const consumeNuevo = +opt.dataset.consume;
-      const precioModelo = +opt.dataset.precio;
-      const modelName    = opt.text.split(' (')[0];
+      const u      = Math.max(0, +document.getElementById('tco-units').value  || 0);
+      const km     = Math.max(0, +document.getElementById('tco-km').value     || 0);
+      const diesel = Math.max(0, +document.getElementById('tco-diesel').value || 0);
+      const sel    = document.getElementById('tco-model');
+      const opt    = sel.options[sel.selectedIndex];
 
-      // Costos mensuales
-      const costoActualMes = (km / 100) * CONSUME_ACTUAL  * diesel * u;
-      const costoNuevoMes  = (km / 100) * consumeNuevo    * diesel * u;
+      const consumeNuevo = +opt.dataset.consume;
+      const precioMXN    = +opt.dataset.precio;
+      const modelName    = opt.text.split(' ·')[0];
+
+      updateModelChips(opt);
+
+      const costoActualMes = (km / 100) * CONSUME_ACTUAL_L100 * diesel * u;
+      const costoNuevoMes  = (km / 100) * consumeNuevo        * diesel * u;
       const ahorroMes      = costoActualMes - costoNuevoMes;
       const ahorroAnual    = ahorroMes * 12;
-      const pctAhorro      = costoActualMes > 0 ? ((ahorroMes / costoActualMes) * 100) : 0;
+      const pctAhorro      = costoActualMes > 0 ? (ahorroMes / costoActualMes * 100) : 0;
+      const paybackMeses   = (ahorroMes > 0 && precioMXN > 0) ? (precioMXN / ahorroMes) : null;
+      const kmL            = (100 / consumeNuevo).toFixed(1);
 
-      // Payback (meses) = precio modelo / ahorro mensual
-      const paybackMeses = (ahorroMes > 0 && precioModelo > 0) ? (precioModelo / ahorroMes) : null;
-
-      // Actualizar DOM
       document.getElementById('tco-result-actual').textContent = fmt(costoActualMes);
       document.getElementById('tco-result-nuevo').textContent  = fmt(costoNuevoMes);
       document.getElementById('tco-model-label').textContent   = modelName + ' / mes';
+      document.getElementById('tco-consume-label').textContent = consumeNuevo + ' L/100km · ' + kmL + ' km/L';
       document.getElementById('tco-ahorro-anual').textContent  = fmt(ahorroAnual);
 
       const badge = document.getElementById('tco-saving-badge');
       if (ahorroMes > 0) {
         badge.textContent = '↓ ' + pctAhorro.toFixed(1) + '% combustible';
         badge.classList.remove('hidden');
-        document.getElementById('tco-ahorro-pct').textContent = 'vs. flota actual (' + pctAhorro.toFixed(1) + '% menos)';
+        document.getElementById('tco-ahorro-pct').textContent = pctAhorro.toFixed(1) + '% menos vs. flota actual';
       } else if (ahorroMes < 0) {
         badge.textContent = '↑ Mayor consumo';
         badge.classList.remove('hidden');
-        document.getElementById('tco-ahorro-pct').textContent = 'Este modelo consume más';
+        document.getElementById('tco-ahorro-pct').textContent = 'Modelo de mayor peso/consumo';
       } else {
         badge.classList.add('hidden');
         document.getElementById('tco-ahorro-pct').textContent = '';
       }
 
-      // Payback display
-      const paybackEl    = document.getElementById('tco-payback');
-      const paybackSub   = document.getElementById('tco-payback-sub');
-      const barWrap      = document.getElementById('tco-payback-bar-wrap');
-      const bar          = document.getElementById('tco-payback-bar');
-      const barLabel     = document.getElementById('tco-payback-bar-label');
+      const paybackEl  = document.getElementById('tco-payback');
+      const paybackSub = document.getElementById('tco-payback-sub');
+      const barWrap    = document.getElementById('tco-payback-bar-wrap');
+      const bar        = document.getElementById('tco-payback-bar');
+      const barLabel   = document.getElementById('tco-payback-bar-label');
 
       if (paybackMeses !== null && isFinite(paybackMeses)) {
         const meses = Math.ceil(paybackMeses);
-        const años  = (meses / 12).toFixed(1);
         paybackEl.textContent  = meses + ' meses';
-        paybackSub.textContent = años + ' años · precio ref. ' + fmt(precioModelo);
+        paybackSub.textContent = (meses / 12).toFixed(1) + ' años · ' + fmt(precioMXN);
         barWrap.classList.remove('hidden');
         const pct = Math.min(100, (meses / 60) * 100);
         bar.style.setProperty('--bar-width', pct + '%');
         bar.style.width = pct + '%';
         barLabel.textContent = meses + ' / 60 meses';
-      } else if (precioModelo === 0) {
+      } else if (precioMXN === 0) {
         paybackEl.textContent  = '— meses';
-        paybackSub.textContent = 'Selecciona un modelo FAW/ELAM';
+        paybackSub.textContent = 'Selecciona un modelo';
         barWrap.classList.add('hidden');
       } else {
         paybackEl.textContent  = '∞';
@@ -630,9 +682,9 @@
       }
     }
 
-    ['tco-units','tco-km','tco-diesel','tco-model'].forEach(id => {
-      document.getElementById(id).addEventListener('input', calcTCO);
-    });
+    ['tco-units','tco-km','tco-diesel','tco-model'].forEach(id =>
+      document.getElementById(id).addEventListener('input', calcTCO)
+    );
     calcTCO();
 
     // ── Status dinámico CST ───────────────────────────────────────────
@@ -641,12 +693,12 @@
         timeZone: 'America/Mexico_City',
         hour: '2-digit', minute: '2-digit', hour12: false
       });
-      const h = parseInt(hora.split(':')[0]);
+      const h          = parseInt(hora.split(':')[0]);
       const disponible = h >= 8 && h < 20;
-      const dot    = document.getElementById('status-dot');
-      const label  = document.getElementById('status-label');
-      const ping   = dot.querySelector('span:first-child');
-      const circle = dot.querySelector('span:last-child');
+      const dot        = document.getElementById('status-dot');
+      const label      = document.getElementById('status-label');
+      const ping       = dot.querySelector('span:first-child');
+      const circle     = dot.querySelector('span:last-child');
       if (disponible) {
         ping.className   = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75';
         circle.className = 'relative inline-flex rounded-full h-3 w-3 bg-accent';
