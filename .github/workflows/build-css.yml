@@ -23,7 +23,6 @@ jobs:
       - name: 📥 Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: ⚙️ Setup Node 24
@@ -31,18 +30,12 @@ jobs:
         with:
           node-version: 24
 
-      - name: 📦 Setup pnpm (toma versión exacta del packageManager en package.json)
+      - name: 🎨 Instalar Tailwind CLI y compilar
         run: |
-          corepack enable
-          corepack prepare --activate
+          npm install -g tailwindcss@latest
+          tailwindcss -i ./tw-input.css -o ./tw-out.css --minify
 
-      - name: 🔧 Instalar dependencias
-        run: pnpm install --frozen-lockfile
-
-      - name: 🎨 Compilar tw-out.css
-        run: pnpm run build:css
-
-      - name: 💾 Verificar que el archivo fue generado
+      - name: 💾 Verificar resultado
         run: |
           if [ ! -f tw-out.css ]; then
             echo "ERROR: tw-out.css no fue generado"
