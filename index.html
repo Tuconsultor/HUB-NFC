@@ -17,20 +17,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter','sans-serif'], mono: ['Fira Code','monospace'] },
-          colors: { surface:'#0f172a', surfaceHover:'#1e293b', accent:'#06b6d4', accentSoft:'rgba(6,182,212,0.1)', gold:'#f59e0b' },
-          animation: { 'fade-in-up':'fadeInUp 0.8s cubic-bezier(0.22,1,0.36,1) forwards', 'pulse-slow':'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite' },
-          keyframes: { fadeInUp: { '0%':{opacity:'0',transform:'translateY(30px)'}, '100%':{opacity:'1',transform:'translateY(0)'} } }
-        }
-      }
-    }
-  </script>
+
+  <!-- ✅ Tailwind compilado localmente (build:css) — reemplaza cdn.tailwindcss.com -->
+  <link rel="preload" href="tw-out.css" as="style">
+  <link rel="stylesheet" href="tw-out.css">
+
   <style>
     body { background-color:#020617; color:#e2e8f0; background-image:linear-gradient(to right,rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.05) 1px,transparent 1px); background-size:40px 40px; overflow-x:hidden; }
     ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-track{background:#020617} ::-webkit-scrollbar-thumb{background:#334155;border-radius:4px} ::-webkit-scrollbar-thumb:hover{background:#06b6d4}
@@ -50,10 +41,17 @@
     @keyframes goldPulse{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.4)}50%{box-shadow:0 0 0 8px rgba(245,158,11,0)}} .cta-gold{animation:goldPulse 2.5s ease-in-out infinite}
     @keyframes growBar{from{width:0%}to{width:var(--bar-width)}} .payback-bar{animation:growBar .8s cubic-bezier(.22,1,.36,1) forwards}
     @keyframes savingPulse{0%,100%{opacity:1}50%{opacity:.7}} .saving-badge{animation:savingPulse 2s ease-in-out infinite}
-    /* Consumo actual highlight cuando fue editado por el usuario */
     .input-edited { border-color: rgba(245,158,11,.6) !important; background: rgba(245,158,11,.05) !important; }
-    /* Botón WA compartir */
     @keyframes waPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.35)}50%{box-shadow:0 0 0 6px rgba(34,197,94,0)}} .wa-share-btn{animation:waPulse 2.5s ease-in-out infinite}
+    /* Touch feedback para mobile (NFC/QR) */
+    @media (hover: none) {
+      .bento-card:active {
+        transform: scale(0.985) !important;
+        border-color: rgba(6,182,212,0.5) !important;
+        box-shadow: 0 0 20px -5px rgba(6,182,212,0.2) !important;
+        transition: transform 0.12s ease, border-color 0.12s ease !important;
+      }
+    }
   </style>
 </head>
 <body class="antialiased selection:bg-accent selection:text-white pb-20">
@@ -141,11 +139,9 @@
         </div>
       </article>
 
-      <!-- 5. TCO CALCULATOR v4 — Consumo real editable + Compartir por WA -->
+      <!-- 5. TCO CALCULATOR v4 -->
       <article class="bento-card col-span-1 md:col-span-2 p-6 md:p-8 font-mono text-sm opacity-0 animate-fade-in-up" style="animation-delay:500ms">
         <div class="bento-content">
-
-          <!-- Terminal title bar -->
           <div class="flex items-center gap-2 mb-5 border-b border-slate-800 pb-3">
             <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
             <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
@@ -153,23 +149,19 @@
             <span class="text-slate-500 text-xs ml-2">~ /tco-calculator-v4.js</span>
             <span class="ml-auto text-xs text-emerald-400 font-mono">● live · Mayo 2026</span>
           </div>
-
-          <!-- FILA 1: unidades + km/mes -->
           <div class="grid grid-cols-2 gap-3 mb-3">
             <div>
-              <label class="text-xs text-slate-500 block mb-1">// unidades en flotilla</label>
+              <label for="tco-units" class="text-xs text-slate-500 block mb-1">// unidades en flotilla</label>
               <input id="tco-units" type="number" value="5" min="1" class="tco-input w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm transition-colors">
             </div>
             <div>
-              <label class="text-xs text-slate-500 block mb-1">// km/mes por unidad</label>
+              <label for="tco-km" class="text-xs text-slate-500 block mb-1">// km/mes por unidad</label>
               <input id="tco-km" type="number" value="8000" min="1000" step="500" class="tco-input w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm transition-colors">
             </div>
           </div>
-
-          <!-- FILA 2: consumo REAL del cliente (editable) + precio diesel -->
           <div class="grid grid-cols-2 gap-3 mb-3">
             <div>
-              <label class="text-xs text-amber-500/80 block mb-1 flex items-center gap-1">
+              <label for="tco-consume-actual" class="text-xs text-amber-500/80 block mb-1 flex items-center gap-1">
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                 // tu consumo actual (km/L)
               </label>
@@ -182,14 +174,12 @@
               <p class="text-slate-600 text-xs mt-1" id="tco-consume-actual-l100">= 28.0 L/100km</p>
             </div>
             <div>
-              <label class="text-xs text-slate-500 block mb-1">// precio diesel $/L</label>
+              <label for="tco-diesel" class="text-xs text-slate-500 block mb-1">// precio diesel $/L</label>
               <input id="tco-diesel" type="number" value="24.50" min="10" step="0.10" class="tco-input w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm transition-colors">
             </div>
           </div>
-
-          <!-- FILA 3: selector modelo -->
           <div class="mb-4">
-            <label class="text-xs text-slate-500 block mb-1">// modelo FAW / ELAM (Lista Mayo 2026)</label>
+            <label for="tco-model" class="text-xs text-slate-500 block mb-1">// modelo FAW / ELAM (Lista Mayo 2026)</label>
             <select id="tco-model" class="tco-select tco-input w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm transition-colors cursor-pointer">
               <optgroup label="── MAMUT (Gasolina) ──">
                 <option value="mamut-t30"  data-consume="7.69"  data-precio="319500"  data-moneda="MXN" data-carga="1,500 kg">MAMUT T30 Cab. Sencilla · $319,500 MXN</option>
@@ -218,18 +208,12 @@
               </optgroup>
             </select>
           </div>
-
-          <!-- Chips del modelo seleccionado -->
           <div class="flex flex-wrap gap-2 mb-4">
             <span class="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs text-slate-400 font-mono" id="tco-chip-carga"></span>
             <span class="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs text-slate-400 font-mono" id="tco-chip-consumo"></span>
             <span class="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs text-slate-400 font-mono" id="tco-chip-precio"></span>
           </div>
-
-          <!-- RESULTADOS -->
           <div class="space-y-3">
-
-            <!-- Comparativo mensual -->
             <div class="bg-slate-900/60 rounded-xl p-4 border border-slate-800">
               <div class="flex items-center justify-between mb-3">
                 <p class="text-slate-500 text-xs">> resultado.comparativo_combustible</p>
@@ -248,8 +232,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- Ahorro + Payback -->
             <div class="grid grid-cols-2 gap-3">
               <div class="bg-emerald-900/20 rounded-xl p-3 border border-emerald-800/40">
                 <p class="text-emerald-400 text-xs mb-1">Ahorro anual estimado</p>
@@ -262,8 +244,6 @@
                 <p class="text-amber-700 text-xs mt-1" id="tco-payback-sub">Selecciona un modelo</p>
               </div>
             </div>
-
-            <!-- Barra payback -->
             <div id="tco-payback-bar-wrap" class="hidden">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-slate-500 text-xs font-mono">// payback.progress (60 meses max)</p>
@@ -273,15 +253,11 @@
                 <div id="tco-payback-bar" class="payback-bar h-2 rounded-full bg-gradient-to-r from-amber-500 to-emerald-400" style="--bar-width:0%;width:0%"></div>
               </div>
             </div>
-
-            <!-- ✅ BOTÓN COMPARTIR POR WHATSAPP -->
             <button id="tco-wa-share"
-              onclick="compartirWA()"
               class="wa-share-btn w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border border-green-700/50 bg-green-900/20 text-green-400 text-xs font-semibold hover:bg-green-900/40 hover:border-green-500 transition-all">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12C2 13.85 2.5 15.6 3.39 17.1L2 22L7.06 20.66C8.56 21.5 10.23 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2M16.5 17.5C16.2 18.2 15 18.8 14.3 18.9C13.8 19 13.2 19 11.5 18.3C9.2 17.4 7.7 15 7.6 14.8C7.5 14.7 6.4 13.2 6.4 11.7C6.4 10.2 7.1 9.4 7.4 9.1C7.7 8.8 8.1 8.7 8.5 8.7C8.6 8.7 8.7 8.7 8.8 8.7C9.1 8.7 9.2 8.7 9.4 9.1C9.6 9.6 10.1 10.9 10.2 11C10.3 11.1 10.3 11.3 10.2 11.5C10.1 11.7 10 11.8 9.8 12C9.6 12.2 9.5 12.3 9.7 12.6C9.9 12.9 10.6 14 11.5 14.8C12.6 15.8 13.6 16.1 13.9 16.3C14.2 16.4 14.4 16.4 14.6 16.2C14.8 16 15.1 15.5 15.4 15C15.7 14.5 16 14.6 16.3 14.7C16.6 14.8 18.1 15.5 18.4 15.7C18.7 15.8 18.9 15.9 19 16.1C19.1 16.4 19.1 17 18.8 17.5H16.5Z"/></svg>
               Enviar resultado al asesor por WhatsApp
             </button>
-
             <p class="text-slate-600 text-xs">
               *Precios Lista Mayo 2026 c/IVA · USD a $19.50 · consumo editable ·
               <span class="text-slate-500 hover:text-accent cursor-pointer underline decoration-dotted transition-colors" onclick="document.getElementById('wa-cta').scrollIntoView({behavior:'smooth'})">Análisis real →</span>
@@ -365,13 +341,26 @@
   </main>
 
   <script>
-    // ── Mouse tracking ─────────────────────────────────────────────
+    // ── Mouse tracking (desktop) + Touch feedback (mobile NFC) ────
+    const isTouch = window.matchMedia('(hover: none)').matches;
     document.querySelectorAll('.bento-card').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const r = card.getBoundingClientRect();
-        card.style.setProperty('--mouse-x', `${e.clientX-r.left}px`);
-        card.style.setProperty('--mouse-y', `${e.clientY-r.top}px`);
-      });
+      if (!isTouch) {
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', `${e.clientX - r.left}px`);
+          card.style.setProperty('--mouse-y', `${e.clientY - r.top}px`);
+        });
+      } else {
+        card.addEventListener('touchstart', () => {
+          card.style.transform = 'scale(0.985)';
+          card.style.borderColor = 'rgba(6,182,212,0.5)';
+          card.style.transition = 'transform 0.12s ease, border-color 0.12s ease';
+        }, { passive: true });
+        card.addEventListener('touchend', () => {
+          card.style.transform = '';
+          card.style.borderColor = '';
+        }, { passive: true });
+      }
     });
 
     // ── Typewriter ─────────────────────────────────────────────────
@@ -396,7 +385,6 @@
     document.querySelectorAll('.counter').forEach(c=>cobs.observe(c));
 
     // ── TCO v4 ─────────────────────────────────────────────────────
-    // Estado global del cálculo para el botón WA
     let _tcoState = {};
 
     function fmt(n) { return '$ '+Math.round(n).toLocaleString('es-MX')+' MXN'; }
@@ -418,7 +406,6 @@
       const sel     = document.getElementById('tco-model');
       const opt     = sel.options[sel.selectedIndex];
 
-      // Convertir consumo actual de km/L → L/100km
       const consumeActualL100 = 100 / kmLAct;
       document.getElementById('tco-consume-actual-l100').textContent = '= '+consumeActualL100.toFixed(1)+' L/100km';
       document.getElementById('tco-actual-consume-label').textContent = kmLAct.toFixed(2)+' km/L · '+consumeActualL100.toFixed(1)+' L/100km';
@@ -437,7 +424,6 @@
       const paybackMeses   = (ahorroMes>0 && precioMXN>0) ? (precioMXN/ahorroMes) : null;
       const kmLNuevo       = (100/consumeNuevo).toFixed(1);
 
-      // Guardar estado para botón WA
       _tcoState = { u, km, diesel, kmLAct, consumeActualL100, modelName, consumeNuevo, kmLNuevo,
                     costoActualMes, costoNuevoMes, ahorroMes, ahorroAnual, pctAhorro, paybackMeses, precioMXN };
 
@@ -509,9 +495,11 @@
       window.open(url, '_blank');
     }
 
+    // ── Event listeners TCO ────────────────────────────────────────
     ['tco-units','tco-km','tco-diesel','tco-consume-actual','tco-model'].forEach(id =>
       document.getElementById(id).addEventListener('input', calcTCO)
     );
+    document.getElementById('tco-wa-share').addEventListener('click', compartirWA);
     calcTCO();
 
     // ── Status CST ─────────────────────────────────────────────────
