@@ -1,0 +1,60 @@
+name: Build Tailwind CSS → tw-out.css
+
+# Dispara cuando cambia el HTML o el CSS de entrada
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'tw-input.css'
+      - '.github/workflows/build-css.yml'
+
+  # Permite ejecutarlo manualmente desde la pestaña Actions
+  workflow_dispatch:
+
+jobs:
+  build-css:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # necesario para el auto-commit
+
+    steps:
+      - name: 📥 Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: ⚙️ Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: 🔧 Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: 🎨 Compilar tw-out.css
+        run: pnpm run build:css
+
+      - name: 💾 Verificar que el archivo fue generado
+        run: |
+          if [ ! -f tw-out.css ]; then
+            echo "ERROR: tw-out.css no fue generado"
+            exit 1
+          fi
+          SIZE=$(wc -c < tw-out.css)
+          echo "✅ tw-out.css generado: $SIZE bytes"
+
+      - name: 🚀 Commit y push de tw-out.css
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: rebuild tw-out.css [skip ci]"
+          file_pattern: tw-out.css
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
