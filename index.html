@@ -11,16 +11,60 @@
   <meta property="og:title" content="Ramón Daniel Rivera | Consultor B2B · Camiones ELAM FAW Bajío">
   <meta property="og:description" content="Diagnóstico de flotilla, comparativo técnico y propuesta en 48h. Especialista en transporte de carga pesada.">
   <meta property="og:image" content="https://tuconsultor.github.io/HUB-NFC/im.jpg">
+  <meta property="og:url" content="https://tuconsultor.github.io/HUB-NFC/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="author" content="Ramón Daniel Rivera Ayala">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://tuconsultor.github.io/HUB-NFC/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- ✅ Tailwind compilado localmente (build:css) — reemplaza cdn.tailwindcss.com -->
-  <link rel="preload" href="tw-out.css" as="style">
-  <link rel="stylesheet" href="tw-out.css">
+  <!-- Tailwind CDN (funcional siempre) + config de tema -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','sans-serif'], mono: ['Fira Code','monospace'] },
+          colors: { surface:'#0f172a', surfaceHover:'#1e293b', accent:'#06b6d4', accentSoft:'rgba(6,182,212,0.1)', gold:'#f59e0b' },
+          animation: { 'fade-in-up':'fadeInUp 0.8s cubic-bezier(0.22,1,0.36,1) forwards', 'pulse-slow':'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite' },
+          keyframes: { fadeInUp: { '0%':{opacity:'0',transform:'translateY(30px)'}, '100%':{opacity:'1',transform:'translateY(0)'} } }
+        }
+      }
+    }
+  </script>
+
+  <!-- JSON-LD Person — Google Knowledge Panel -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ramón Daniel Rivera Ayala",
+    "jobTitle": "Consultor B2B · Camiones ELAM FAW",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "ELAM Bajío"
+    },
+    "areaServed": "Bajío, México",
+    "url": "https://tuconsultor.github.io/HUB-NFC/",
+    "image": "https://tuconsultor.github.io/HUB-NFC/im.jpg",
+    "sameAs": [
+      "https://www.linkedin.com/in/ramondanielriveraayala/",
+      "https://github.com/Tuconsultor"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+52-477-580-5988",
+      "contactType": "sales",
+      "availableLanguage": "Spanish",
+      "areaServed": "MX"
+    }
+  }
+  </script>
 
   <style>
     body { background-color:#020617; color:#e2e8f0; background-image:linear-gradient(to right,rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.05) 1px,transparent 1px); background-size:40px 40px; overflow-x:hidden; }
@@ -43,7 +87,6 @@
     @keyframes savingPulse{0%,100%{opacity:1}50%{opacity:.7}} .saving-badge{animation:savingPulse 2s ease-in-out infinite}
     .input-edited { border-color: rgba(245,158,11,.6) !important; background: rgba(245,158,11,.05) !important; }
     @keyframes waPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.35)}50%{box-shadow:0 0 0 6px rgba(34,197,94,0)}} .wa-share-btn{animation:waPulse 2.5s ease-in-out infinite}
-    /* Touch feedback para mobile (NFC/QR) */
     @media (hover: none) {
       .bento-card:active {
         transform: scale(0.985) !important;
@@ -341,7 +384,7 @@
   </main>
 
   <script>
-    // ── Mouse tracking (desktop) + Touch feedback (mobile NFC) ────
+    // ── Mouse tracking (desktop) + Touch feedback (mobile NFC) ──
     const isTouch = window.matchMedia('(hover: none)').matches;
     document.querySelectorAll('.bento-card').forEach(card => {
       if (!isTouch) {
@@ -363,7 +406,7 @@
       }
     });
 
-    // ── Typewriter ─────────────────────────────────────────────────
+    // ── Typewriter ──
     const roles = ['"Arquitecto de TCO para flotillas pesadas"','"Diagnóstico de ruta · Carga útil · Rendimiento"','"Decisiones de compra respaldadas por datos"','"De la especificación al cierre sin fricción"'];
     let ri = 0;
     const twEl = document.getElementById('typewriter');
@@ -372,7 +415,7 @@
       setTimeout(() => { ri=(ri+1)%roles.length; twEl.textContent=roles[ri]; twEl.style.opacity='1'; }, 300);
     }, 3200);
 
-    // ── KPI Counters ───────────────────────────────────────────────
+    // ── KPI Counters ──
     const cobs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
@@ -384,11 +427,9 @@
     },{threshold:.5});
     document.querySelectorAll('.counter').forEach(c=>cobs.observe(c));
 
-    // ── TCO v4 ─────────────────────────────────────────────────────
+    // ── TCO v4 ──
     let _tcoState = {};
-
     function fmt(n) { return '$ '+Math.round(n).toLocaleString('es-MX')+' MXN'; }
-
     function updateModelChips(opt) {
       const carga=opt.dataset.carga||'—', consume=opt.dataset.consume||'—';
       const precio=opt.dataset.precio||'0', moneda=opt.dataset.moneda||'MXN';
@@ -397,7 +438,6 @@
       document.getElementById('tco-chip-consumo').textContent  = '⛽ '+consume+' L/100km ('+kmL+' km/L)';
       document.getElementById('tco-chip-precio').textContent   = moneda==='USD' ? 'USD → tasa $19.50' : '💲 '+((+precio)).toLocaleString('es-MX')+' MXN';
     }
-
     function calcTCO() {
       const u       = Math.max(0, +document.getElementById('tco-units').value  || 0);
       const km      = Math.max(0, +document.getElementById('tco-km').value     || 0);
@@ -405,17 +445,13 @@
       const kmLAct  = Math.max(0.1, +document.getElementById('tco-consume-actual').value || 3.57);
       const sel     = document.getElementById('tco-model');
       const opt     = sel.options[sel.selectedIndex];
-
       const consumeActualL100 = 100 / kmLAct;
       document.getElementById('tco-consume-actual-l100').textContent = '= '+consumeActualL100.toFixed(1)+' L/100km';
       document.getElementById('tco-actual-consume-label').textContent = kmLAct.toFixed(2)+' km/L · '+consumeActualL100.toFixed(1)+' L/100km';
-
       const consumeNuevo = +opt.dataset.consume;
       const precioMXN    = +opt.dataset.precio;
       const modelName    = opt.text.split(' ·')[0];
-
       updateModelChips(opt);
-
       const costoActualMes = (km/100) * consumeActualL100 * diesel * u;
       const costoNuevoMes  = (km/100) * consumeNuevo      * diesel * u;
       const ahorroMes      = costoActualMes - costoNuevoMes;
@@ -423,16 +459,13 @@
       const pctAhorro      = costoActualMes > 0 ? (ahorroMes/costoActualMes*100) : 0;
       const paybackMeses   = (ahorroMes>0 && precioMXN>0) ? (precioMXN/ahorroMes) : null;
       const kmLNuevo       = (100/consumeNuevo).toFixed(1);
-
       _tcoState = { u, km, diesel, kmLAct, consumeActualL100, modelName, consumeNuevo, kmLNuevo,
                     costoActualMes, costoNuevoMes, ahorroMes, ahorroAnual, pctAhorro, paybackMeses, precioMXN };
-
       document.getElementById('tco-result-actual').textContent = fmt(costoActualMes);
       document.getElementById('tco-result-nuevo').textContent  = fmt(costoNuevoMes);
       document.getElementById('tco-model-label').textContent   = modelName+' / mes';
       document.getElementById('tco-consume-label').textContent = consumeNuevo+' L/100km · '+kmLNuevo+' km/L';
       document.getElementById('tco-ahorro-anual').textContent  = fmt(ahorroAnual);
-
       const badge = document.getElementById('tco-saving-badge');
       if (ahorroMes>0) {
         badge.textContent=`↓ ${pctAhorro.toFixed(1)}% combustible`; badge.classList.remove('hidden');
@@ -444,11 +477,9 @@
         badge.classList.add('hidden');
         document.getElementById('tco-ahorro-pct').textContent='';
       }
-
       const payEl=document.getElementById('tco-payback'), paySub=document.getElementById('tco-payback-sub');
       const barWrap=document.getElementById('tco-payback-bar-wrap');
       const bar=document.getElementById('tco-payback-bar'), barLbl=document.getElementById('tco-payback-bar-label');
-
       if (paybackMeses!==null && isFinite(paybackMeses)) {
         const m=Math.ceil(paybackMeses);
         payEl.textContent=m+' meses'; paySub.textContent=(m/12).toFixed(1)+' años · '+fmt(precioMXN);
@@ -462,8 +493,6 @@
         payEl.textContent='∞'; paySub.textContent='Sin ahorro con este modelo'; barWrap.classList.add('hidden');
       }
     }
-
-    // ── Compartir resultado por WhatsApp ──────────────────────────
     function compartirWA() {
       const s = _tcoState;
       if (!s.u) return;
@@ -490,19 +519,16 @@
 • ${paybackTxt}
 
 ¿Me puedes preparar una propuesta formal? 🤝`;
-
       const url = 'https://wa.me/524775805988?text='+encodeURIComponent(msg);
       window.open(url, '_blank');
     }
-
-    // ── Event listeners TCO ────────────────────────────────────────
     ['tco-units','tco-km','tco-diesel','tco-consume-actual','tco-model'].forEach(id =>
       document.getElementById(id).addEventListener('input', calcTCO)
     );
     document.getElementById('tco-wa-share').addEventListener('click', compartirWA);
     calcTCO();
 
-    // ── Status CST ─────────────────────────────────────────────────
+    // ── Status CST ──
     function updateStatus() {
       const hora = new Date().toLocaleTimeString('es-MX',{timeZone:'America/Mexico_City',hour:'2-digit',minute:'2-digit',hour12:false});
       const h=parseInt(hora.split(':')[0]), ok=h>=8&&h<20;
