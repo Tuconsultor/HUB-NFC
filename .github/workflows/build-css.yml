@@ -1,6 +1,5 @@
 name: Build Tailwind CSS → tw-out.css
 
-# Dispara cuando cambia el HTML o el CSS de entrada
 on:
   push:
     branches: [main]
@@ -9,14 +8,16 @@ on:
       - 'tw-input.css'
       - '.github/workflows/build-css.yml'
 
-  # Permite ejecutarlo manualmente desde la pestaña Actions
   workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-css:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # necesario para el auto-commit
+      contents: write
 
     steps:
       - name: 📥 Checkout repo
@@ -25,16 +26,15 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📦 Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
-      - name: ⚙️ Setup Node 22
+      - name: ⚙️ Setup Node 24
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: 'pnpm'
+          node-version: 24
+
+      - name: 📦 Setup pnpm (toma versión exacta del packageManager en package.json)
+        run: |
+          corepack enable
+          corepack prepare --activate
 
       - name: 🔧 Instalar dependencias
         run: pnpm install --frozen-lockfile
