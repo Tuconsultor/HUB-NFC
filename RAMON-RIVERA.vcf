@@ -1,12 +1,20 @@
 BEGIN:VCARD
 VERSION:3.0
-N:Rivera Ayala;Ramon Daniel;;;
-FN:Ramon Daniel Rivera Ayala
-ORG:FAW Trucks ELAM Bajio
-TITLE:Vendedor Profesional
-TEL;TYPE=CELL:+524775805988
-EMAIL;TYPE=WORK:daniel.rivera@elambajio.com
-EMAIL;TYPE=HOME:ramondanielrivera@gmail.com
-URL:https://www.linkedin.com/in/ramondanielriveraayala/
-
+N:Rivera Ayala;Ramón;Daniel;;Lic.
+FN:Lic. Ramón Daniel Rivera Ayala
+ORG:ELAM Bajío
+TITLE:Consultor B2B · Camiones ELAM FAW
+TEL;TYPE=CELL,VOICE:+524775805988
+TEL;TYPE=WORK,VOICE:+524775805988
+EMAIL;TYPE=WORK,INTERNET:daniel.rivera@elambajio.com
+EMAIL;TYPE=HOME,INTERNET:ramondanielrivera@gmail.com
+URL;TYPE=WORK:https://tuconsultor.github.io/HUB-NFC/
+URL;TYPE=LinkedIn:https://www.linkedin.com/in/ramondanielriveraayala/
+URL;TYPE=GitHub:https://github.com/Tuconsultor
+ADR;TYPE=WORK:;;León;;Guanajuato;37000;México
+GEO:21.1167;-101.6833
+NOTE:Especialista en flotillas pesadas · ELAM FAW · Bajío/Centro · Diagnóstico TCO en 48h
+PHOTO;VALUE=URL;TYPE=JPEG:https://tuconsultor.github.io/HUB-NFC/im.jpg
+X-SOCIALPROFILE;TYPE=whatsapp:https://wa.me/524775805988
+REV:2026-05-26T00:00:00Z
 END:VCARD
