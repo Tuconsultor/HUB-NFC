@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Plan México | IA Asistente — Ramón Daniel Rivera</title>
-  <meta name="description" content="Asistente IA para evaluar elegibilidad de proyectos en el Plan México y generar memorias técnicas ejecutivas.">
+  <meta name="description" content="Asistente IA para evaluar elegibilidad en el Plan México y generar memorias técnicas. ELAM FAW Bajío.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="canonical" href="https://tuconsultor.github.io/HUB-NFC/plan-mexico.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,164 +17,335 @@
       theme: {
         extend: {
           fontFamily: { sans: ['Inter','sans-serif'], mono: ['Fira Code','monospace'] },
-          colors: { surface:'#0f172a', surfaceHover:'#1e293b', accent:'#06b6d4', accentSoft:'rgba(6,182,212,0.1)', gold:'#f59e0b' },
-          animation: { 'fade-in-up':'fadeInUp 0.8s cubic-bezier(0.22,1,0.36,1) forwards' },
-          keyframes: { fadeInUp: { '0%':{opacity:'0',transform:'translateY(30px)'}, '100%':{opacity:'1',transform:'translateY(0)'} } }
+          colors: {
+            surface:'#0f172a', surfaceHover:'#1e293b',
+            accent:'#06b6d4', accentSoft:'rgba(6,182,212,0.1)', gold:'#f59e0b'
+          },
+          animation: {
+            'fade-in-up':'fadeInUp 0.8s cubic-bezier(0.22,1,0.36,1) forwards',
+            'pulse-slow':'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite'
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%':{opacity:'0',transform:'translateY(30px)'},
+              '100%':{opacity:'1',transform:'translateY(0)'}
+            }
+          }
         }
       }
     }
   </script>
   <style>
-    body { background-color:#020617; color:#e2e8f0; background-image:linear-gradient(to right,rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.05) 1px,transparent 1px); background-size:40px 40px; overflow-x:hidden; }
-    ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-track{background:#020617} ::-webkit-scrollbar-thumb{background:#334155;border-radius:4px} ::-webkit-scrollbar-thumb:hover{background:#06b6d4}
-    .bento-card { background:rgba(15,23,42,.6); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.08); border-radius:24px; transition:all .4s cubic-bezier(.16,1,.3,1); position:relative; overflow:hidden; }
-    .bento-card:hover { border-color:rgba(6,182,212,.4); background:rgba(30,41,59,.8); transform:translateY(-2px); box-shadow:0 10px 40px -10px rgba(6,182,212,.15); }
-    .bento-card::before { content:""; position:absolute; top:0;left:0;right:0;bottom:0; background:radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),rgba(6,182,212,.06),transparent 40%); opacity:0; transition:opacity .5s; pointer-events:none; z-index:0; }
+    body {
+      background-color:#020617;
+      color:#e2e8f0;
+      background-image:
+        linear-gradient(to right,rgba(255,255,255,.05) 1px,transparent 1px),
+        linear-gradient(to bottom,rgba(255,255,255,.05) 1px,transparent 1px);
+      background-size:40px 40px;
+      overflow-x:hidden;
+    }
+    ::-webkit-scrollbar{width:8px}
+    ::-webkit-scrollbar-track{background:#020617}
+    ::-webkit-scrollbar-thumb{background:#334155;border-radius:4px}
+    ::-webkit-scrollbar-thumb:hover{background:#06b6d4}
+
+    .bento-card {
+      background:rgba(15,23,42,.6);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      transition:all .4s cubic-bezier(.16,1,.3,1);
+      position:relative;
+      overflow:hidden;
+    }
+    .bento-card:hover {
+      border-color:rgba(6,182,212,.4);
+      background:rgba(30,41,59,.8);
+      transform:translateY(-2px);
+      box-shadow:0 10px 40px -10px rgba(6,182,212,.15);
+    }
+    .bento-card::before {
+      content:"";
+      position:absolute;
+      top:0;left:0;right:0;bottom:0;
+      background:radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),rgba(6,182,212,.06),transparent 40%);
+      opacity:0;
+      transition:opacity .5s;
+      pointer-events:none;
+      z-index:0;
+    }
     .bento-card:hover::before { opacity:1; }
     .bento-content { position:relative; z-index:1; }
-    .text-gradient { background:linear-gradient(135deg,#fff 0%,#94a3b8 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .text-gradient-accent { background:linear-gradient(135deg,#22d3ee 0%,#3b82f6 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .delay-100{animation-delay:100ms} .delay-200{animation-delay:200ms}
-    .token-keyword{color:#c678dd} .token-string{color:#98c379}
-    .ia-input { background:rgba(15,23,42,.8); border:1px solid rgba(255,255,255,.1); border-radius:12px; color:#e2e8f0; transition:border-color .3s; resize:vertical; }
-    .ia-input:focus { border-color:#06b6d4; outline:none; box-shadow:0 0 0 1px rgba(6,182,212,.3); }
-    .ia-input::placeholder { color:#475569; }
-    .ia-result { background:rgba(2,6,23,.7); border:1px solid rgba(255,255,255,.08); border-radius:12px; color:#cbd5e1; font-size:.8125rem; line-height:1.7; white-space:pre-wrap; word-break:break-word; }
-    @keyframes spin { to{transform:rotate(360deg)} } .spin{animation:spin .8s linear infinite}
-    @media (hover: none) { .bento-card:active { transform:scale(0.985) !important; border-color:rgba(6,182,212,0.5) !important; } }
+
+    .text-gradient {
+      background:linear-gradient(135deg,#fff 0%,#94a3b8 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .text-gradient-accent {
+      background:linear-gradient(135deg,#22d3ee 0%,#3b82f6 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .token-keyword{color:#c678dd}
+    .token-string{color:#98c379}
+    .token-comment{color:#5c6370;font-style:italic}
+
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+    .tw-cursor{animation:blink 1s step-end infinite}
+
+    .ia-input {
+      background:rgba(2,6,23,.7);
+      border:1px solid rgba(51,65,85,.8);
+      border-radius:12px;
+      color:#e2e8f0;
+      font-family:'Inter',sans-serif;
+      font-size:.875rem;
+      line-height:1.6;
+      padding:.75rem 1rem;
+      width:100%;
+      resize:none;
+      transition:border-color .2s, box-shadow .2s;
+    }
+    .ia-input::placeholder{color:#475569}
+    .ia-input:focus{
+      border-color:#06b6d4;
+      outline:none;
+      box-shadow:0 0 0 1px rgba(6,182,212,.3);
+    }
+    .ia-result {
+      background:rgba(2,6,23,.6);
+      border:1px solid rgba(51,65,85,.6);
+      border-radius:12px;
+      padding:1rem;
+      font-size:.8125rem;
+      line-height:1.7;
+      color:#cbd5e1;
+      white-space:pre-wrap;
+      min-height:80px;
+    }
+    @keyframes goldPulse{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.4)}50%{box-shadow:0 0 0 8px rgba(245,158,11,0)}}
+    .cta-gold{animation:goldPulse 2.5s ease-in-out infinite}
+
+    @media (hover: none) {
+      .bento-card:active {
+        transform: scale(0.985) !important;
+        border-color: rgba(6,182,212,0.5) !important;
+        box-shadow: 0 0 20px -5px rgba(6,182,212,0.2) !important;
+        transition: transform 0.12s ease, border-color 0.12s ease !important;
+      }
+    }
   </style>
 </head>
-<body class="antialiased selection:bg-accent selection:text-white pb-24">
+<body class="antialiased selection:bg-cyan-500 selection:text-white pb-20">
 
-  <!-- Glow blobs — mismo patrón del HUB -->
+  <!-- Glow blobs — idénticos al HUB -->
   <div class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/20 blur-[120px] pointer-events-none z-[-1]"></div>
   <div class="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/20 blur-[120px] pointer-events-none z-[-1]"></div>
-  <div class="fixed top-[40%] left-[35%] w-[30%] h-[30%] rounded-full bg-blue-900/15 blur-[100px] pointer-events-none z-[-1]"></div>
+  <div class="fixed top-[40%] left-[35%] w-[30%] h-[30%] rounded-full bg-indigo-900/15 blur-[100px] pointer-events-none z-[-1]"></div>
 
-  <main class="max-w-5xl mx-auto px-6 pt-14 md:pt-20 flex flex-col gap-6">
+  <main class="max-w-5xl mx-auto px-6 pt-12 md:pt-20 flex flex-col gap-6">
 
-    <!-- HEADER -->
+    <!-- ── HEADER ── -->
     <header class="mb-4 opacity-0 animate-fade-in-up">
-      <div class="flex items-start justify-between gap-4">
+      <div class="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-800/60 bg-blue-900/20 font-mono text-xs text-blue-300 mb-4">
-            <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-            // plan_mexico · asistente_ia
+          <div class="flex items-center gap-2 mb-3">
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-400"></span>
+            </span>
+            <span class="font-mono text-sm text-blue-400">Plan México · Asistente IA activo</span>
           </div>
-          <h1 class="text-2xl md:text-4xl font-bold tracking-tight text-gradient mb-3">Portal IA — <span class="text-gradient-accent">Plan México</span></h1>
-          <p class="font-mono text-xs md:text-sm text-slate-400 max-w-xl">
-            <span class="token-keyword">const</span> herramientas = [<span class="token-string">"Análisis de elegibilidad"</span>, <span class="token-string">"Memoria técnica"</span>];
+          <h1 class="text-2xl md:text-4xl font-bold tracking-tight mb-2">
+            <span class="text-gradient">Portal IA —</span> <span class="text-gradient-accent">Plan México</span>
+          </h1>
+          <p class="font-mono text-xs text-slate-400">
+            <span class="token-keyword">const</span> tools = [<span class="token-string">"Elegibilidad"</span>, <span class="token-string">"Memoria Técnica"</span>];<span class="tw-cursor token-string">|</span>
           </p>
         </div>
-        <a href="/HUB-NFC/" class="flex-shrink-0 mt-1 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700 bg-slate-900/60 font-mono text-xs text-slate-400 hover:border-accent hover:text-accent transition-all">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-          HUB FAW
+        <a href="/HUB-NFC/"
+          class="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700 bg-slate-900/60 text-slate-300 text-xs font-mono hover:border-accent hover:text-accent transition-all">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          Volver al HUB FAW
         </a>
       </div>
+      <p class="text-slate-400 text-sm mt-3 max-w-2xl leading-relaxed">
+        Diseñado para directores y CFOs que necesitan validar elegibilidad y generar memorias técnicas
+        defendibles ante el Comité del Plan México — sin perderse en el DOF.
+      </p>
     </header>
 
-    <!-- GRID 2 COLUMNAS -->
+    <!-- ── BENTO GRID 2 columnas ── -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-      <!-- TARJETA 1 — Elegibilidad -->
-      <article class="bento-card p-6 md:p-8 opacity-0 animate-fade-in-up delay-100">
-        <div class="bento-content flex flex-col h-full">
+      <!-- TARJETA 1: ASISTENTE DE ELEGIBILIDAD -->
+      <article class="bento-card p-6 md:p-8 opacity-0 animate-fade-in-up" style="animation-delay:100ms">
+        <div class="bento-content flex flex-col gap-4 h-full">
 
-          <div class="flex items-start justify-between mb-5">
+          <!-- Header tarjeta -->
+          <div class="flex items-start justify-between gap-3">
             <div>
               <p class="font-mono text-xs text-slate-500 mb-1">// plan_mexico.elegibilidad</p>
-              <h2 class="text-white text-lg font-semibold">Asistente de Elegibilidad</h2>
+              <h2 class="text-white text-lg font-semibold leading-snug">
+                Asistente de <span class="text-gradient-accent">Elegibilidad</span>
+              </h2>
             </div>
-            <div class="w-10 h-10 rounded-xl bg-blue-900/40 border border-blue-800/50 flex items-center justify-center flex-shrink-0">
+            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-blue-900/30 border border-blue-800/50 flex items-center justify-center">
               <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
           </div>
 
-          <p class="text-slate-400 text-xs leading-relaxed mb-4">Describe tu proyecto de inversión y la IA evaluará si cumple los criterios de deducción inmediata del Plan México (DOF 21/mar/2025), señalará riesgos y entregará 3 bullets para comité.</p>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Describe tu proyecto de inversión. La IA evalúa si en principio califica para deducción
+            inmediata según los lineamientos del Plan México (DOF 21/mar/2025) e identifica riesgos.
+          </p>
 
-          <label class="font-mono text-xs text-slate-500 mb-1.5 block">// proyecto_inversion</label>
-          <textarea id="investment-desc" rows="5"
-            class="ia-input w-full px-3 py-3 text-sm mb-4"
-            placeholder="Ej: Planeo comprar 5 tractocamiones eléctricos marca FAW año 2026, para transporte refrigerado en ruta León–CDMX. Empresa constituida, RFC activo, sin adeudos SAT..."
+          <label class="font-mono text-[11px] text-slate-500">// proyecto_inversion.descripcion</label>
+          <textarea
+            id="investment-desc"
+            class="ia-input"
+            rows="5"
+            placeholder="Ej: Planeo comprar 5 tractocamiones eléctricos marca FAW año 2026 para transporte refrigerado en la ruta León–CDMX. Persona moral. RFC activo..."
           ></textarea>
 
-          <div class="flex items-center gap-3 mb-4">
-            <button id="analyze-btn" onclick="analyzeInvestment()"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-500 text-slate-950 text-xs font-bold hover:bg-blue-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+          <div class="flex items-center gap-3">
+            <button
+              id="analyze-btn"
+              onclick="analyzeInvestment()"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-500 text-white text-xs font-semibold hover:bg-blue-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
               <span id="analyze-spinner" class="hidden">
-                <svg class="w-3.5 h-3.5 spin" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3.5-3.5L12 0v4a8 8 0 00-8 8h4z"/></svg>
+                <svg class="w-3.5 h-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3L12 0v4a8 8 0 00-8 8h4z"/>
+                </svg>
               </span>
-              <span id="analyze-label">✦ Analizar elegibilidad</span>
+              <svg id="analyze-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+              <span id="analyze-label">Analizar elegibilidad</span>
             </button>
-            <span class="font-mono text-[11px] text-slate-600">Gemini · DOF 21/mar/2025</span>
+            <span class="font-mono text-[10px] text-slate-600">Respuesta en ~10s</span>
           </div>
 
-          <div id="analysis-result" class="ia-result hidden p-4 mt-auto"></div>
+          <div id="analysis-result" class="ia-result hidden"></div>
+
         </div>
       </article>
 
-      <!-- TARJETA 2 — Memoria Técnica -->
-      <article class="bento-card p-6 md:p-8 opacity-0 animate-fade-in-up delay-200">
-        <div class="bento-content flex flex-col h-full">
+      <!-- TARJETA 2: GENERADOR DE MEMORIA TÉCNICA -->
+      <article class="bento-card p-6 md:p-8 opacity-0 animate-fade-in-up" style="animation-delay:200ms">
+        <div class="bento-content flex flex-col gap-4 h-full">
 
-          <div class="flex items-start justify-between mb-5">
+          <!-- Header tarjeta -->
+          <div class="flex items-start justify-between gap-3">
             <div>
               <p class="font-mono text-xs text-slate-500 mb-1">// plan_mexico.memoria_tecnica</p>
-              <h2 class="text-white text-lg font-semibold">Generador de Memoria Técnica</h2>
+              <h2 class="text-white text-lg font-semibold leading-snug">
+                Generador de <span class="text-gradient-accent">Memoria Técnica</span>
+              </h2>
             </div>
-            <div class="w-10 h-10 rounded-xl bg-emerald-900/40 border border-emerald-800/50 flex items-center justify-center flex-shrink-0">
+            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-900/30 border border-emerald-800/50 flex items-center justify-center">
               <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
               </svg>
             </div>
           </div>
 
-          <p class="text-slate-400 text-xs leading-relaxed mb-4">Genera un borrador formal de memoria técnica para el Comité de Evaluación del Plan México. Agrega contexto específico para obtener un documento más preciso y ajustado a tu operación.</p>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Proporciona contexto básico de tu proyecto y la IA redactará el borrador formal de la
+            memoria técnica requerida por el Comité de Evaluación del Plan México.
+          </p>
 
-          <label class="font-mono text-xs text-slate-500 mb-1.5 block">// contexto_proyecto <span class="text-slate-600">(recomendado)</span></label>
-          <textarea id="project-context" rows="4"
-            class="ia-input w-full px-3 py-3 text-sm mb-4"
-            placeholder="Ej: Flotilla actual de 8 unidades diésel Euro III, ruta Bajío–Norte, meta reducir emisiones 40%, horizonte inversión 5 años, planta en León Gto..."
+          <label class="font-mono text-[11px] text-slate-500">// contexto_proyecto <span class="text-slate-600">(recomendado)</span></label>
+          <textarea
+            id="project-context"
+            class="ia-input"
+            rows="5"
+            placeholder="Ej: Flotilla de 8 unidades. Ruta León–Guadalajara. Meta: reducir emisiones 40%. Horizonte 5 años. Empresa de distribución de alimentos. Inversión aproximada $4M MXN..."
           ></textarea>
 
-          <div class="flex items-center gap-3 mb-4">
-            <button id="gen-btn" onclick="generateProject()"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 text-slate-950 text-xs font-bold hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+          <div class="flex items-center gap-3">
+            <button
+              id="gen-btn"
+              onclick="generateProject()"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 text-white text-xs font-semibold hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
               <span id="gen-spinner" class="hidden">
-                <svg class="w-3.5 h-3.5 spin" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3.5-3.5L12 0v4a8 8 0 00-8 8h4z"/></svg>
+                <svg class="w-3.5 h-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3L12 0v4a8 8 0 00-8 8h4z"/>
+                </svg>
               </span>
-              <span id="gen-label">✦ Generar borrador</span>
+              <svg id="gen-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+              </svg>
+              <span id="gen-label">Generar borrador</span>
             </button>
-            <span class="font-mono text-[11px] text-slate-600">Borrador · editable</span>
+            <span class="font-mono text-[10px] text-slate-600">Revisar antes de enviar</span>
           </div>
 
-          <div id="project-result" class="ia-result hidden p-4 mt-auto"></div>
+          <div id="project-result" class="ia-result hidden"></div>
 
-          <p class="font-mono text-[11px] text-slate-600 mt-3">*Revisa cifras y referencias al DOF antes de enviar al comité.</p>
+          <p class="font-mono text-[10px] text-slate-600 mt-auto">
+            *Ajusta montos, denominaciones y artículos del DOF antes de presentar al comité.
+          </p>
         </div>
       </article>
+
     </div>
 
-    <!-- CTA REGRESO -->
-    <div class="opacity-0 animate-fade-in-up" style="animation-delay:300ms">
+    <!-- ── AVISO API KEY ── -->
+    <div id="api-warning" class="hidden opacity-0 animate-fade-in-up bento-card p-4" style="animation-delay:300ms; border-color:rgba(245,158,11,.3)">
+      <div class="bento-content flex items-start gap-3">
+        <svg class="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+        </svg>
+        <div>
+          <p class="text-amber-300 text-xs font-semibold mb-1">API Key no configurada</p>
+          <p class="text-slate-400 text-xs">Para activar las funciones de IA, el administrador debe inyectar la variable
+            <code class="font-mono text-amber-300 bg-slate-900/60 px-1 rounded">GEMINI_API_KEY</code>
+            en el entorno. Mientras tanto los botones mostrarán este aviso.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CTA VOLVER AL HUB ── -->
+    <div class="opacity-0 animate-fade-in-up" style="animation-delay:350ms">
       <a href="/HUB-NFC/"
-        class="flex items-center justify-center gap-3 w-full py-4 rounded-2xl border border-amber-500/40 bg-amber-500/10 text-amber-400 font-semibold hover:bg-amber-500/20 hover:border-amber-400 transition-all text-sm">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        class="cta-gold flex items-center justify-center gap-3 w-full py-4 rounded-2xl border border-amber-500/40 bg-amber-500/10 text-amber-400 font-semibold hover:bg-amber-500/20 hover:border-amber-400 transition-all text-sm md:text-base">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
         ← Volver al HUB FAW ZenithFlow
       </a>
     </div>
 
     <!-- FOOTER -->
-    <footer class="mt-4 text-center opacity-0 animate-fade-in-up" style="animation-delay:400ms">
-      <p class="font-mono text-xs text-slate-600">© 2026 · Ramón Daniel Rivera Ayala · ELAM FAW Bajío</p>
+    <footer class="mt-4 text-center opacity-0 animate-fade-in-up" style="animation-delay:450ms">
+      <p class="font-mono text-xs text-slate-600">
+        © 2026 · Ramón Daniel Rivera Ayala · ELAM FAW Bajío ·
+        <a href="/HUB-NFC/" class="text-slate-500 hover:text-accent transition-colors underline decoration-dotted">HUB ZenithFlow</a>
+      </p>
     </footer>
 
   </main>
 
   <script>
-    // ── Mouse tracking bento ──
+    // ── Mouse tracking (efecto bento) ──
     const isTouch = window.matchMedia('(hover: none)').matches;
     document.querySelectorAll('.bento-card').forEach(card => {
       if (!isTouch) {
@@ -183,16 +354,33 @@
           card.style.setProperty('--mouse-x', `${e.clientX - r.left}px`);
           card.style.setProperty('--mouse-y', `${e.clientY - r.top}px`);
         });
+      } else {
+        card.addEventListener('touchstart', () => {
+          card.style.transform = 'scale(0.985)';
+          card.style.borderColor = 'rgba(6,182,212,0.5)';
+          card.style.transition = 'transform 0.12s ease, border-color 0.12s ease';
+        }, { passive: true });
+        card.addEventListener('touchend', () => {
+          card.style.transform = '';
+          card.style.borderColor = '';
+        }, { passive: true });
       }
     });
 
-    // ── Gemini config ──
-    const API_KEY = ""; // ← Inyecta tu clave aquí o usa variable de entorno
+    // ── Config Gemini ──
+    const API_KEY = ""; // Inyectar clave aquí o vía entorno
     const MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+
+    // Mostrar aviso si no hay API key
+    if (!API_KEY) {
+      const w = document.getElementById('api-warning');
+      w.classList.remove('hidden');
+      requestAnimationFrame(() => w.classList.add('opacity-100'));
+    }
 
     async function callGemini(prompt) {
       if (!API_KEY) {
-        return "⚠ API Key no configurada.\nPara activar esta función, agrega tu clave de Google AI Studio en la variable API_KEY del script.\n\nObtén tu clave gratuita en: https://aistudio.google.com/app/apikey";
+        return "⚠ API Key no configurada. Contacta al administrador para activar esta función.";
       }
       try {
         const res = await fetch(MODEL_URL, {
@@ -200,85 +388,91 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.4, top_p: 0.9, max_output_tokens: 1400 }
+            generationConfig: { temperature: 0.4, top_p: 0.9, max_output_tokens: 1200 }
           })
         });
         if (!res.ok) {
           const err = await res.json().catch(() => ({}));
-          return `Error ${res.status}: ${err?.error?.message || 'Revisa tu API Key y cuota disponible.'}`;
+          return `Error del servicio IA (${res.status}): ${err?.error?.message || 'Intenta de nuevo.'}`;
         }
         const data = await res.json();
         return data?.candidates?.[0]?.content?.parts?.[0]?.text
-          || "El modelo no devolvió respuesta. Intenta de nuevo.";
+          || "No se recibió respuesta del modelo. Intenta de nuevo.";
       } catch (e) {
         console.error(e);
-        return "Error de conexión. Verifica tu red e inténtalo de nuevo.";
+        return "Error de red al conectar con el servicio de IA. Verifica tu conexión.";
       }
     }
 
-    function setLoading(btnId, spinnerId, labelId, loading) {
-      document.getElementById(btnId).disabled = loading;
-      document.getElementById(spinnerId).classList.toggle('hidden', !loading);
-      document.getElementById(labelId).classList.toggle('opacity-0', loading);
+    function setLoading(isLoading, btnId, spinnerId, iconId, labelId, labelText) {
+      const btn = document.getElementById(btnId);
+      const sp  = document.getElementById(spinnerId);
+      const ic  = document.getElementById(iconId);
+      const lb  = document.getElementById(labelId);
+      btn.disabled = isLoading;
+      sp.classList.toggle('hidden', !isLoading);
+      ic.classList.toggle('hidden', isLoading);
+      lb.textContent = isLoading ? 'Procesando...' : labelText;
     }
 
-    // ── Análisis de elegibilidad ──
+    // ── Asistente de Elegibilidad ──
     async function analyzeInvestment() {
       const desc = document.getElementById('investment-desc').value.trim();
       const resDiv = document.getElementById('analysis-result');
+
       if (!desc) {
         resDiv.classList.remove('hidden');
-        resDiv.textContent = "⚠ Escribe primero el resumen de tu proyecto de inversión.";
+        resDiv.textContent = '⚠ Escribe primero una descripción de tu proyecto de inversión.';
         return;
       }
+
+      setLoading(true, 'analyze-btn', 'analyze-spinner', 'analyze-icon', 'analyze-label', 'Analizar elegibilidad');
       resDiv.classList.remove('hidden');
-      resDiv.textContent = "Analizando con Gemini...";
-      setLoading('analyze-btn','analyze-spinner','analyze-label', true);
+      resDiv.textContent = 'Analizando con IA...';
 
-      const prompt = `Actúa como asesor fiscal y regulatorio especializado en el Plan México (DOF 21/mar/2025).
+      const prompt = `Actúa como asesor fiscal especializado en el Plan México (DOF 21/mar/2025).
 
-Evalúa el siguiente proyecto de inversión:
-1. ¿Es elegible en principio para la deducción inmediata? (Sí / No / Parcialmente — explica)
-2. Riesgos u observaciones clave (tecnología, plazo, tipo de activo, ubicación, forma jurídica)
-3. Recomendación ejecutiva en exactamente 3 bullets para presentar ante comité
+Responde en 3 secciones claramente separadas:
+1. ELEGIBILIDAD PRELIMINAR — indica si el proyecto califica o no y por qué.
+2. RIESGOS Y OBSERVACIONES — señala hasta 3 puntos clave de atención (tecnología, plazo, tipo de activo, ubicación).
+3. RECOMENDACIÓN EJECUTIVA — 3 bullets concretos para que el director pueda actuar de inmediato.
 
-Sé directo, sin preambulos. Usa lenguaje ejecutivo.
-
-Proyecto:
+Proyecto a evaluar:
 ${desc}`;
 
-      const resp = await callGemini(prompt);
-      resDiv.textContent = resp;
-      setLoading('analyze-btn','analyze-spinner','analyze-label', false);
+      const response = await callGemini(prompt);
+      resDiv.textContent = response;
+      setLoading(false, 'analyze-btn', 'analyze-spinner', 'analyze-icon', 'analyze-label', 'Analizar elegibilidad');
     }
 
-    // ── Generador de memoria técnica ──
+    // ── Generador de Memoria Técnica ──
     async function generateProject() {
       const ctx = document.getElementById('project-context').value.trim();
       const resDiv = document.getElementById('project-result');
-      resDiv.classList.remove('hidden');
-      resDiv.textContent = "Generando borrador de memoria técnica...";
-      setLoading('gen-btn','gen-spinner','gen-label', true);
 
-      const contexto = ctx || "Sin contexto adicional proporcionado. Genera un formato genérico claro.";
+      setLoading(true, 'gen-btn', 'gen-spinner', 'gen-icon', 'gen-label', 'Generar borrador');
+      resDiv.classList.remove('hidden');
+      resDiv.textContent = 'Redactando memoria técnica...';
+
+      const contexto = ctx || 'El usuario no proporcionó contexto adicional; usa un formato genérico profesional.';
+
       const prompt = `Redacta una memoria técnica formal para el Comité de Evaluación del Plan México.
 
-Estructura con estas secciones y encabezados claros:
+Usa estas secciones con encabezados en mayúsculas:
 1. DATOS GENERALES DEL PROYECTO
 2. JUSTIFICACIÓN DE LA INVERSIÓN
 3. TECNOLOGÍA LIMPIA Y CUMPLIMIENTO AMBIENTAL
 4. COMPROMISO DE PERMANENCIA (mínimo 2 años de operación)
 5. BENEFICIOS ESPERADOS (financieros, sociales, ambientales)
 
-Tono: ejecutivo, formal, sin inventar cifras exactas de ley (deja campos como [por definir]).
-No uses intro ni cierre de cortesía, ve directo a las secciones.
+Tono: ejecutivo, directo y formal. No inventes montos exactos de ley; deja los campos de cifras como "[por definir]".
 
 Contexto del usuario:
 ${contexto}`;
 
-      const resp = await callGemini(prompt);
-      resDiv.textContent = resp;
-      setLoading('gen-btn','gen-spinner','gen-label', false);
+      const response = await callGemini(prompt);
+      resDiv.textContent = response;
+      setLoading(false, 'gen-btn', 'gen-spinner', 'gen-icon', 'gen-label', 'Generar borrador');
     }
   </script>
 </body>
