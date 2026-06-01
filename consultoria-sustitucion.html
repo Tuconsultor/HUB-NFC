@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consultoría de Sustitución Vehicular | Ramón Daniel Rivera · ELAM FAW Bajío</title>
+  <meta name="description" content="Guía ejecutiva e interactiva del Programa de Sustitución y Modernización de Vehículos Pesados (Chatarrización). Estímulos fiscales SAT, crédito NAFIN y trámites SICT para transportistas.">
+  <meta name="author" content="Ramón Daniel Rivera Ayala">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="canonical" href="https://tuconsultor.github.io/HUB-NFC/consultoria-sustitucion.html">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .chart-container { position: relative; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+    @media (min-width: 768px) { .chart-container { height: 400px; } }
+    .tab-active { border-bottom: 4px solid #9F2241; color: #9F2241; font-weight: bold; }
+    .gov-maroon  { background-color: #9F2241; }
+    .gov-maroon-text { color: #9F2241; }
+    .gov-gold    { background-color: #D4C19C; }
+    .gov-gold-text   { color: #D4C19C; }
+    .gov-green   { background-color: #235B4E; }
+    body { background-color: #fafaf9; color: #1c1917; }
+    ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #f5f5f4; } ::-webkit-scrollbar-thumb { background: #9F2241; border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans leading-relaxed selection:bg-[#D4C19C] selection:text-black">
+
+  <!-- BARRA DE NAVEGACIÓN SUPERIOR -->
+  <nav class="gov-maroon text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">🏛️</span>
+          <div class="flex flex-col leading-tight">
+            <span class="font-bold text-sm sm:text-base tracking-wide">Consultoría Regulatoria Federal</span>
+            <span class="text-xs opacity-80 hidden sm:block">Programa de Chatarrización · SICT · SAT · NAFIN</span>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2 sm:space-x-4">
+          <a href="/HUB-NFC/" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-[#9F2241] text-xs font-semibold hover:bg-stone-100 transition">
+            ← Volver al HUB FAW
+          </a>
+          <a href="https://wa.me/524775805988?text=Hola%20Ram%C3%B3n%2C%20quiero%20asesor%C3%ADa%20para%20el%20Programa%20de%20Sustituci%C3%B3n%20Vehicular." target="_blank" rel="noopener"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#D4C19C] text-[#231f20] text-xs font-semibold hover:bg-amber-300 transition">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12C2 13.85 2.5 15.6 3.39 17.1L2 22L7.06 20.66C8.56 21.5 10.23 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2M16.5 17.5C16.2 18.2 15 18.8 14.3 18.9C13.8 19 13.2 19 11.5 18.3C9.2 17.4 7.7 15 7.6 14.8C7.5 14.7 6.4 13.2 6.4 11.7C6.4 10.2 7.1 9.4 7.4 9.1C7.7 8.8 8.1 8.7 8.5 8.7C8.6 8.7 8.7 8.7 8.8 8.7C9.1 8.7 9.2 8.7 9.4 9.1C9.6 9.6 10.1 10.9 10.2 11C10.3 11.1 10.3 11.3 10.2 11.5C10.1 11.7 10 11.8 9.8 12C9.6 12.2 9.5 12.3 9.7 12.6C9.9 12.9 10.6 14 11.5 14.8C12.6 15.8 13.6 16.1 13.9 16.3C14.2 16.4 14.4 16.4 14.6 16.2C14.8 16 15.1 15.5 15.4 15C15.7 14.5 16 14.6 16.3 14.7C16.6 14.8 18.1 15.5 18.4 15.7C18.7 15.8 18.9 15.9 19 16.1C19.1 16.4 19.1 17 18.8 17.5H16.5Z"/></svg>
+            Agendar llamada
+          </a>
+          <div class="sm:hidden flex items-center text-sm font-medium space-x-3">
+            <a href="#naturaleza" class="hover:text-[#D4C19C] transition">Impacto</a>
+            <a href="#requisitos" class="hover:text-[#D4C19C] transition">Checklist</a>
+            <a href="#procedimiento" class="hover:text-[#D4C19C] transition">Trámite</a>
+          </div>
+          <div class="hidden sm:flex items-center text-sm font-medium space-x-4">
+            <a href="#naturaleza" class="hover:text-[#D4C19C] transition">Impacto</a>
+            <a href="#requisitos" class="hover:text-[#D4C19C] transition">Requisitos</a>
+            <a href="#procedimiento" class="hover:text-[#D4C19C] transition">Trámite</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER PRINCIPAL -->
+  <header class="bg-white border-b border-stone-200 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-xs font-mono font-semibold mb-4">
+        <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+        Programa Federal · SICT 2026
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold gov-maroon-text mb-4">
+        Análisis Operativo: Programa de Sustitución<br class="hidden sm:block"> y Modernización de Vehículos Pesados
+      </h1>
+      <p class="text-lg text-stone-600 max-w-3xl mx-auto">
+        Guía ejecutiva e interactiva basada en los Lineamientos de Operación de la Acción Social para el
+        Autotransporte Federal de Pasaje y Carga (Programa de Chatarrización).
+      </p>
+      <div class="mt-4 inline-block bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-semibold shadow-sm border border-yellow-200">
+        ⚠ Nota Legal: Los montos exactos y fechas límite anuales dependen de la publicación específica
+        del Presupuesto de Egresos de la Federación para el año fiscal en curso en el DOF.
+      </div>
+      <!-- CTA rápido debajo del header -->
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href="#requisitos" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full gov-maroon text-white font-semibold text-sm hover:opacity-90 transition">
+          📋 Ver Checklist de Requisitos
+        </a>
+        <a href="https://wa.me/524775805988?text=Quiero%20tramitar%20el%20Programa%20de%20Sustituci%C3%B3n%20Vehicular%20con%20un%20FAW%20ELAM%20nuevo." target="_blank" rel="noopener"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-600 text-white font-semibold text-sm hover:bg-emerald-500 transition">
+          🚛 Quiero un FAW nuevo con este programa
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+    <!-- 1. NATURALEZA Y BENEFICIO -->
+    <section id="naturaleza" class="scroll-mt-20">
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold border-b-2 border-[#9F2241] inline-block pb-1 mb-4">1. Naturaleza y Análisis de Beneficio Real</h2>
+        <p class="text-stone-600">Este apartado desglosa la justificación gubernamental del programa y cuantifica el impacto real para el transportista. El objetivo principal es renovar la flota vehicular del Autotransporte Federal mediante incentivos fiscales y crediticios a cambio de la destrucción (chatarrización) de unidades obsoletas.</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white p-6 rounded-xl shadow-sm border border-stone-200">
+        <div>
+          <h3 class="text-xl font-semibold mb-3">Justificación y Objetivo</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start"><span class="mr-2 text-xl gov-maroon-text">✔</span><span><strong>Seguridad Vial:</strong> Reducir accidentes causados por fallas mecánicas en unidades con más de 10 años de antigüedad.</span></li>
+            <li class="flex items-start"><span class="mr-2 text-xl gov-maroon-text">✔</span><span><strong>Impacto Ambiental:</strong> Disminución drástica de emisiones de Gases de Efecto Invernadero (GEI) al transitar a motores Euro V / EPA 10 o superiores.</span></li>
+            <li class="flex items-start"><span class="mr-2 text-xl gov-maroon-text">✔</span><span><strong>Competitividad:</strong> Reducción de costos de operación para el "Hombre-Camión" y pequeñas empresas mediante flotas eficientes.</span></li>
+          </ul>
+        </div>
+        <div class="flex flex-col">
+          <h3 class="text-lg font-semibold text-center mb-2">Comparativa de Impacto: Unidad Obsoleta vs. Unidad Nueva</h3>
+          <div class="chart-container"><canvas id="impactChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. POBLACIÓN OBJETIVO -->
+    <section id="poblacion" class="scroll-mt-20 bg-stone-100 p-8 rounded-xl shadow-inner border border-stone-200">
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold border-b-2 border-[#9F2241] inline-block pb-1 mb-4">2. Población Objetivo y Límites</h2>
+        <p class="text-stone-600">Interactúe con las pestañas para visualizar las reglas específicas aplicables según la modalidad de su servicio de autotransporte.</p>
+      </div>
+      <div class="flex border-b border-stone-300 mb-6">
+        <button id="btn-carga" class="py-2 px-6 font-semibold tab-active focus:outline-none transition-colors" onclick="switchTab('carga')">🚚 Autotransporte de Carga</button>
+        <button id="btn-pasaje" class="py-2 px-6 font-semibold text-stone-500 hover:text-[#9F2241] focus:outline-none transition-colors" onclick="switchTab('pasaje')">🚌 Autotransporte de Pasaje/Turismo</button>
+      </div>
+      <div id="content-carga" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-5 rounded border border-stone-200 shadow-sm">
+          <h4 class="font-bold text-lg mb-2 gov-maroon-text">¿Quiénes califican?</h4>
+          <p class="text-sm">Personas Físicas y Morales permisionarias del Servicio de Autotransporte Federal de Carga.</p>
+          <p class="text-sm mt-2 font-semibold">Enfoque principal:</p>
+          <ul class="list-disc pl-5 text-sm mt-1">
+            <li>Hombre-Camión (1 a 5 unidades)</li>
+            <li>Pequeñas Empresas (Hasta 30 unidades)</li>
+          </ul>
+        </div>
+        <div class="bg-white p-5 rounded border border-stone-200 shadow-sm">
+          <h4 class="font-bold text-lg mb-2 gov-maroon-text">Límites y Condiciones</h4>
+          <ul class="list-disc pl-5 text-sm space-y-1">
+            <li><strong>Antigüedad a destruir:</strong> Vehículos con 10 años o más de antigüedad.</li>
+            <li><strong>Tipo de unidad a adquirir:</strong> Vehículos nuevos o seminuevos (hasta 6 años de antigüedad).</li>
+            <li><strong>Límite de unidades:</strong> Sujeto a las reglas fiscales vigentes (históricamente limitado a 2-5 unidades por permisionario físico).</li>
+          </ul>
+        </div>
+      </div>
+      <div id="content-pasaje" class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
+        <div class="bg-white p-5 rounded border border-stone-200 shadow-sm">
+          <h4 class="font-bold text-lg mb-2 gov-maroon-text">¿Quiénes califican?</h4>
+          <p class="text-sm">Personas Físicas y Morales permisionarias del Servicio de Autotransporte Federal de Pasajeros, Turismo y Transporte Privado.</p>
+          <p class="text-sm mt-2 font-semibold">Requisito específico:</p>
+          <ul class="list-disc pl-5 text-sm mt-1"><li>Deberán comprobar la titularidad de los permisos de ruta correspondientes.</li></ul>
+        </div>
+        <div class="bg-white p-5 rounded border border-stone-200 shadow-sm">
+          <h4 class="font-bold text-lg mb-2 gov-maroon-text">Límites y Condiciones</h4>
+          <ul class="list-disc pl-5 text-sm space-y-1">
+            <li><strong>Antigüedad a destruir:</strong> Autobuses con más de 10 años de antigüedad.</li>
+            <li><strong>Configuración:</strong> El vehículo nuevo debe cumplir con las normativas vigentes de confort y seguridad estipuladas por SCT para la modalidad solicitada.</li>
+            <li><strong>Destino:</strong> Obligación de entrega al Centro de Destrucción autorizado.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. BENEFICIOS CUANTIFICABLES -->
+    <section id="beneficios" class="scroll-mt-20">
+      <h2 class="text-2xl font-bold border-b-2 border-[#9F2241] inline-block pb-1 mb-6">3. Beneficios Cuantificables para el Transportista</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-xl border-t-4 border-[#9F2241] shadow-sm text-center">
+          <div class="text-4xl font-extrabold gov-maroon-text mb-2">-30%</div>
+          <p class="text-sm font-semibold">Consumo de combustible</p>
+          <p class="text-xs text-stone-500 mt-1">Motor obsoleto vs. Euro V / EPA 10</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl border-t-4 border-[#235B4E] shadow-sm text-center">
+          <div class="text-4xl font-extrabold" style="color:#235B4E">-55%</div>
+          <p class="text-sm font-semibold">Costos de mantenimiento</p>
+          <p class="text-xs text-stone-500 mt-1">Garantía de fábrica + electrónica diagnóstica</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl border-t-4 border-[#D4C19C] shadow-sm text-center">
+          <div class="text-4xl font-extrabold" style="color:#a08c5a">-85%</div>
+          <p class="text-sm font-semibold">Emisiones contaminantes</p>
+          <p class="text-xs text-stone-500 mt-1">GEI y partículas finas vs. unidad obsoleta</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. AUTORIDADES -->
+    <section id="autoridades" class="scroll-mt-20">
+      <h2 class="text-2xl font-bold border-b-2 border-[#9F2241] inline-block pb-1 mb-6">4. Autoridades Involucradas</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded border-t-4 border-[#9F2241] shadow-sm">
+          <div class="font-bold text-lg mb-1">🏢 SICT</div>
+          <p class="text-xs text-stone-600 mb-2">Secretaría de Infraestructura, Comunicaciones y Transportes</p>
+          <p class="text-sm">Emite lineamientos, valida la legalidad de las placas/permisos y otorga las bajas de los vehículos a chatarrizar, así como el alta del vehículo nuevo.</p>
+        </div>
+        <div class="bg-white p-4 rounded border-t-4 border-[#D4C19C] shadow-sm">
+          <div class="font-bold text-lg mb-1">💰 SAT / SHCP</div>
+          <p class="text-xs text-stone-600 mb-2">Servicio de Administración Tributaria</p>
+          <p class="text-sm">Administra el estímulo fiscal. Valida los folios fiscales emitidos por los Centros de Destrucción y la aplicación del descuento en el vehículo nuevo.</p>
+        </div>
+        <div class="bg-white p-4 rounded border-t-4 border-[#235B4E] shadow-sm">
+          <div class="font-bold text-lg mb-1">🌿 SEMARNAT</div>
+          <p class="text-xs text-stone-600 mb-2">Secretaría de Medio Ambiente</p>
+          <p class="text-sm">Regula y autoriza a los Centros de Destrucción, garantizando el correcto manejo de residuos peligrosos (aceites, baterías, fluidos).</p>
+        </div>
+        <div class="bg-white p-4 rounded border-t-4 border-stone-500 shadow-sm">
+          <div class="font-bold text-lg mb-1">💹 NAFIN</div>
+          <p class="text-xs text-stone-600 mb-2">Nacional Financiera</p>
+          <p class="text-sm">Funge como puente financiero, ofreciendo garantías a la banca comercial para otorgar créditos con tasas preferenciales a los transportistas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. REQUISITOS CHECKLIST -->
+    <section id="requisitos" class="scroll-mt-20 bg-white p-6 md:p-8 rounded-xl shadow-md border border-stone-200">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+        <div>
+          <h2 class="text-2xl font-bold border-b-2 border-[#9F2241] inline-block pb-1 mb-2">5. Checklist de Requisitos (Trámite)</h2>
+          <p class="text-stone-600 text-sm">Marque las casillas conforme reúna la documentación. Su progreso se guardará temporalmente.</p>
+        </div>
+        <div class="mt-4 md:mt-0 bg-stone-100 px-4 py-2 rounded font-mono font-bold text-[#9F2241] border border-stone-200">
+          Progreso: <span id="progress-text">0%</span>
+        </div>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+        <div id="progress-bar" class="bg-[#9F2241] h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="font-bold gov-maroon-text mb-3 border-b border-stone-200 pb-1">Documentación Legal y Fiscal</h3>
+          <div class="space-y-3">
+            <label class="flex items-start space-x-3 cursor-pointer group"><input type="checkbox" class="req-checkbox mt-1 w-5 h-5 rounded focus:ring-[#9F2241]" style="accent-color:#9F2241"><span class="text-sm group-hover:text-black">Identificación Oficial Vigente (INE/Pasaporte o Acta Constitutiva y Poder Notarial).</span></label>
+            <label class="flex items-start space-x-3 cursor-pointer group"><input type="checkbox" class="req-checkbox mt-1 w-5 h-5 rounded" style="accent-color:#9F2241"><span class="text-sm group-hover:text-black">Constancia de Situación Fiscal (RFC activa).</span></label>
+            <label class="flex items-start space-x-3 cursor-pointer group"><input type="checkbox" class="req-checkbox mt-1 w-5 h-5 rounded" style="accent-color:#9F2241"><span class="text-sm group-hover:text-black">Opinión de Cumplimiento de Obligaciones Fiscales en sentido <strong>POSITIVO</strong> (Art. 32-D CFF).</span></label>
+            <label class="flex items-start space-x-3 cursor-pointer group"><input type="checkbox" class="req-checkbox mt-1 w-5 h-5 rounded" style="accent-color:#9F2241"><span class="text-sm group-hover:text-black">Comprobante de Domicilio (no mayor a 3 meses).</span></label>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-bold gov-maroon-text mb-3 border-b border-stone-200 pb-1">Documentación del Vehículo a Destruir</h3>
+          <div class="space-y-3">
+            <label class="flex items-start space-x-3 cursor-pointer group"><input type="checkbox" class="req-checkbox mt-1 w-5 h-5 rounded" style="accent-color:#9F2241"><span class="text-sm group-hover:text-black">Factura original o documento jurídico que acredite propiedad del vehículo obsoleto.</span></label>
+            <label class="flex items-start space-x-3 cursor-pointer group"><input type="checkbox" class="req-checkbox mt-1 w-5 h-5 rounded" style="accent-color:#9F2241"><span class="text-sm group-hover:text-black">Tarjeta de Circulación original vigente.</span></label>
+            <label class="flex items-start space-x-3 cursor-pointer group"><input type="checkbox" class="req-checkbox mt-1 w-5 h-5 rounded" style="accent-color:#9F2241"><span class="text-sm group-hover:text-black">Título de Permiso otorgado por la SICT.</span></label>
+            <label class="flex items-start space-x-3 cursor-pointer group"><input type="checkbox" class="req-checkbox mt-1 w-5 h-5 rounded" style="accent-color:#9F2241"><span class="text-sm group-hover:text-black">Juego de Placas Metálicas expedidas por la SICT para entregarlas.</span></label>
+            <label class="flex items-start space-x-3 cursor-pointer group"><input type="checkbox" class="req-checkbox mt-1 w-5 h-5 rounded" style="accent-color:#9F2241"><span class="text-sm group-hover:text-black">Documento de Pre-autorización de crédito (si aplica) mediante NAFIN/Banca.</span></label>
+          </div>
+        </div>
+      </div>
+      <!-- CTA después del checklist -->
+      <div class="mt-8 p-4 bg-purple-50 border border-purple-200 rounded-xl flex flex-col sm:flex-row items-center gap-4">
+        <div class="flex-1">
+          <p class="font-semibold text-purple-900 text-sm">¿Tienes todos los documentos? <span class="font-normal text-stone-600">Te acompaño en cada paso del trámite y te consigo el FAW que mejor se adapta a tu ruta.</span></p>
+        </div>
+        <a href="https://wa.me/524775805988?text=Ya%20reun%C3%AD%20mis%20documentos%20para%20el%20Programa%20de%20Sustituci%C3%B3n%20Vehicular.%20%C2%BFPodemos%20avanzar?" target="_blank" rel="noopener"
+          class="flex-shrink-0 px-5 py-2.5 rounded-full bg-purple-700 text-white font-semibold text-sm hover:bg-purple-600 transition">
+          Estoy listo → WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <!-- 6. PROCEDIMIENTO -->
+    <section id="procedimiento" class="scroll-mt-20">
+      <h2 class="text-2xl font-bold border-b-2 border-[#9F2241] inline-block pb-1 mb-4">6. Esquema de Procedimiento y Tiempos</h2>
+      <p class="text-stone-600 mb-6">El flujo logístico y documental requerido para la aprobación del trámite.</p>
+      <div class="overflow-x-auto shadow-md rounded-lg border border-stone-200">
+        <table class="w-full text-sm text-left text-stone-700 bg-white">
+          <thead class="text-xs text-white uppercase gov-maroon">
+            <tr>
+              <th class="px-6 py-4">Fase / Paso</th>
+              <th class="px-6 py-4">Área / Autoridad</th>
+              <th class="px-6 py-4">Acción a realizar</th>
+              <th class="px-6 py-4 font-bold" style="background-color:#8A1D38">Tiempo Estimado</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-stone-200">
+            <tr class="hover:bg-stone-50 transition"><td class="px-6 py-4 font-semibold text-stone-900">1. Pre-Validación de Unidad</td><td class="px-6 py-4">SICT (Centro SCT local)</td><td class="px-6 py-4">Revisión física y documental de la unidad antigua para certificar que está operativa y pertenece al permisionario.</td><td class="px-6 py-4 whitespace-nowrap">5 a 10 días hábiles</td></tr>
+            <tr class="hover:bg-stone-50 transition"><td class="px-6 py-4 font-semibold text-stone-900">2. Pre-Aprobación Financiera</td><td class="px-6 py-4">Distribuidor Autorizado / NAFIN</td><td class="px-6 py-4">Cotización de la unidad nueva, solicitud de crédito y evaluación de capacidad de pago.</td><td class="px-6 py-4 whitespace-nowrap">10 a 15 días hábiles</td></tr>
+            <tr class="hover:bg-stone-50 transition"><td class="px-6 py-4 font-semibold text-stone-900">3. Ingreso y Destrucción</td><td class="px-6 py-4">Centro de Destrucción Autorizado</td><td class="px-6 py-4">Entrega de la unidad y placas. El centro destruye el chasis y bloque de motor, emitiendo un Folio de Destrucción.</td><td class="px-6 py-4 whitespace-nowrap">1 a 3 días hábiles</td></tr>
+            <tr class="hover:bg-stone-50 transition"><td class="px-6 py-4 font-semibold text-stone-900">4. Emisión de Certificado SAT</td><td class="px-6 py-4">SAT / Distribuidor</td><td class="px-6 py-4">El distribuidor registra el folio de destrucción y aplica el estímulo fiscal al precio neto de la unidad nueva.</td><td class="px-6 py-4 whitespace-nowrap">3 a 5 días hábiles</td></tr>
+            <tr class="hover:bg-stone-50 transition"><td class="px-6 py-4 font-semibold text-stone-900">5. Alta de Nueva Unidad</td><td class="px-6 py-4">SICT</td><td class="px-6 py-4">Trámite de alta vehicular, expedición de nuevas placas federales y tarjeta de circulación para el vehículo nuevo.</td><td class="px-6 py-4 whitespace-nowrap">5 a 7 días hábiles</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 7. FAQ -->
+    <section id="faq" class="scroll-mt-20 mb-16">
+      <h2 class="text-2xl font-bold border-b-2 border-[#9F2241] inline-block pb-1 mb-6">7. FAQ — Las 5 Objeciones Comunes</h2>
+      <div class="space-y-4" id="accordion-container"></div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <div class="bg-gradient-to-r from-[#9F2241] to-[#7a1a31] rounded-2xl p-8 text-center text-white shadow-xl">
+      <h3 class="text-2xl font-bold mb-2">¿Tu unidad tiene 10+ años?</h3>
+      <p class="text-white/80 mb-6 max-w-xl mx-auto">Chatarrízala, accede al estímulo fiscal del SAT y financia tu nuevo ELAM FAW con crédito NAFIN preferencial. Yo te acompaño en todo el proceso.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="https://wa.me/524775805988?text=Hola%20Ram%C3%B3n%2C%20mi%20unidad%20tiene%20m%C3%A1s%20de%2010%20a%C3%B1os%20y%20quiero%20el%20Programa%20de%20Sustituci%C3%B3n." target="_blank" rel="noopener"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-[#9F2241] font-bold text-sm hover:bg-stone-100 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12C2 13.85 2.5 15.6 3.39 17.1L2 22L7.06 20.66C8.56 21.5 10.23 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2M16.5 17.5C16.2 18.2 15 18.8 14.3 18.9C13.8 19 13.2 19 11.5 18.3C9.2 17.4 7.7 15 7.6 14.8C7.5 14.7 6.4 13.2 6.4 11.7C6.4 10.2 7.1 9.4 7.4 9.1C7.7 8.8 8.1 8.7 8.5 8.7C8.6 8.7 8.7 8.7 8.8 8.7C9.1 8.7 9.2 8.7 9.4 9.1C9.6 9.6 10.1 10.9 10.2 11C10.3 11.1 10.3 11.3 10.2 11.5C10.1 11.7 10 11.8 9.8 12C9.6 12.2 9.5 12.3 9.7 12.6C9.9 12.9 10.6 14 11.5 14.8C12.6 15.8 13.6 16.1 13.9 16.3C14.2 16.4 14.4 16.4 14.6 16.2C14.8 16 15.1 15.5 15.4 15C15.7 14.5 16 14.6 16.3 14.7C16.6 14.8 18.1 15.5 18.4 15.7C18.7 15.8 18.9 15.9 19 16.1C19.1 16.4 19.1 17 18.8 17.5H16.5Z"/></svg>
+          Contactar a Ramón por WhatsApp
+        </a>
+        <a href="/HUB-NFC/" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-white text-white font-semibold text-sm hover:bg-white/10 transition">
+          ← Volver al HUB FAW ZenithFlow
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="bg-stone-900 text-stone-400 py-8 text-center text-sm">
+    <div class="max-w-7xl mx-auto px-4">
+      <p>© 2026 Análisis Ejecutivo — Ramón Daniel Rivera Ayala · ELAM FAW Bajío</p>
+      <p class="mt-2 text-xs">Datos basados en Lineamientos oficiales de la Secretaría de Infraestructura, Comunicaciones y Transportes. No sustituye asesoría legal personalizada.</p>
+      <p class="mt-2"><a href="/HUB-NFC/" class="text-stone-500 hover:text-[#D4C19C] transition underline decoration-dotted">← Regresar al HUB FAW ZenithFlow</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // ── Tabs lógica ──
+    function switchTab(tabId) {
+      document.getElementById('btn-carga').classList.remove('tab-active');
+      document.getElementById('btn-pasaje').classList.remove('tab-active');
+      document.getElementById('btn-carga').classList.add('text-stone-500');
+      document.getElementById('btn-pasaje').classList.add('text-stone-500');
+      document.getElementById('content-carga').classList.add('hidden');
+      document.getElementById('content-pasaje').classList.add('hidden');
+      let activeBtn = document.getElementById('btn-' + tabId);
+      activeBtn.classList.remove('text-stone-500');
+      activeBtn.classList.add('tab-active');
+      document.getElementById('content-' + tabId).classList.remove('hidden');
+    }
+
+    // ── Checklist progreso ──
+    const checkboxes = document.querySelectorAll('.req-checkbox');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    function updateProgress() {
+      const total = checkboxes.length;
+      const checked = document.querySelectorAll('.req-checkbox:checked').length;
+      const percentage = Math.round((checked / total) * 100);
+      progressBar.style.width = percentage + '%';
+      progressText.innerText = percentage + '%';
+      if (percentage === 100) {
+        progressText.style.color = '#16a34a';
+        progressBar.style.backgroundColor = '#16a34a';
+      } else {
+        progressText.style.color = '#9F2241';
+        progressBar.style.backgroundColor = '#9F2241';
+      }
+    }
+    checkboxes.forEach(box => box.addEventListener('change', updateProgress));
+
+    // ── FAQ Accordion ──
+    const faqs = [
+      { q: 'El trámite en la SICT/SAT tiene algún costo administrativo oculto?', a: 'No. El proceso para acceder al estímulo fiscal y los trámites ante SICT/SAT son gratuitos. Sin embargo, el transportista asume costos externos como copias, notarios (si requiere poderes) y los gastos de traslado de la unidad al centro de destrucción.' },
+      { q: '¿Puedo acceder al programa si tengo multas federales pendientes?', a: 'No. Uno de los requisitos estrictos es la Opinión de Cumplimiento en sentido POSITIVO del SAT y no contar con adeudos o multas federales pendientes de pago ante la SICT o Guardia Nacional en la unidad a destruir.' },
+      { q: '¿El estímulo fiscal me lo entregan en efectivo a mi cuenta bancaria?', a: 'No. El beneficio no es líquido. Es un estímulo fiscal que el SAT otorga al ensamblador/distribuidor, quien a su vez lo aplica directamente como un descuento/bono al precio total de la unidad nueva que usted está adquiriendo.' },
+      { q: '¿Qué sucede con mis placas federales actuales?', a: 'Las placas del vehículo obsoleto deben ser entregadas físicamente para su baja definitiva. Posteriormente, al dar de alta el vehículo nuevo, la SICT le emitirá un juego de placas metálicas y tarjeta de circulación completamente nuevos, vinculados a su mismo permiso.' },
+      { q: '¿Puedo comprar un camión americano legalizado ("chocolate") con este programa?', a: 'Generalmente no. Las reglas operativas priorizan la adquisición de vehículos nuevos de fabricación nacional o importación definitiva de agencia, o en su caso, seminuevos certificados específicos (hasta 6 años). Las unidades "chocolate" legalizadas no suelen ser elegibles para el estímulo principal.' }
+    ];
+    const accordionContainer = document.getElementById('accordion-container');
+    faqs.forEach((faq, index) => {
+      const item = document.createElement('div');
+      item.className = 'border border-stone-200 rounded-lg bg-white overflow-hidden';
+      const header = document.createElement('button');
+      header.className = 'w-full px-6 py-4 text-left font-semibold text-stone-800 bg-stone-50 hover:bg-stone-100 flex justify-between items-center focus:outline-none transition-colors';
+      header.innerHTML = `<span>${index + 1}. ${faq.q}</span><span class="text-xl gov-maroon-text transition-transform transform icon-expand">+</span>`;
+      const content = document.createElement('div');
+      content.className = 'px-6 py-0 max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-white text-stone-600 text-sm';
+      content.innerHTML = `<p class="py-4 border-t border-stone-100">${faq.a}</p>`;
+      header.addEventListener('click', () => {
+        const isOpen = content.style.maxHeight !== '0px' && content.style.maxHeight !== '';
+        document.querySelectorAll('#accordion-container div div').forEach(d => { d.style.maxHeight = null; });
+        document.querySelectorAll('.icon-expand').forEach(icon => { icon.textContent = '+'; icon.classList.remove('rotate-45'); });
+        if (!isOpen) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          header.querySelector('.icon-expand').textContent = '×';
+        }
+      });
+      item.appendChild(header);
+      item.appendChild(content);
+      accordionContainer.appendChild(item);
+    });
+
+    // ── Chart.js ──
+    const ctx = document.getElementById('impactChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Consumo Combustible', 'Costos Mantenimiento', 'Emisiones Contaminantes'],
+        datasets: [
+          { label: 'Unidad Obsoleta (10+ años)', data: [100, 100, 100], backgroundColor: '#44403C', borderRadius: 4 },
+          { label: 'Unidad Nueva Euro V / EPA 10', data: [70, 45, 15], backgroundColor: '#235B4E', borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { font: { family: 'sans-serif' } } },
+          tooltip: { callbacks: { label: function(context) { let label = context.dataset.label || ''; if (label) label += ': '; if (context.parsed.y !== null) label += context.parsed.y + ' Índice Relativo'; return label; } } }
+        },
+        scales: {
+          y: { beginAtZero: true, max: 110, title: { display: true, text: 'Índice Base 100 (Obsoleto)' } },
+          x: { ticks: { callback: function(value) { const label = this.getLabelForValue(value); return label.length > 16 ? label.substring(0, 16) + '...' : label; } } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
