@@ -1,479 +1,315 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Plan México | IA Asistente — Ramón Daniel Rivera</title>
-  <meta name="description" content="Asistente IA para evaluar elegibilidad en el Plan México y generar memorias técnicas. ELAM FAW Bajío.">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="canonical" href="https://tuconsultor.github.io/HUB-NFC/plan-mexico.html">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plan México – Deduce tu Camión | ELAM FAW Bajío</title>
+  <meta name="description" content="Conoce el Plan México: deduce hasta el 86% de tu camión nuevo ELAM FAW. Asesoría gratuita con Fabius."/>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter','sans-serif'], mono: ['Fira Code','monospace'] },
-          colors: {
-            surface:'#0f172a', surfaceHover:'#1e293b',
-            accent:'#06b6d4', accentSoft:'rgba(6,182,212,0.1)', gold:'#f59e0b'
-          },
-          animation: {
-            'fade-in-up':'fadeInUp 0.8s cubic-bezier(0.22,1,0.36,1) forwards',
-            'pulse-slow':'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite'
-          },
-          keyframes: {
-            fadeInUp: {
-              '0%':{opacity:'0',transform:'translateY(30px)'},
-              '100%':{opacity:'1',transform:'translateY(0)'}
-            }
-          }
-        }
-      }
-    }
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body {
-      background-color:#020617;
-      color:#e2e8f0;
-      background-image:
-        linear-gradient(to right,rgba(255,255,255,.05) 1px,transparent 1px),
-        linear-gradient(to bottom,rgba(255,255,255,.05) 1px,transparent 1px);
-      background-size:40px 40px;
-      overflow-x:hidden;
-    }
-    ::-webkit-scrollbar{width:8px}
-    ::-webkit-scrollbar-track{background:#020617}
-    ::-webkit-scrollbar-thumb{background:#334155;border-radius:4px}
-    ::-webkit-scrollbar-thumb:hover{background:#06b6d4}
-
-    .bento-card {
-      background:rgba(15,23,42,.6);
-      backdrop-filter:blur(12px);
-      -webkit-backdrop-filter:blur(12px);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:24px;
-      transition:all .4s cubic-bezier(.16,1,.3,1);
-      position:relative;
-      overflow:hidden;
-    }
-    .bento-card:hover {
-      border-color:rgba(6,182,212,.4);
-      background:rgba(30,41,59,.8);
-      transform:translateY(-2px);
-      box-shadow:0 10px 40px -10px rgba(6,182,212,.15);
-    }
-    .bento-card::before {
-      content:"";
-      position:absolute;
-      top:0;left:0;right:0;bottom:0;
-      background:radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),rgba(6,182,212,.06),transparent 40%);
-      opacity:0;
-      transition:opacity .5s;
-      pointer-events:none;
-      z-index:0;
-    }
-    .bento-card:hover::before { opacity:1; }
-    .bento-content { position:relative; z-index:1; }
-
-    .text-gradient {
-      background:linear-gradient(135deg,#fff 0%,#94a3b8 100%);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-    .text-gradient-accent {
-      background:linear-gradient(135deg,#22d3ee 0%,#3b82f6 100%);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-    .token-keyword{color:#c678dd}
-    .token-string{color:#98c379}
-    .token-comment{color:#5c6370;font-style:italic}
-
-    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-    .tw-cursor{animation:blink 1s step-end infinite}
-
-    .ia-input {
-      background:rgba(2,6,23,.7);
-      border:1px solid rgba(51,65,85,.8);
-      border-radius:12px;
-      color:#e2e8f0;
-      font-family:'Inter',sans-serif;
-      font-size:.875rem;
-      line-height:1.6;
-      padding:.75rem 1rem;
-      width:100%;
-      resize:none;
-      transition:border-color .2s, box-shadow .2s;
-    }
-    .ia-input::placeholder{color:#475569}
-    .ia-input:focus{
-      border-color:#06b6d4;
-      outline:none;
-      box-shadow:0 0 0 1px rgba(6,182,212,.3);
-    }
-    .ia-result {
-      background:rgba(2,6,23,.6);
-      border:1px solid rgba(51,65,85,.6);
-      border-radius:12px;
-      padding:1rem;
-      font-size:.8125rem;
-      line-height:1.7;
-      color:#cbd5e1;
-      white-space:pre-wrap;
-      min-height:80px;
-    }
-    @keyframes goldPulse{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.4)}50%{box-shadow:0 0 0 8px rgba(245,158,11,0)}}
-    .cta-gold{animation:goldPulse 2.5s ease-in-out infinite}
-
-    @media (hover: none) {
-      .bento-card:active {
-        transform: scale(0.985) !important;
-        border-color: rgba(6,182,212,0.5) !important;
-        box-shadow: 0 0 20px -5px rgba(6,182,212,0.2) !important;
-        transition: transform 0.12s ease, border-color 0.12s ease !important;
-      }
-    }
+    body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e5e7eb; }
+    .gradient-hero { background: linear-gradient(135deg, #0a0a0f 0%, #12121f 50%, #1a0a0a 100%); }
+    .card-dark { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 1rem; transition: all .3s; }
+    .card-dark:hover { background: rgba(255,255,255,0.07); border-color: rgba(220,38,38,0.4); transform: translateY(-3px); }
+    .badge-red { background: rgba(220,38,38,0.15); color: #f87171; border: 1px solid rgba(220,38,38,0.3); border-radius: 9999px; padding: .25rem .85rem; font-size: .75rem; font-weight: 600; letter-spacing:.05em; }
+    .btn-primary { background: linear-gradient(135deg,#dc2626,#b91c1c); color:#fff; font-weight:700; border-radius:.75rem; padding:.85rem 2rem; transition: all .3s; box-shadow: 0 4px 20px rgba(220,38,38,0.35); }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow: 0 8px 30px rgba(220,38,38,0.5); }
+    .btn-outline { border:2px solid #dc2626; color:#f87171; font-weight:600; border-radius:.75rem; padding:.8rem 1.8rem; transition: all .3s; }
+    .btn-outline:hover { background: rgba(220,38,38,0.12); }
+    .stat-card { background: linear-gradient(135deg,rgba(220,38,38,0.12),rgba(220,38,38,0.04)); border:1px solid rgba(220,38,38,0.25); border-radius:1rem; }
+    .timeline-dot { width:2.5rem; height:2.5rem; background:linear-gradient(135deg,#dc2626,#b91c1c); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 0 0 4px rgba(220,38,38,0.15); }
+    .section-divider { border-top:1px solid rgba(255,255,255,0.06); }
+    .tag { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:.5rem; padding:.3rem .7rem; font-size:.8rem; color:#9ca3af; }
+    .highlight-box { background: linear-gradient(135deg, rgba(220,38,38,0.1), rgba(185,28,28,0.05)); border-left: 4px solid #dc2626; border-radius: 0 .75rem .75rem 0; }
+    .icon-circle { width:3rem; height:3rem; background:rgba(220,38,38,0.12); border:1px solid rgba(220,38,38,0.25); border-radius:50%; display:flex; align-items:center; justify-content:center; }
   </style>
 </head>
-<body class="antialiased selection:bg-cyan-500 selection:text-white pb-20">
+<body class="gradient-hero min-h-screen">
 
-  <!-- Glow blobs — idénticos al HUB -->
-  <div class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/20 blur-[120px] pointer-events-none z-[-1]"></div>
-  <div class="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/20 blur-[120px] pointer-events-none z-[-1]"></div>
-  <div class="fixed top-[40%] left-[35%] w-[30%] h-[30%] rounded-full bg-indigo-900/15 blur-[100px] pointer-events-none z-[-1]"></div>
-
-  <main class="max-w-5xl mx-auto px-6 pt-12 md:pt-20 flex flex-col gap-6">
-
-    <!-- ── HEADER ── -->
-    <header class="mb-4 opacity-0 animate-fade-in-up">
-      <div class="flex items-start justify-between gap-4 flex-wrap">
-        <div>
-          <div class="flex items-center gap-2 mb-3">
-            <span class="relative flex h-3 w-3">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-400"></span>
-            </span>
-            <span class="font-mono text-sm text-blue-400">Plan México · Asistente IA activo</span>
-          </div>
-          <h1 class="text-2xl md:text-4xl font-bold tracking-tight mb-2">
-            <span class="text-gradient">Portal IA —</span> <span class="text-gradient-accent">Plan México</span>
-          </h1>
-          <p class="font-mono text-xs text-slate-400">
-            <span class="token-keyword">const</span> tools = [<span class="token-string">"Elegibilidad"</span>, <span class="token-string">"Memoria Técnica"</span>];<span class="tw-cursor token-string">|</span>
-          </p>
-        </div>
-        <a href="/HUB-NFC/"
-          class="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700 bg-slate-900/60 text-slate-300 text-xs font-mono hover:border-accent hover:text-accent transition-all">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-          </svg>
-          Volver al HUB FAW
-        </a>
-      </div>
-      <p class="text-slate-400 text-sm mt-3 max-w-2xl leading-relaxed">
-        Diseñado para directores y CFOs que necesitan validar elegibilidad y generar memorias técnicas
-        defendibles ante el Comité del Plan México — sin perderse en el DOF.
-      </p>
-    </header>
-
-    <!-- ── BENTO GRID 2 columnas ── -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-      <!-- TARJETA 1: ASISTENTE DE ELEGIBILIDAD -->
-      <article class="bento-card p-6 md:p-8 opacity-0 animate-fade-in-up" style="animation-delay:100ms">
-        <div class="bento-content flex flex-col gap-4 h-full">
-
-          <!-- Header tarjeta -->
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <p class="font-mono text-xs text-slate-500 mb-1">// plan_mexico.elegibilidad</p>
-              <h2 class="text-white text-lg font-semibold leading-snug">
-                Asistente de <span class="text-gradient-accent">Elegibilidad</span>
-              </h2>
-            </div>
-            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-blue-900/30 border border-blue-800/50 flex items-center justify-center">
-              <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-            </div>
-          </div>
-
-          <p class="text-slate-400 text-xs leading-relaxed">
-            Describe tu proyecto de inversión. La IA evalúa si en principio califica para deducción
-            inmediata según los lineamientos del Plan México (DOF 21/mar/2025) e identifica riesgos.
-          </p>
-
-          <label class="font-mono text-[11px] text-slate-500">// proyecto_inversion.descripcion</label>
-          <textarea
-            id="investment-desc"
-            class="ia-input"
-            rows="5"
-            placeholder="Ej: Planeo comprar 5 tractocamiones eléctricos marca FAW año 2026 para transporte refrigerado en la ruta León–CDMX. Persona moral. RFC activo..."
-          ></textarea>
-
-          <div class="flex items-center gap-3">
-            <button
-              id="analyze-btn"
-              onclick="analyzeInvestment()"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-500 text-white text-xs font-semibold hover:bg-blue-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              <span id="analyze-spinner" class="hidden">
-                <svg class="w-3.5 h-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3L12 0v4a8 8 0 00-8 8h4z"/>
-                </svg>
-              </span>
-              <svg id="analyze-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"/>
-              </svg>
-              <span id="analyze-label">Analizar elegibilidad</span>
-            </button>
-            <span class="font-mono text-[10px] text-slate-600">Respuesta en ~10s</span>
-          </div>
-
-          <div id="analysis-result" class="ia-result hidden"></div>
-
-        </div>
-      </article>
-
-      <!-- TARJETA 2: GENERADOR DE MEMORIA TÉCNICA -->
-      <article class="bento-card p-6 md:p-8 opacity-0 animate-fade-in-up" style="animation-delay:200ms">
-        <div class="bento-content flex flex-col gap-4 h-full">
-
-          <!-- Header tarjeta -->
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <p class="font-mono text-xs text-slate-500 mb-1">// plan_mexico.memoria_tecnica</p>
-              <h2 class="text-white text-lg font-semibold leading-snug">
-                Generador de <span class="text-gradient-accent">Memoria Técnica</span>
-              </h2>
-            </div>
-            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-900/30 border border-emerald-800/50 flex items-center justify-center">
-              <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-              </svg>
-            </div>
-          </div>
-
-          <p class="text-slate-400 text-xs leading-relaxed">
-            Proporciona contexto básico de tu proyecto y la IA redactará el borrador formal de la
-            memoria técnica requerida por el Comité de Evaluación del Plan México.
-          </p>
-
-          <label class="font-mono text-[11px] text-slate-500">// contexto_proyecto <span class="text-slate-600">(recomendado)</span></label>
-          <textarea
-            id="project-context"
-            class="ia-input"
-            rows="5"
-            placeholder="Ej: Flotilla de 8 unidades. Ruta León–Guadalajara. Meta: reducir emisiones 40%. Horizonte 5 años. Empresa de distribución de alimentos. Inversión aproximada $4M MXN..."
-          ></textarea>
-
-          <div class="flex items-center gap-3">
-            <button
-              id="gen-btn"
-              onclick="generateProject()"
-              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 text-white text-xs font-semibold hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              <span id="gen-spinner" class="hidden">
-                <svg class="w-3.5 h-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3L12 0v4a8 8 0 00-8 8h4z"/>
-                </svg>
-              </span>
-              <svg id="gen-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-              </svg>
-              <span id="gen-label">Generar borrador</span>
-            </button>
-            <span class="font-mono text-[10px] text-slate-600">Revisar antes de enviar</span>
-          </div>
-
-          <div id="project-result" class="ia-result hidden"></div>
-
-          <p class="font-mono text-[10px] text-slate-600 mt-auto">
-            *Ajusta montos, denominaciones y artículos del DOF antes de presentar al comité.
-          </p>
-        </div>
-      </article>
-
+<!-- NAV -->
+<nav class="sticky top-0 z-50 border-b border-white/5 backdrop-blur-xl bg-black/40 px-4 py-3">
+  <div class="max-w-5xl mx-auto flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center text-white text-xs font-black">FAW</div>
+      <span class="text-sm font-semibold text-white">ELAM FAW Bajío</span>
     </div>
+    <div class="flex items-center gap-2">
+      <span class="badge-red hidden sm:block">Plan México 2025–2030</span>
+      <a href="https://tuconsultor.github.io/HUB-NFC/" class="btn-primary text-sm px-4 py-2 inline-block">Asesoría Gratis →</a>
+    </div>
+  </div>
+</nav>
 
-    <!-- ── AVISO API KEY ── -->
-    <div id="api-warning" class="hidden opacity-0 animate-fade-in-up bento-card p-4" style="animation-delay:300ms; border-color:rgba(245,158,11,.3)">
-      <div class="bento-content flex items-start gap-3">
-        <svg class="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-        </svg>
-        <div>
-          <p class="text-amber-300 text-xs font-semibold mb-1">API Key no configurada</p>
-          <p class="text-slate-400 text-xs">Para activar las funciones de IA, el administrador debe inyectar la variable
-            <code class="font-mono text-amber-300 bg-slate-900/60 px-1 rounded">GEMINI_API_KEY</code>
-            en el entorno. Mientras tanto los botones mostrarán este aviso.
-          </p>
-        </div>
+<!-- HERO -->
+<section class="max-w-5xl mx-auto px-4 pt-16 pb-12 text-center">
+  <span class="badge-red mb-4 inline-block">🇲🇽 Estímulo Fiscal Oficial</span>
+  <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-6">
+    Deduce hasta el
+    <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">86%</span>
+    <br/>de tu camión nuevo
+  </h1>
+  <p class="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
+    El <strong class="text-white">Plan México</strong> permite a tu empresa aplicar deducción inmediata de inversión en vehículos pesados nuevos. Con ELAM FAW maximizas el beneficio y fortaleces tu flota.
+  </p>
+  <div class="flex flex-col sm:flex-row gap-3 justify-center mb-12">
+    <a href="tel:4775805988" class="btn-primary text-base inline-block text-center">📞 477 580 5988 – Llámanos</a>
+    <a href="mailto:daniel.rivera@elambajio.com" class="btn-outline text-base inline-block text-center">✉️ Agendar Asesoría</a>
+  </div>
+
+  <!-- STATS ROW -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
+    <div class="stat-card p-4">
+      <div class="text-3xl font-black text-red-400">86%</div>
+      <div class="text-xs text-gray-400 mt-1">Deducción<br/>2025–2026</div>
+    </div>
+    <div class="stat-card p-4">
+      <div class="text-3xl font-black text-red-400">83%</div>
+      <div class="text-xs text-gray-400 mt-1">Deducción<br/>2027–2030</div>
+    </div>
+    <div class="stat-card p-4">
+      <div class="text-3xl font-black text-white">30</div>
+      <div class="text-xs text-gray-400 mt-1">Días máx.<br/>para resolución</div>
+    </div>
+    <div class="stat-card p-4">
+      <div class="text-3xl font-black text-white">$0</div>
+      <div class="text-xs text-gray-400 mt-1">Costo de<br/>asesoría inicial</div>
+    </div>
+  </div>
+</section>
+
+<!-- CHART DEDUCCION -->
+<section class="max-w-5xl mx-auto px-4 py-10 section-divider">
+  <h2 class="text-2xl font-bold text-white text-center mb-2">¿Cuánto ahorras?</h2>
+  <p class="text-gray-400 text-center text-sm mb-8">Simulación de ahorro fiscal sobre un tractocamión de $2,500,000 MXN</p>
+  <div class="grid md:grid-cols-2 gap-6 items-center">
+    <div class="card-dark p-6">
+      <canvas id="chartDeduccion" height="280"></canvas>
+    </div>
+    <div class="space-y-4">
+      <div class="highlight-box p-4">
+        <div class="text-xs text-gray-400 mb-1">Inversión total (sin IVA)</div>
+        <div class="text-2xl font-black text-white">$2,500,000 MXN</div>
+      </div>
+      <div class="highlight-box p-4">
+        <div class="text-xs text-gray-400 mb-1">Deducción inmediata 86% (2025–2026)</div>
+        <div class="text-2xl font-black text-red-400">$2,150,000 MXN</div>
+        <div class="text-xs text-gray-500 mt-1">Base gravable reducida en ese monto</div>
+      </div>
+      <div class="highlight-box p-4">
+        <div class="text-xs text-gray-400 mb-1">Ahorro ISR estimado (tasa 30%)</div>
+        <div class="text-2xl font-black text-green-400">~$645,000 MXN</div>
+        <div class="text-xs text-gray-500 mt-1">Calculado sobre la base deducida</div>
+      </div>
+      <p class="text-xs text-gray-500">*Simulación ilustrativa. El ahorro real depende de la situación fiscal de cada empresa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO PASO A PASO -->
+<section class="max-w-5xl mx-auto px-4 py-10 section-divider">
+  <h2 class="text-2xl font-bold text-white text-center mb-2">Proceso Completo</h2>
+  <p class="text-gray-400 text-center text-sm mb-10">Te acompañamos en cada una de estas etapas</p>
+  <div id="steps-container" class="space-y-4"></div>
+
+  <!-- TIMELINE DIAS -->
+  <div class="card-dark p-6 mt-10">
+    <h3 class="text-white font-bold text-lg mb-6 text-center">⏱ Tiempos Oficiales del Gobierno</h3>
+    <div class="grid sm:grid-cols-4 gap-4 text-center">
+      <div>
+        <div class="text-red-400 font-black text-3xl">6</div>
+        <div class="text-xs text-gray-400 mt-1">días para revisar<br/>el escrito libre</div>
+      </div>
+      <div>
+        <div class="text-red-400 font-black text-3xl">3</div>
+        <div class="text-xs text-gray-400 mt-1">días para solicitar<br/>correcciones</div>
+      </div>
+      <div>
+        <div class="text-red-400 font-black text-3xl">30</div>
+        <div class="text-xs text-gray-400 mt-1">días máx. para<br/>resolución del comité</div>
+      </div>
+      <div>
+        <div class="text-red-400 font-black text-3xl">7+4</div>
+        <div class="text-xs text-gray-400 mt-1">días emisión +<br/>notificación constancia</div>
       </div>
     </div>
-
-    <!-- ── CTA VOLVER AL HUB ── -->
-    <div class="opacity-0 animate-fade-in-up" style="animation-delay:350ms">
-      <a href="/HUB-NFC/"
-        class="cta-gold flex items-center justify-center gap-3 w-full py-4 rounded-2xl border border-amber-500/40 bg-amber-500/10 text-amber-400 font-semibold hover:bg-amber-500/20 hover:border-amber-400 transition-all text-sm md:text-base">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-        </svg>
-        ← Volver al HUB FAW ZenithFlow
-      </a>
+    <div class="mt-6">
+      <canvas id="chartTimeline" height="90"></canvas>
     </div>
+  </div>
+</section>
 
-    <!-- FOOTER -->
-    <footer class="mt-4 text-center opacity-0 animate-fade-in-up" style="animation-delay:450ms">
-      <p class="font-mono text-xs text-slate-600">
-        © 2026 · Ramón Daniel Rivera Ayala · ELAM FAW Bajío ·
-        <a href="/HUB-NFC/" class="text-slate-500 hover:text-accent transition-colors underline decoration-dotted">HUB ZenithFlow</a>
-      </p>
-    </footer>
+<!-- POR QUE ELAM FAW -->
+<section class="max-w-5xl mx-auto px-4 py-10 section-divider">
+  <h2 class="text-2xl font-bold text-white text-center mb-2">¿Por qué ELAM FAW?</h2>
+  <p class="text-gray-400 text-center text-sm mb-8">Ventajas que refuerzan tu expediente y tu operación</p>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="card-dark p-5 text-center">
+      <div class="text-3xl mb-3">🇲🇽</div>
+      <h3 class="text-white font-bold text-sm mb-2">Ensamblado en México</h3>
+      <p class="text-gray-400 text-xs">Fortalece tu argumento ante Hacienda y apoya la industria nacional.</p>
+    </div>
+    <div class="card-dark p-5 text-center">
+      <div class="text-3xl mb-3">⛽</div>
+      <h3 class="text-white font-bold text-sm mb-2">Eficiencia de Combustible</h3>
+      <p class="text-gray-400 text-xs">Motores modernos que reducen costos operativos y tiempo en taller.</p>
+    </div>
+    <div class="card-dark p-5 text-center">
+      <div class="text-3xl mb-3">🔧</div>
+      <h3 class="text-white font-bold text-sm mb-2">Red Nacional</h3>
+      <p class="text-gray-400 text-xs">Talleres y distribuidores certificados en toda la República.</p>
+    </div>
+    <div class="card-dark p-5 text-center">
+      <div class="text-3xl mb-3">💰</div>
+      <h3 class="text-white font-bold text-sm mb-2">Máximo Beneficio Fiscal</h3>
+      <p class="text-gray-400 text-xs">Vehículos nuevos y de primer uso, elegibles para el 86% de deducción.</p>
+    </div>
+  </div>
+</section>
 
-  </main>
+<!-- NUESTRO SERVICIO -->
+<section class="max-w-5xl mx-auto px-4 py-10 section-divider">
+  <h2 class="text-2xl font-bold text-white text-center mb-2">Nuestro Servicio Integral</h2>
+  <p class="text-gray-400 text-center text-sm mb-8">Más que vender un camión, somos tu socio estratégico</p>
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="card-dark p-6">
+      <div class="icon-circle mb-4"><span class="text-red-400 text-lg">📋</span></div>
+      <h3 class="text-white font-bold mb-2">Validación Fiscal</h3>
+      <p class="text-gray-400 text-sm">Verificamos situación fiscal, e.firma, opinión 32‑D y elegibilidad antes de iniciar el trámite.</p>
+    </div>
+    <div class="card-dark p-6">
+      <div class="icon-circle mb-4"><span class="text-red-400 text-lg">📁</span></div>
+      <h3 class="text-white font-bold mb-2">Gestión Documental</h3>
+      <p class="text-gray-400 text-sm">Reunimos y revisamos cada documento: acta constitutiva, poderes, IMSS, estados financieros y más.</p>
+    </div>
+    <div class="card-dark p-6">
+      <div class="icon-circle mb-4"><span class="text-red-400 text-lg">🎯</span></div>
+      <h3 class="text-white font-bold mb-2">Estrategia Personalizada</h3>
+      <p class="text-gray-400 text-sm">Analizamos tu flujo de caja y diseñamos la mejor estrategia fiscal y operativa para tu empresa.</p>
+    </div>
+  </div>
+</section>
 
-  <script>
-    // ── Mouse tracking (efecto bento) ──
-    const isTouch = window.matchMedia('(hover: none)').matches;
-    document.querySelectorAll('.bento-card').forEach(card => {
-      if (!isTouch) {
-        card.addEventListener('mousemove', e => {
-          const r = card.getBoundingClientRect();
-          card.style.setProperty('--mouse-x', `${e.clientX - r.left}px`);
-          card.style.setProperty('--mouse-y', `${e.clientY - r.top}px`);
-        });
-      } else {
-        card.addEventListener('touchstart', () => {
-          card.style.transform = 'scale(0.985)';
-          card.style.borderColor = 'rgba(6,182,212,0.5)';
-          card.style.transition = 'transform 0.12s ease, border-color 0.12s ease';
-        }, { passive: true });
-        card.addEventListener('touchend', () => {
-          card.style.transform = '';
-          card.style.borderColor = '';
-        }, { passive: true });
-      }
-    });
+<!-- GRAFICO COMPARATIVO -->
+<section class="max-w-5xl mx-auto px-4 py-10 section-divider">
+  <h2 class="text-2xl font-bold text-white text-center mb-2">Deducción vs. Depreciación Tradicional</h2>
+  <p class="text-gray-400 text-center text-sm mb-8">Comparativa del beneficio en el tiempo (camión de $2.5M MXN)</p>
+  <div class="card-dark p-6">
+    <canvas id="chartComparativo" height="200"></canvas>
+  </div>
+</section>
 
-    // ── Config Gemini ──
-    const API_KEY = ""; // Inyectar clave aquí o vía entorno
-    const MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+<!-- CTA FINAL -->
+<section class="max-w-5xl mx-auto px-4 py-14 text-center">
+  <div class="card-dark p-10">
+    <span class="badge-red mb-4 inline-block">Asesoría sin costo</span>
+    <h2 class="text-3xl font-black text-white mb-4">¿Listo para deducir tu inversión?</h2>
+    <p class="text-gray-400 mb-8 max-w-xl mx-auto">Contáctanos hoy. Te guiamos desde la validación fiscal hasta la emisión de tu constancia, sin costo adicional de consultoría inicial.</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center mb-8">
+      <a href="tel:4775805988" class="btn-primary text-base inline-block text-center">📞 477 580 5988</a>
+      <a href="mailto:daniel.rivera@elambajio.com" class="btn-outline text-base inline-block text-center">✉️ daniel.rivera@elambajio.com</a>
+    </div>
+    <div class="flex flex-wrap justify-center gap-3 text-xs">
+      <span class="tag">💬 WeChat: asesorcamionero</span>
+      <span class="tag">🔒 Threema: ZWD6B2EAY</span>
+      <span class="tag">🌐 tuconsultor.github.io/HUB-NFC/</span>
+      <span class="tag">👤 Fabius – FAW Trucks ELAM Bajío</span>
+    </div>
+  </div>
+</section>
 
-    // Mostrar aviso si no hay API key
-    if (!API_KEY) {
-      const w = document.getElementById('api-warning');
-      w.classList.remove('hidden');
-      requestAnimationFrame(() => w.classList.add('opacity-100'));
+<!-- FOOTER -->
+<footer class="border-t border-white/5 py-6 text-center text-xs text-gray-600">
+  <p>© 2025–2026 ELAM FAW Bajío · Plan México · Información sujeta a cambios fiscales oficiales.</p>
+  <p class="mt-1">Ventanilla Única: Palacio Nacional, Edificio 4, Piso 4, Col. Centro, Alcaldía Cuauhtémoc, CDMX · <a href="mailto:constanciaplanmexico@hacienda.gob.mx" class="text-red-600 hover:underline">constanciaplanmexico@hacienda.gob.mx</a></p>
+</footer>
+
+<script>
+const steps = [
+  { num:"01", icon:"🔍", title:"Validación Inicial", desc:"Verificamos tu situación fiscal, la vigencia de tu e.firma, la opinión 32‑D y confirmamos que tu empresa cumple los requisitos del Plan México." },
+  { num:"02", icon:"🚛", title:"Selección del Modelo", desc:"Te ayudamos a elegir el modelo ELAM FAW ideal para tu operación y elaboramos la ficha técnica para el proyecto de inversión." },
+  { num:"03", icon:"📂", title:"Recopilación de Documentos", desc:"Reunimos constancia fiscal, identificación, acta constitutiva, poderes, cédula IMSS y estados financieros. Cada archivo listo y verificado." },
+  { num:"04", icon:"✍️", title:"Carta de Justificación", desc:"Redactamos junto contigo una carta que explique por qué la unidad es necesaria, qué operación atenderá y cómo contribuirá al crecimiento de tu negocio." },
+  { num:"05", icon:"🗂️", title:"Detalle de la Inversión", desc:"Especificamos tipo de camión, características técnicas, monto sin IVA, fecha de adquisición, inicio de uso y lugar de operación para el expediente." },
+  { num:"06", icon:"📤", title:"Envío del Expediente", desc:"Preparamos y enviamos el expediente completo a la Ventanilla Única de la Secretaría de Economía o vía constanciaplanmexico@hacienda.gob.mx." },
+  { num:"07", icon:"⚖️", title:"Seguimiento Oficial", desc:"Monitoreamos la revisión gubernamental: 6 días de revisión, hasta 3 días para correcciones, 30 días máx. de resolución + emisión y notificación." },
+  { num:"08", icon:"✅", title:"Formalización de la Compra", desc:"Con la constancia emitida, formalizamos la compra, se expide la factura y tu contador aplica la deducción inmediata en la declaración anual." },
+];
+const container = document.getElementById("steps-container");
+steps.forEach(s => {
+  const el = document.createElement("div");
+  el.className = "card-dark p-5 flex gap-4 items-start";
+  el.innerHTML = `
+    <div class="timeline-dot text-white text-xs font-black">${s.num}</div>
+    <div>
+      <div class="flex items-center gap-2 mb-1">
+        <span class="text-lg">${s.icon}</span>
+        <h3 class="text-white font-bold text-sm">${s.title}</h3>
+      </div>
+      <p class="text-gray-400 text-sm leading-relaxed">${s.desc}</p>
+    </div>`;
+  container.appendChild(el);
+});
+
+const ctx1 = document.getElementById("chartDeduccion").getContext("2d");
+new Chart(ctx1, {
+  type: "doughnut",
+  data: {
+    labels: ["Deducción inmediata (86%)", "Saldo restante (14%)"],
+    datasets: [{ data: [86, 14], backgroundColor: ["#dc2626","rgba(255,255,255,0.08)"], borderWidth: 0, hoverOffset: 6 }]
+  },
+  options: {
+    cutout: "70%",
+    plugins: {
+      legend: { labels: { color:"#9ca3af", font:{size:11} } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` } }
     }
+  }
+});
 
-    async function callGemini(prompt) {
-      if (!API_KEY) {
-        return "⚠ API Key no configurada. Contacta al administrador para activar esta función.";
-      }
-      try {
-        const res = await fetch(MODEL_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.4, top_p: 0.9, max_output_tokens: 1200 }
-          })
-        });
-        if (!res.ok) {
-          const err = await res.json().catch(() => ({}));
-          return `Error del servicio IA (${res.status}): ${err?.error?.message || 'Intenta de nuevo.'}`;
-        }
-        const data = await res.json();
-        return data?.candidates?.[0]?.content?.parts?.[0]?.text
-          || "No se recibió respuesta del modelo. Intenta de nuevo.";
-      } catch (e) {
-        console.error(e);
-        return "Error de red al conectar con el servicio de IA. Verifica tu conexión.";
-      }
+const ctx2 = document.getElementById("chartTimeline").getContext("2d");
+new Chart(ctx2, {
+  type: "bar",
+  data: {
+    labels: ["Revisión escrito","Correcciones","Resolución comité","Emisión constancia","Notificación"],
+    datasets: [{ data:[6,3,30,7,4], backgroundColor:"rgba(220,38,38,0.7)", borderRadius:6, borderSkipped:false }]
+  },
+  options: {
+    indexAxis: "y",
+    plugins: { legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.parsed.x} días`}} },
+    scales: {
+      x: { ticks:{color:"#6b7280",font:{size:10}}, grid:{color:"rgba(255,255,255,0.04)"}, title:{display:true,text:"Días hábiles",color:"#6b7280"} },
+      y: { ticks:{color:"#9ca3af",font:{size:10}}, grid:{display:false} }
     }
+  }
+});
 
-    function setLoading(isLoading, btnId, spinnerId, iconId, labelId, labelText) {
-      const btn = document.getElementById(btnId);
-      const sp  = document.getElementById(spinnerId);
-      const ic  = document.getElementById(iconId);
-      const lb  = document.getElementById(labelId);
-      btn.disabled = isLoading;
-      sp.classList.toggle('hidden', !isLoading);
-      ic.classList.toggle('hidden', isLoading);
-      lb.textContent = isLoading ? 'Procesando...' : labelText;
+const ctx3 = document.getElementById("chartComparativo").getContext("2d");
+const years = ["Año 1","Año 2","Año 3","Año 4","Año 5","Año 6","Año 7","Año 8"];
+const depreciacion = [312500,312500,312500,312500,312500,312500,312500,187500];
+const dedImediata = [2150000,0,0,0,0,0,0,0];
+new Chart(ctx3, {
+  type: "bar",
+  data: {
+    labels: years,
+    datasets: [
+      { label:"Deducción Inmediata Plan México", data: dedImediata, backgroundColor:"rgba(220,38,38,0.75)", borderRadius:6 },
+      { label:"Depreciación Tradicional (12.5%/año)", data: depreciacion, backgroundColor:"rgba(255,255,255,0.12)", borderRadius:6 }
+    ]
+  },
+  options: {
+    plugins: {
+      legend:{labels:{color:"#9ca3af",font:{size:11}}},
+      tooltip:{callbacks:{label:c=>` ${c.dataset.label}: $${c.parsed.y.toLocaleString()} MXN`}}
+    },
+    scales: {
+      x:{ticks:{color:"#9ca3af"},grid:{color:"rgba(255,255,255,0.04)"}},
+      y:{ticks:{color:"#9ca3af",callback:v=>"$"+(v/1000)+"k"},grid:{color:"rgba(255,255,255,0.05)"}}
     }
-
-    // ── Asistente de Elegibilidad ──
-    async function analyzeInvestment() {
-      const desc = document.getElementById('investment-desc').value.trim();
-      const resDiv = document.getElementById('analysis-result');
-
-      if (!desc) {
-        resDiv.classList.remove('hidden');
-        resDiv.textContent = '⚠ Escribe primero una descripción de tu proyecto de inversión.';
-        return;
-      }
-
-      setLoading(true, 'analyze-btn', 'analyze-spinner', 'analyze-icon', 'analyze-label', 'Analizar elegibilidad');
-      resDiv.classList.remove('hidden');
-      resDiv.textContent = 'Analizando con IA...';
-
-      const prompt = `Actúa como asesor fiscal especializado en el Plan México (DOF 21/mar/2025).
-
-Responde en 3 secciones claramente separadas:
-1. ELEGIBILIDAD PRELIMINAR — indica si el proyecto califica o no y por qué.
-2. RIESGOS Y OBSERVACIONES — señala hasta 3 puntos clave de atención (tecnología, plazo, tipo de activo, ubicación).
-3. RECOMENDACIÓN EJECUTIVA — 3 bullets concretos para que el director pueda actuar de inmediato.
-
-Proyecto a evaluar:
-${desc}`;
-
-      const response = await callGemini(prompt);
-      resDiv.textContent = response;
-      setLoading(false, 'analyze-btn', 'analyze-spinner', 'analyze-icon', 'analyze-label', 'Analizar elegibilidad');
-    }
-
-    // ── Generador de Memoria Técnica ──
-    async function generateProject() {
-      const ctx = document.getElementById('project-context').value.trim();
-      const resDiv = document.getElementById('project-result');
-
-      setLoading(true, 'gen-btn', 'gen-spinner', 'gen-icon', 'gen-label', 'Generar borrador');
-      resDiv.classList.remove('hidden');
-      resDiv.textContent = 'Redactando memoria técnica...';
-
-      const contexto = ctx || 'El usuario no proporcionó contexto adicional; usa un formato genérico profesional.';
-
-      const prompt = `Redacta una memoria técnica formal para el Comité de Evaluación del Plan México.
-
-Usa estas secciones con encabezados en mayúsculas:
-1. DATOS GENERALES DEL PROYECTO
-2. JUSTIFICACIÓN DE LA INVERSIÓN
-3. TECNOLOGÍA LIMPIA Y CUMPLIMIENTO AMBIENTAL
-4. COMPROMISO DE PERMANENCIA (mínimo 2 años de operación)
-5. BENEFICIOS ESPERADOS (financieros, sociales, ambientales)
-
-Tono: ejecutivo, directo y formal. No inventes montos exactos de ley; deja los campos de cifras como "[por definir]".
-
-Contexto del usuario:
-${contexto}`;
-
-      const response = await callGemini(prompt);
-      resDiv.textContent = response;
-      setLoading(false, 'gen-btn', 'gen-spinner', 'gen-icon', 'gen-label', 'Generar borrador');
-    }
-  </script>
+  }
+});
+</script>
 </body>
 </html>
