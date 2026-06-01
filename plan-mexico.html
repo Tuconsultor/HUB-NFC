@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Plan México | IA Asistente — Ramón Daniel Rivera</title>
+  <meta name="description" content="Asistente IA para evaluar elegibilidad de proyectos en el Plan México y generar memorias técnicas ejecutivas.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="canonical" href="https://tuconsultor.github.io/HUB-NFC/plan-mexico.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','sans-serif'], mono: ['Fira Code','monospace'] },
+          colors: { surface:'#0f172a', surfaceHover:'#1e293b', accent:'#06b6d4', accentSoft:'rgba(6,182,212,0.1)', gold:'#f59e0b' },
+          animation: { 'fade-in-up':'fadeInUp 0.8s cubic-bezier(0.22,1,0.36,1) forwards' },
+          keyframes: { fadeInUp: { '0%':{opacity:'0',transform:'translateY(30px)'}, '100%':{opacity:'1',transform:'translateY(0)'} } }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color:#020617; color:#e2e8f0; background-image:linear-gradient(to right,rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,.05) 1px,transparent 1px); background-size:40px 40px; overflow-x:hidden; }
+    ::-webkit-scrollbar{width:8px} ::-webkit-scrollbar-track{background:#020617} ::-webkit-scrollbar-thumb{background:#334155;border-radius:4px} ::-webkit-scrollbar-thumb:hover{background:#06b6d4}
+    .bento-card { background:rgba(15,23,42,.6); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.08); border-radius:24px; transition:all .4s cubic-bezier(.16,1,.3,1); position:relative; overflow:hidden; }
+    .bento-card:hover { border-color:rgba(6,182,212,.4); background:rgba(30,41,59,.8); transform:translateY(-2px); box-shadow:0 10px 40px -10px rgba(6,182,212,.15); }
+    .bento-card::before { content:""; position:absolute; top:0;left:0;right:0;bottom:0; background:radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),rgba(6,182,212,.06),transparent 40%); opacity:0; transition:opacity .5s; pointer-events:none; z-index:0; }
+    .bento-card:hover::before { opacity:1; }
+    .bento-content { position:relative; z-index:1; }
+    .text-gradient { background:linear-gradient(135deg,#fff 0%,#94a3b8 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .text-gradient-accent { background:linear-gradient(135deg,#22d3ee 0%,#3b82f6 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .delay-100{animation-delay:100ms} .delay-200{animation-delay:200ms}
+    .token-keyword{color:#c678dd} .token-string{color:#98c379}
+    .ia-input { background:rgba(15,23,42,.8); border:1px solid rgba(255,255,255,.1); border-radius:12px; color:#e2e8f0; transition:border-color .3s; resize:vertical; }
+    .ia-input:focus { border-color:#06b6d4; outline:none; box-shadow:0 0 0 1px rgba(6,182,212,.3); }
+    .ia-input::placeholder { color:#475569; }
+    .ia-result { background:rgba(2,6,23,.7); border:1px solid rgba(255,255,255,.08); border-radius:12px; color:#cbd5e1; font-size:.8125rem; line-height:1.7; white-space:pre-wrap; word-break:break-word; }
+    @keyframes spin { to{transform:rotate(360deg)} } .spin{animation:spin .8s linear infinite}
+    @media (hover: none) { .bento-card:active { transform:scale(0.985) !important; border-color:rgba(6,182,212,0.5) !important; } }
+  </style>
+</head>
+<body class="antialiased selection:bg-accent selection:text-white pb-24">
+
+  <!-- Glow blobs — mismo patrón del HUB -->
+  <div class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/20 blur-[120px] pointer-events-none z-[-1]"></div>
+  <div class="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/20 blur-[120px] pointer-events-none z-[-1]"></div>
+  <div class="fixed top-[40%] left-[35%] w-[30%] h-[30%] rounded-full bg-blue-900/15 blur-[100px] pointer-events-none z-[-1]"></div>
+
+  <main class="max-w-5xl mx-auto px-6 pt-14 md:pt-20 flex flex-col gap-6">
+
+    <!-- HEADER -->
+    <header class="mb-4 opacity-0 animate-fade-in-up">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-800/60 bg-blue-900/20 font-mono text-xs text-blue-300 mb-4">
+            <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+            // plan_mexico · asistente_ia
+          </div>
+          <h1 class="text-2xl md:text-4xl font-bold tracking-tight text-gradient mb-3">Portal IA — <span class="text-gradient-accent">Plan México</span></h1>
+          <p class="font-mono text-xs md:text-sm text-slate-400 max-w-xl">
+            <span class="token-keyword">const</span> herramientas = [<span class="token-string">"Análisis de elegibilidad"</span>, <span class="token-string">"Memoria técnica"</span>];
+          </p>
+        </div>
+        <a href="/HUB-NFC/" class="flex-shrink-0 mt-1 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-700 bg-slate-900/60 font-mono text-xs text-slate-400 hover:border-accent hover:text-accent transition-all">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          HUB FAW
+        </a>
+      </div>
+    </header>
+
+    <!-- GRID 2 COLUMNAS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- TARJETA 1 — Elegibilidad -->
+      <article class="bento-card p-6 md:p-8 opacity-0 animate-fade-in-up delay-100">
+        <div class="bento-content flex flex-col h-full">
+
+          <div class="flex items-start justify-between mb-5">
+            <div>
+              <p class="font-mono text-xs text-slate-500 mb-1">// plan_mexico.elegibilidad</p>
+              <h2 class="text-white text-lg font-semibold">Asistente de Elegibilidad</h2>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-blue-900/40 border border-blue-800/50 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+              </svg>
+            </div>
+          </div>
+
+          <p class="text-slate-400 text-xs leading-relaxed mb-4">Describe tu proyecto de inversión y la IA evaluará si cumple los criterios de deducción inmediata del Plan México (DOF 21/mar/2025), señalará riesgos y entregará 3 bullets para comité.</p>
+
+          <label class="font-mono text-xs text-slate-500 mb-1.5 block">// proyecto_inversion</label>
+          <textarea id="investment-desc" rows="5"
+            class="ia-input w-full px-3 py-3 text-sm mb-4"
+            placeholder="Ej: Planeo comprar 5 tractocamiones eléctricos marca FAW año 2026, para transporte refrigerado en ruta León–CDMX. Empresa constituida, RFC activo, sin adeudos SAT..."
+          ></textarea>
+
+          <div class="flex items-center gap-3 mb-4">
+            <button id="analyze-btn" onclick="analyzeInvestment()"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-500 text-slate-950 text-xs font-bold hover:bg-blue-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+              <span id="analyze-spinner" class="hidden">
+                <svg class="w-3.5 h-3.5 spin" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3.5-3.5L12 0v4a8 8 0 00-8 8h4z"/></svg>
+              </span>
+              <span id="analyze-label">✦ Analizar elegibilidad</span>
+            </button>
+            <span class="font-mono text-[11px] text-slate-600">Gemini · DOF 21/mar/2025</span>
+          </div>
+
+          <div id="analysis-result" class="ia-result hidden p-4 mt-auto"></div>
+        </div>
+      </article>
+
+      <!-- TARJETA 2 — Memoria Técnica -->
+      <article class="bento-card p-6 md:p-8 opacity-0 animate-fade-in-up delay-200">
+        <div class="bento-content flex flex-col h-full">
+
+          <div class="flex items-start justify-between mb-5">
+            <div>
+              <p class="font-mono text-xs text-slate-500 mb-1">// plan_mexico.memoria_tecnica</p>
+              <h2 class="text-white text-lg font-semibold">Generador de Memoria Técnica</h2>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-emerald-900/40 border border-emerald-800/50 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+            </div>
+          </div>
+
+          <p class="text-slate-400 text-xs leading-relaxed mb-4">Genera un borrador formal de memoria técnica para el Comité de Evaluación del Plan México. Agrega contexto específico para obtener un documento más preciso y ajustado a tu operación.</p>
+
+          <label class="font-mono text-xs text-slate-500 mb-1.5 block">// contexto_proyecto <span class="text-slate-600">(recomendado)</span></label>
+          <textarea id="project-context" rows="4"
+            class="ia-input w-full px-3 py-3 text-sm mb-4"
+            placeholder="Ej: Flotilla actual de 8 unidades diésel Euro III, ruta Bajío–Norte, meta reducir emisiones 40%, horizonte inversión 5 años, planta en León Gto..."
+          ></textarea>
+
+          <div class="flex items-center gap-3 mb-4">
+            <button id="gen-btn" onclick="generateProject()"
+              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 text-slate-950 text-xs font-bold hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+              <span id="gen-spinner" class="hidden">
+                <svg class="w-3.5 h-3.5 spin" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3.5-3.5L12 0v4a8 8 0 00-8 8h4z"/></svg>
+              </span>
+              <span id="gen-label">✦ Generar borrador</span>
+            </button>
+            <span class="font-mono text-[11px] text-slate-600">Borrador · editable</span>
+          </div>
+
+          <div id="project-result" class="ia-result hidden p-4 mt-auto"></div>
+
+          <p class="font-mono text-[11px] text-slate-600 mt-3">*Revisa cifras y referencias al DOF antes de enviar al comité.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- CTA REGRESO -->
+    <div class="opacity-0 animate-fade-in-up" style="animation-delay:300ms">
+      <a href="/HUB-NFC/"
+        class="flex items-center justify-center gap-3 w-full py-4 rounded-2xl border border-amber-500/40 bg-amber-500/10 text-amber-400 font-semibold hover:bg-amber-500/20 hover:border-amber-400 transition-all text-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        ← Volver al HUB FAW ZenithFlow
+      </a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="mt-4 text-center opacity-0 animate-fade-in-up" style="animation-delay:400ms">
+      <p class="font-mono text-xs text-slate-600">© 2026 · Ramón Daniel Rivera Ayala · ELAM FAW Bajío</p>
+    </footer>
+
+  </main>
+
+  <script>
+    // ── Mouse tracking bento ──
+    const isTouch = window.matchMedia('(hover: none)').matches;
+    document.querySelectorAll('.bento-card').forEach(card => {
+      if (!isTouch) {
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', `${e.clientX - r.left}px`);
+          card.style.setProperty('--mouse-y', `${e.clientY - r.top}px`);
+        });
+      }
+    });
+
+    // ── Gemini config ──
+    const API_KEY = ""; // ← Inyecta tu clave aquí o usa variable de entorno
+    const MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+
+    async function callGemini(prompt) {
+      if (!API_KEY) {
+        return "⚠ API Key no configurada.\nPara activar esta función, agrega tu clave de Google AI Studio en la variable API_KEY del script.\n\nObtén tu clave gratuita en: https://aistudio.google.com/app/apikey";
+      }
+      try {
+        const res = await fetch(MODEL_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.4, top_p: 0.9, max_output_tokens: 1400 }
+          })
+        });
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          return `Error ${res.status}: ${err?.error?.message || 'Revisa tu API Key y cuota disponible.'}`;
+        }
+        const data = await res.json();
+        return data?.candidates?.[0]?.content?.parts?.[0]?.text
+          || "El modelo no devolvió respuesta. Intenta de nuevo.";
+      } catch (e) {
+        console.error(e);
+        return "Error de conexión. Verifica tu red e inténtalo de nuevo.";
+      }
+    }
+
+    function setLoading(btnId, spinnerId, labelId, loading) {
+      document.getElementById(btnId).disabled = loading;
+      document.getElementById(spinnerId).classList.toggle('hidden', !loading);
+      document.getElementById(labelId).classList.toggle('opacity-0', loading);
+    }
+
+    // ── Análisis de elegibilidad ──
+    async function analyzeInvestment() {
+      const desc = document.getElementById('investment-desc').value.trim();
+      const resDiv = document.getElementById('analysis-result');
+      if (!desc) {
+        resDiv.classList.remove('hidden');
+        resDiv.textContent = "⚠ Escribe primero el resumen de tu proyecto de inversión.";
+        return;
+      }
+      resDiv.classList.remove('hidden');
+      resDiv.textContent = "Analizando con Gemini...";
+      setLoading('analyze-btn','analyze-spinner','analyze-label', true);
+
+      const prompt = `Actúa como asesor fiscal y regulatorio especializado en el Plan México (DOF 21/mar/2025).
+
+Evalúa el siguiente proyecto de inversión:
+1. ¿Es elegible en principio para la deducción inmediata? (Sí / No / Parcialmente — explica)
+2. Riesgos u observaciones clave (tecnología, plazo, tipo de activo, ubicación, forma jurídica)
+3. Recomendación ejecutiva en exactamente 3 bullets para presentar ante comité
+
+Sé directo, sin preambulos. Usa lenguaje ejecutivo.
+
+Proyecto:
+${desc}`;
+
+      const resp = await callGemini(prompt);
+      resDiv.textContent = resp;
+      setLoading('analyze-btn','analyze-spinner','analyze-label', false);
+    }
+
+    // ── Generador de memoria técnica ──
+    async function generateProject() {
+      const ctx = document.getElementById('project-context').value.trim();
+      const resDiv = document.getElementById('project-result');
+      resDiv.classList.remove('hidden');
+      resDiv.textContent = "Generando borrador de memoria técnica...";
+      setLoading('gen-btn','gen-spinner','gen-label', true);
+
+      const contexto = ctx || "Sin contexto adicional proporcionado. Genera un formato genérico claro.";
+      const prompt = `Redacta una memoria técnica formal para el Comité de Evaluación del Plan México.
+
+Estructura con estas secciones y encabezados claros:
+1. DATOS GENERALES DEL PROYECTO
+2. JUSTIFICACIÓN DE LA INVERSIÓN
+3. TECNOLOGÍA LIMPIA Y CUMPLIMIENTO AMBIENTAL
+4. COMPROMISO DE PERMANENCIA (mínimo 2 años de operación)
+5. BENEFICIOS ESPERADOS (financieros, sociales, ambientales)
+
+Tono: ejecutivo, formal, sin inventar cifras exactas de ley (deja campos como [por definir]).
+No uses intro ni cierre de cortesía, ve directo a las secciones.
+
+Contexto del usuario:
+${contexto}`;
+
+      const resp = await callGemini(prompt);
+      resDiv.textContent = resp;
+      setLoading('gen-btn','gen-spinner','gen-label', false);
+    }
+  </script>
+</body>
+</html>
