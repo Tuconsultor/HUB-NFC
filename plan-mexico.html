@@ -1,314 +1,1165 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Plan México – Deduce tu Camión | ELAM FAW Bajío</title>
-  <meta name="description" content="Conoce el Plan México: deduce hasta el 86% de tu camión nuevo ELAM FAW. Asesoría gratuita con Ramón Daniel."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Landing page profesional para promover el Programa de Vehículos Pesados 2026 con formulario conectado a Google Sheets."
+  />
+  <title>Programa Vehículos Pesados 2026 | Consultoría Estratégica ELAM FAW</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            display: ["Syne", "sans-serif"],
+          },
+          colors: {
+            brand: {
+              950: "#03080F",
+              900: "#070D1A",
+              800: "#0B132B",
+              700: "#111827",
+              600: "#1C2541",
+              500: "#3A506B",
+              gold: "#D4AF37",
+              "gold-light": "#F0CC5A",
+              "gold-dim": "#8B6914",
+              light: "#F8F9FA",
+              teal: "#3A506B",
+              blue: "#1C2541",
+              navy: "#0B132B",
+            },
+          },
+          animation: {
+            float: "float 6s ease-in-out infinite",
+            "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+            shimmer: "shimmer 2.5s linear infinite",
+          },
+          keyframes: {
+            float: {
+              "0%, 100%": { transform: "translateY(0px)" },
+              "50%": { transform: "translateY(-12px)" },
+            },
+            shimmer: {
+              "0%": { backgroundPosition: "-200% center" },
+              "100%": { backgroundPosition: "200% center" },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
   <style>
-    body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #e5e7eb; }
-    .gradient-hero { background: linear-gradient(135deg, #0a0a0f 0%, #12121f 50%, #1a0a0a 100%); }
-    .card-dark { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 1rem; transition: all .3s; }
-    .card-dark:hover { background: rgba(255,255,255,0.07); border-color: rgba(220,38,38,0.4); transform: translateY(-3px); }
-    .badge-red { background: rgba(220,38,38,0.15); color: #f87171; border: 1px solid rgba(220,38,38,0.3); border-radius: 9999px; padding: .25rem .85rem; font-size: .75rem; font-weight: 600; letter-spacing:.05em; }
-    .btn-primary { background: linear-gradient(135deg,#dc2626,#b91c1c); color:#fff; font-weight:700; border-radius:.75rem; padding:.85rem 2rem; transition: all .3s; box-shadow: 0 4px 20px rgba(220,38,38,0.35); }
-    .btn-primary:hover { transform:translateY(-2px); box-shadow: 0 8px 30px rgba(220,38,38,0.5); }
-    .btn-outline { border:2px solid #dc2626; color:#f87171; font-weight:600; border-radius:.75rem; padding:.8rem 1.8rem; transition: all .3s; }
-    .btn-outline:hover { background: rgba(220,38,38,0.12); }
-    .stat-card { background: linear-gradient(135deg,rgba(220,38,38,0.12),rgba(220,38,38,0.04)); border:1px solid rgba(220,38,38,0.25); border-radius:1rem; }
-    .timeline-dot { width:2.5rem; height:2.5rem; background:linear-gradient(135deg,#dc2626,#b91c1c); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 0 0 4px rgba(220,38,38,0.15); }
-    .section-divider { border-top:1px solid rgba(255,255,255,0.06); }
-    .tag { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:.5rem; padding:.3rem .7rem; font-size:.8rem; color:#9ca3af; }
-    .highlight-box { background: linear-gradient(135deg, rgba(220,38,38,0.1), rgba(185,28,28,0.05)); border-left: 4px solid #dc2626; border-radius: 0 .75rem .75rem 0; }
-    .icon-circle { width:3rem; height:3rem; background:rgba(220,38,38,0.12); border:1px solid rgba(220,38,38,0.25); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+    :root {
+      --gold: #d4af37;
+      --gold-rgb: 212, 175, 55;
+      --navy: #0b132b;
+      --navy-rgb: 11, 19, 43;
+      --teal: #3a506b;
+      --radius-card: 20px;
+      --radius-pill: 9999px;
+      --blur-glass: 16px;
+      --shadow-glow: 0 0 40px rgba(212, 175, 55, 0.25);
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: #03080f;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.3;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--navy);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 4px;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+      -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-light {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .hero-bg {
+      background-color: #03080f;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(212, 175, 55, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 80% 60%, rgba(58, 80, 107, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 10% 80%, rgba(28, 37, 65, 0.5) 0%, transparent 50%);
+    }
+
+    .dot-grid {
+      background-image: radial-gradient(rgba(212, 175, 55, 0.15) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    .text-shimmer {
+      background: linear-gradient(90deg, var(--gold) 0%, #fff8dc 40%, var(--gold) 60%, #b8952d 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 3s linear infinite;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: minmax(80px, auto);
+      gap: 16px;
+    }
+
+    .bento-1 {
+      grid-column: span 8;
+      grid-row: span 3;
+    }
+
+    .bento-2 {
+      grid-column: span 4;
+      grid-row: span 2;
+    }
+
+    .bento-3 {
+      grid-column: span 4;
+      grid-row: span 1;
+    }
+
+    .bento-4,
+    .bento-5,
+    .bento-6 {
+      grid-column: span 4;
+      grid-row: span 2;
+    }
+
+    @media (max-width: 1024px) {
+      .bento-1,
+      .bento-2,
+      .bento-3,
+      .bento-4,
+      .bento-5,
+      .bento-6 {
+        grid-column: span 12;
+        grid-row: span 1;
+      }
+    }
+
+    .card-hover {
+      transition:
+        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow:
+        0 20px 60px -12px rgba(var(--gold-rgb), 0.2),
+        0 0 0 1px rgba(var(--gold-rgb), 0.1);
+      border-color: rgba(212, 175, 55, 0.2);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #d4af37 0%, #f0cc5a 50%, #d4af37 100%);
+      background-size: 200% auto;
+      transition:
+        background-position 0.4s ease,
+        transform 0.2s ease,
+        box-shadow 0.3s ease;
+      box-shadow:
+        0 4px 24px rgba(212, 175, 55, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-gold:hover {
+      background-position: right center;
+      transform: translateY(-2px);
+      box-shadow:
+        0 8px 32px rgba(212, 175, 55, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-gold:active {
+      transform: translateY(0);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition:
+        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    .reveal-delay-4 {
+      transition-delay: 0.4s;
+    }
+
+    .nav-scrolled {
+      background: rgba(3, 8, 15, 0.92) !important;
+      box-shadow: 0 1px 0 rgba(212, 175, 55, 0.1);
+      backdrop-filter: blur(12px);
+    }
+
+    .counter {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .input-field {
+      transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+      background: rgba(255, 255, 255, 0.98);
+    }
+
+    .badge-live::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      margin-right: 8px;
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .orbit {
+      border-radius: 50%;
+      border: 1px dashed rgba(212, 175, 55, 0.2);
+      animation: spin 20s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .stat-gradient {
+      background: linear-gradient(135deg, #0b132b 0%, #1c2541 100%);
+    }
+
+    .progress-bar {
+      background: linear-gradient(90deg, var(--gold), #f0cc5a);
+      border-radius: 999px;
+      transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-tip] {
+      position: relative;
+      cursor: help;
+    }
+
+    [data-tip]:hover::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(3, 8, 15, 0.95);
+      color: #fff;
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      z-index: 100;
+    }
+
+    #mobile-menu {
+      display: none;
+    }
+
+    #mobile-menu.open {
+      display: flex;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
-<body class="gradient-hero min-h-screen">
 
-<!-- NAV -->
-<nav class="sticky top-0 z-50 border-b border-white/5 backdrop-blur-xl bg-black/40 px-4 py-3">
-  <div class="max-w-5xl mx-auto flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center text-white text-xs font-black">FAW</div>
-      <span class="text-sm font-semibold text-white">ELAM FAW Bajío</span>
-    </div>
-    <div class="flex items-center gap-2">
-      <span class="badge-red hidden sm:block">Plan México 2025–2030</span>
-      <a href="https://tuconsultor.github.io/HUB-NFC/" class="btn-primary text-sm px-4 py-2 inline-block">Asesoría Gratis →</a>
-    </div>
-  </div>
-</nav>
+<body class="font-sans text-gray-800 bg-brand-950 selection:bg-brand-gold selection:text-brand-900">
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-500" style="background: transparent;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <!-- LOGO ORIGINAL CONSERVADO -->
+        <div class="flex-shrink-0 flex items-center gap-3">
+          <i class="fa-solid fa-truck-fast text-brand-gold text-3xl"></i>
+          <div>
+            <span class="text-white font-bold text-xl tracking-wider block">ELAM<span class="text-brand-gold">FAW</span></span>
+            <span class="text-gray-400 text-xs tracking-widest uppercase">Consultoría Estratégica</span>
+          </div>
+        </div>
 
-<!-- HERO -->
-<section class="max-w-5xl mx-auto px-4 pt-16 pb-12 text-center">
-  <span class="badge-red mb-4 inline-block">🇲🇽 Estímulo Fiscal Oficial</span>
-  <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-6">
-    Deduce hasta el
-    <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">86%</span>
-    <br/>de tu camión nuevo
-  </h1>
-  <p class="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
-    El <strong class="text-white">Plan México</strong> permite a tu empresa aplicar deducción inmediata de inversión en vehículos pesados nuevos. Con ELAM FAW maximizas el beneficio y fortaleces tu flota.
-  </p>
-  <div class="flex flex-col sm:flex-row gap-3 justify-center mb-12">
-    <a href="tel:4775805988" class="btn-primary text-base inline-block text-center">📞 477 580 5988 – Llámanos</a>
-    <a href="mailto:daniel.rivera@elambajio.com" class="btn-outline text-base inline-block text-center">✉️ Agendar Asesoría</a>
-  </div>
+        <div class="hidden md:flex items-center gap-1">
+          <a href="#por-que-renovar" class="text-gray-400 hover:text-white px-4 py-2 rounded-lg hover:bg-white/5 transition-all text-sm font-medium">Panorama</a>
+          <a href="#plan-mexico" class="text-gray-400 hover:text-white px-4 py-2 rounded-lg hover:bg-white/5 transition-all text-sm font-medium">El Plan</a>
+          <a href="#proceso" class="text-gray-400 hover:text-white px-4 py-2 rounded-lg hover:bg-white/5 transition-all text-sm font-medium">Proceso</a>
+          <a href="#requisitos" class="text-gray-400 hover:text-white px-4 py-2 rounded-lg hover:bg-white/5 transition-all text-sm font-medium">Requisitos</a>
+          <div class="w-px h-5 bg-white/10 mx-2"></div>
+          <a href="#contacto" class="btn-gold text-brand-900 font-bold px-5 py-2.5 rounded-xl text-sm">
+            Asesoría Gratuita
+          </a>
+        </div>
 
-  <!-- STATS ROW -->
-  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
-    <div class="stat-card p-4">
-      <div class="text-3xl font-black text-red-400">86%</div>
-      <div class="text-xs text-gray-400 mt-1">Deducción<br/>2025–2026</div>
-    </div>
-    <div class="stat-card p-4">
-      <div class="text-3xl font-black text-red-400">83%</div>
-      <div class="text-xs text-gray-400 mt-1">Deducción<br/>2027–2030</div>
-    </div>
-    <div class="stat-card p-4">
-      <div class="text-3xl font-black text-white">30</div>
-      <div class="text-xs text-gray-400 mt-1">Días máx.<br/>para resolución</div>
-    </div>
-    <div class="stat-card p-4">
-      <div class="text-3xl font-black text-white">$0</div>
-      <div class="text-xs text-gray-400 mt-1">Costo de<br/>asesoría inicial</div>
-    </div>
-  </div>
-</section>
-
-<!-- CHART DEDUCCION -->
-<section class="max-w-5xl mx-auto px-4 py-10 section-divider">
-  <h2 class="text-2xl font-bold text-white text-center mb-2">¿Cuánto ahorras?</h2>
-  <p class="text-gray-400 text-center text-sm mb-8">Simulación de ahorro fiscal sobre un tractocamión de $2,500,000 MXN</p>
-  <div class="grid md:grid-cols-2 gap-6 items-center">
-    <div class="card-dark p-6">
-      <canvas id="chartDeduccion" height="280"></canvas>
-    </div>
-    <div class="space-y-4">
-      <div class="highlight-box p-4">
-        <div class="text-xs text-gray-400 mb-1">Inversión total (sin IVA)</div>
-        <div class="text-2xl font-black text-white">$2,500,000 MXN</div>
-      </div>
-      <div class="highlight-box p-4">
-        <div class="text-xs text-gray-400 mb-1">Deducción inmediata 86% (2025–2026)</div>
-        <div class="text-2xl font-black text-red-400">$2,150,000 MXN</div>
-        <div class="text-xs text-gray-500 mt-1">Base gravable reducida en ese monto</div>
-      </div>
-      <div class="highlight-box p-4">
-        <div class="text-xs text-gray-400 mb-1">Ahorro ISR estimado (tasa 30%)</div>
-        <div class="text-2xl font-black text-green-400">~$645,000 MXN</div>
-        <div class="text-xs text-gray-500 mt-1">Calculado sobre la base deducida</div>
-      </div>
-      <p class="text-xs text-gray-500">*Simulación ilustrativa. El ahorro real depende de la situación fiscal de cada empresa.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESO PASO A PASO -->
-<section class="max-w-5xl mx-auto px-4 py-10 section-divider">
-  <h2 class="text-2xl font-bold text-white text-center mb-2">Proceso Completo</h2>
-  <p class="text-gray-400 text-center text-sm mb-10">Te acompañamos en cada una de estas etapas</p>
-  <div id="steps-container" class="space-y-4"></div>
-
-  <!-- TIMELINE DIAS -->
-  <div class="card-dark p-6 mt-10">
-    <h3 class="text-white font-bold text-lg mb-6 text-center">⏱ Tiempos Oficiales del Gobierno</h3>
-    <div class="grid sm:grid-cols-4 gap-4 text-center">
-      <div>
-        <div class="text-red-400 font-black text-3xl">6</div>
-        <div class="text-xs text-gray-400 mt-1">días para revisar<br/>el escrito libre</div>
-      </div>
-      <div>
-        <div class="text-red-400 font-black text-3xl">3</div>
-        <div class="text-xs text-gray-400 mt-1">días para solicitar<br/>correcciones</div>
-      </div>
-      <div>
-        <div class="text-red-400 font-black text-3xl">30</div>
-        <div class="text-xs text-gray-400 mt-1">días máx. para<br/>resolución del comité</div>
-      </div>
-      <div>
-        <div class="text-red-400 font-black text-3xl">7+4</div>
-        <div class="text-xs text-gray-400 mt-1">días emisión +<br/>notificación constancia</div>
+        <button id="menu-toggle" class="md:hidden text-white p-2 rounded-lg glass" aria-label="Menú">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
       </div>
     </div>
-    <div class="mt-6">
-      <canvas id="chartTimeline" height="90"></canvas>
-    </div>
-  </div>
-</section>
 
-<!-- POR QUE ELAM FAW -->
-<section class="max-w-5xl mx-auto px-4 py-10 section-divider">
-  <h2 class="text-2xl font-bold text-white text-center mb-2">¿Por qué ELAM FAW?</h2>
-  <p class="text-gray-400 text-center text-sm mb-8">Ventajas que refuerzan tu expediente y tu operación</p>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    <div class="card-dark p-5 text-center">
-      <div class="text-3xl mb-3">🇲🇽</div>
-      <h3 class="text-white font-bold text-sm mb-2">Ensamblado en México</h3>
-      <p class="text-gray-400 text-xs">Fortalece tu argumento ante Hacienda y apoya la industria nacional.</p>
+    <div id="mobile-menu" class="md:hidden flex-col gap-1 px-4 pb-4 border-t border-white/5" style="background: rgba(3,8,15,0.97);">
+      <a href="#por-que-renovar" class="block text-gray-300 hover:text-white py-3 px-4 rounded-lg hover:bg-white/5 transition-all text-sm font-medium">Panorama</a>
+      <a href="#plan-mexico" class="block text-gray-300 hover:text-white py-3 px-4 rounded-lg hover:bg-white/5 transition-all text-sm font-medium">El Plan</a>
+      <a href="#proceso" class="block text-gray-300 hover:text-white py-3 px-4 rounded-lg hover:bg-white/5 transition-all text-sm font-medium">Proceso</a>
+      <a href="#requisitos" class="block text-gray-300 hover:text-white py-3 px-4 rounded-lg hover:bg-white/5 transition-all text-sm font-medium">Requisitos</a>
+      <a href="#contacto" class="block btn-gold text-brand-900 font-bold py-3 px-4 rounded-xl text-sm text-center mt-2">Asesoría Gratuita</a>
     </div>
-    <div class="card-dark p-5 text-center">
-      <div class="text-3xl mb-3">⛽</div>
-      <h3 class="text-white font-bold text-sm mb-2">Eficiencia de Combustible</h3>
-      <p class="text-gray-400 text-xs">Motores modernos que reducen costos operativos y tiempo en taller.</p>
-    </div>
-    <div class="card-dark p-5 text-center">
-      <div class="text-3xl mb-3">🔧</div>
-      <h3 class="text-white font-bold text-sm mb-2">Red Nacional</h3>
-      <p class="text-gray-400 text-xs">Talleres y distribuidores certificados en toda la República.</p>
-    </div>
-    <div class="card-dark p-5 text-center">
-      <div class="text-3xl mb-3">💰</div>
-      <h3 class="text-white font-bold text-sm mb-2">Máximo Beneficio Fiscal</h3>
-      <p class="text-gray-400 text-xs">Vehículos nuevos y de primer uso, elegibles para el 86% de deducción.</p>
-    </div>
-  </div>
-</section>
+  </nav>
 
-<!-- NUESTRO SERVICIO -->
-<section class="max-w-5xl mx-auto px-4 py-10 section-divider">
-  <h2 class="text-2xl font-bold text-white text-center mb-2">Nuestro Servicio Integral</h2>
-  <p class="text-gray-400 text-center text-sm mb-8">Más que vender un camión, somos tu socio estratégico</p>
-  <div class="grid md:grid-cols-3 gap-5">
-    <div class="card-dark p-6">
-      <div class="icon-circle mb-4"><span class="text-red-400 text-lg">📋</span></div>
-      <h3 class="text-white font-bold mb-2">Validación Fiscal</h3>
-      <p class="text-gray-400 text-sm">Verificamos situación fiscal, e.firma, opinión 32‑D y elegibilidad antes de iniciar el trámite.</p>
+  <header class="hero-bg dot-grid min-h-screen flex items-center relative overflow-hidden pt-24 pb-16">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-gold/5 rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-brand-600/30 rounded-full blur-[80px]"></div>
     </div>
-    <div class="card-dark p-6">
-      <div class="icon-circle mb-4"><span class="text-red-400 text-lg">📁</span></div>
-      <h3 class="text-white font-bold mb-2">Gestión Documental</h3>
-      <p class="text-gray-400 text-sm">Reunimos y revisamos cada documento: acta constitutiva, poderes, IMSS, estados financieros y más.</p>
-    </div>
-    <div class="card-dark p-6">
-      <div class="icon-circle mb-4"><span class="text-red-400 text-lg">🎯</span></div>
-      <h3 class="text-white font-bold mb-2">Estrategia Personalizada</h3>
-      <p class="text-gray-400 text-sm">Analizamos tu flujo de caja y diseñamos la mejor estrategia fiscal y operativa para tu empresa.</p>
-    </div>
-  </div>
-</section>
 
-<!-- GRAFICO COMPARATIVO -->
-<section class="max-w-5xl mx-auto px-4 py-10 section-divider">
-  <h2 class="text-2xl font-bold text-white text-center mb-2">Deducción vs. Depreciación Tradicional</h2>
-  <p class="text-gray-400 text-center text-sm mb-8">Comparativa del beneficio en el tiempo (camión de $2.5M MXN)</p>
-  <div class="card-dark p-6">
-    <canvas id="chartComparativo" height="200"></canvas>
-  </div>
-</section>
+    <div class="absolute right-[-150px] top-1/2 -translate-y-1/2 w-[600px] h-[600px] orbit opacity-20 hidden lg:block"></div>
+    <div class="absolute right-[-50px] top-1/2 -translate-y-1/2 w-[400px] h-[400px] orbit opacity-30 hidden lg:block" style="animation-duration: 14s; animation-direction: reverse;"></div>
 
-<!-- CTA FINAL -->
-<section class="max-w-5xl mx-auto px-4 py-14 text-center">
-  <div class="card-dark p-10">
-    <span class="badge-red mb-4 inline-block">Asesoría sin costo</span>
-    <h2 class="text-3xl font-black text-white mb-4">¿Listo para deducir tu inversión?</h2>
-    <p class="text-gray-400 mb-8 max-w-xl mx-auto">Contáctanos hoy. Te guiamos desde la validación fiscal hasta la emisión de tu constancia, sin costo adicional de consultoría inicial.</p>
-    <div class="flex flex-col sm:flex-row gap-3 justify-center mb-8">
-      <a href="tel:4775805988" class="btn-primary text-base inline-block text-center">📞 477 580 5988</a>
-      <a href="mailto:daniel.rivera@elambajio.com" class="btn-outline text-base inline-block text-center">✉️ daniel.rivera@elambajio.com</a>
-    </div>
-    <div class="flex flex-wrap justify-center gap-3 text-xs">
-      <span class="tag">💬 WeChat: asesorcamionero</span>
-      <span class="tag">🔒 Threema: ZWD6B2EAY</span>
-      <span class="tag">🌐 tuconsultor.github.io/HUB-NFC/</span>
-      <span class="tag">👤 Ramón Daniel – FAW Trucks ELAM Bajío</span>
-    </div>
-  </div>
-</section>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 reveal">
+          <div class="inline-flex items-center glass rounded-full px-4 py-2 mb-8 border border-brand-gold/20">
+            <span class="badge-live text-xs text-gray-300 font-medium tracking-wide">Programa de Vehículos Pesados · Marzo 2026</span>
+          </div>
 
-<!-- FOOTER -->
-<footer class="border-t border-white/5 py-6 text-center text-xs text-gray-600">
-  <p>© 2025–2026 ELAM FAW Bajío · Plan México · Información sujeta a cambios fiscales oficiales.</p>
-</footer>
+          <h1 class="font-display text-5xl md:text-6xl xl:text-7xl text-white font-black leading-[1.05] tracking-tight mb-6">
+            Deduce hasta el<br />
+            <span class="text-shimmer">86% de tu</span><br />
+            flota.
+          </h1>
 
-<script>
-const steps = [
-  { num:"01", icon:"🔍", title:"Validación Inicial", desc:"Verificamos tu situación fiscal, la vigencia de tu e.firma, la opinión 32‑D y confirmamos que tu empresa cumple los requisitos del Plan México." },
-  { num:"02", icon:"🚛", title:"Selección del Modelo", desc:"Te ayudamos a elegir el modelo ELAM FAW ideal para tu operación y elaboramos la ficha técnica para el proyecto de inversión." },
-  { num:"03", icon:"📂", title:"Recopilación de Documentos", desc:"Reunimos constancia fiscal, identificación, acta constitutiva, poderes, cédula IMSS y estados financieros. Cada archivo listo y verificado." },
-  { num:"04", icon:"✍️", title:"Carta de Justificación", desc:"Redactamos junto contigo una carta que explique por qué la unidad es necesaria, qué operación atenderá y cómo contribuirá al crecimiento de tu negocio." },
-  { num:"05", icon:"🗂️", title:"Detalle de la Inversión", desc:"Especificamos tipo de camión, características técnicas, monto sin IVA, fecha de adquisición, inicio de uso y lugar de operación para el expediente." },
-  { num:"06", icon:"📤", title:"Envío del Expediente", desc:"Preparamos y enviamos el expediente completo a la Ventanilla Única de la Secretaría de Economía." },
-  { num:"07", icon:"⚖️", title:"Seguimiento Oficial", desc:"Monitoreamos la revisión gubernamental: 6 días de revisión, hasta 3 días para correcciones, 30 días máx. de resolución + emisión y notificación." },
-  { num:"08", icon:"✅", title:"Formalización de la Compra", desc:"Con la constancia emitida, formalizamos la compra, se expide la factura y tu contador aplica la deducción inmediata en la declaración anual." },
-];
-const container = document.getElementById("steps-container");
-steps.forEach(s => {
-  const el = document.createElement("div");
-  el.className = "card-dark p-5 flex gap-4 items-start";
-  el.innerHTML = `
-    <div class="timeline-dot text-white text-xs font-black">${s.num}</div>
-    <div>
-      <div class="flex items-center gap-2 mb-1">
-        <span class="text-lg">${s.icon}</span>
-        <h3 class="text-white font-bold text-sm">${s.title}</h3>
+          <p class="text-lg text-gray-400 mb-10 max-w-xl leading-relaxed font-light">
+            Transforma la compra de tu próximo camión ELAM FAW en una <strong class="text-white font-medium">estrategia fiscal de alto impacto</strong>. El Plan México te permite deducir en un solo año lo que normalmente tomaría cuatro.
+          </p>
+
+          <div class="flex flex-wrap gap-6 mb-10">
+            <div>
+              <div class="text-3xl font-display font-black text-brand-gold counter" data-target="86">0<span class="text-2xl">%</span></div>
+              <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Deducción máx.</div>
+            </div>
+            <div class="w-px bg-white/10"></div>
+            <div>
+              <div class="text-3xl font-display font-black text-white">1<span class="text-lg font-medium text-gray-400"> año</span></div>
+              <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">vs. 4 años tradicional</div>
+            </div>
+            <div class="w-px bg-white/10"></div>
+            <div>
+              <div class="text-3xl font-display font-black text-white">2k<span class="text-lg font-medium text-gray-400"> MDP</span></div>
+              <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Bolsa estimada</div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="#contacto" class="btn-gold text-brand-900 font-bold py-4 px-8 rounded-xl text-center text-sm tracking-wide">
+              <i class="fa-solid fa-rocket mr-2"></i>Iniciar Diagnóstico Fiscal
+            </a>
+            <a href="#plan-mexico" class="glass border border-white/10 text-white hover:bg-white/10 font-medium py-4 px-8 rounded-xl text-center transition-all text-sm">
+              Conocer los detalles <i class="fa-solid fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 reveal reveal-delay-2 hidden lg:block">
+          <div class="relative">
+            <div class="glass rounded-2xl p-6 border border-white/10 shadow-[0_32px_64px_rgba(0,0,0,0.5)]">
+              <div class="aspect-video rounded-xl overflow-hidden mb-5">
+                <img
+                  src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80"
+                  alt="Camión de carga pesado moderno"
+                  class="w-full h-full object-cover object-center"
+                />
+              </div>
+
+              <div class="bg-brand-900/80 rounded-xl p-4 border border-white/5">
+                <div class="flex justify-between items-center mb-3">
+                  <span class="text-gray-400 text-xs uppercase tracking-wide">Tractocamión · Simulación</span>
+                  <span class="text-[10px] text-brand-gold bg-brand-gold/10 px-2 py-0.5 rounded-full border border-brand-gold/20">Plan México 2026</span>
+                </div>
+                <div class="space-y-2">
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-500">Inversión total</span>
+                    <span class="text-white font-semibold">$2,445,840 MXN</span>
+                  </div>
+                  <div class="w-full bg-white/5 rounded-full h-1.5">
+                    <div class="progress-bar h-1.5" style="width: 86%"></div>
+                  </div>
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-500">Deducción estimada</span>
+                    <span class="text-brand-gold font-bold text-lg">$2,103,422 MXN</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="absolute -top-4 -right-4 glass rounded-2xl p-3 border border-brand-gold/30 shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+              <div class="text-center">
+                <div class="text-brand-gold font-display font-black text-2xl leading-none">86%</div>
+                <div class="text-gray-400 text-[10px] uppercase tracking-wide mt-1">deducible</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <p class="text-gray-400 text-sm leading-relaxed">${s.desc}</p>
-    </div>`;
-  container.appendChild(el);
-});
+    </div>
 
-const ctx1 = document.getElementById("chartDeduccion").getContext("2d");
-new Chart(ctx1, {
-  type: "doughnut",
-  data: {
-    labels: ["Deducción inmediata (86%)", "Saldo restante (14%)"],
-    datasets: [{ data: [86, 14], backgroundColor: ["#dc2626","rgba(255,255,255,0.08)"], borderWidth: 0, hoverOffset: 6 }]
-  },
-  options: {
-    cutout: "70%",
-    plugins: {
-      legend: { labels: { color:"#9ca3af", font:{size:11} } },
-      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` } }
+    <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-brand-950 to-transparent pointer-events-none"></div>
+  </header>
+
+  <main>
+    <section id="por-que-renovar" class="py-28 bg-brand-950">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+          <div class="inline-flex items-center gap-2 text-brand-gold text-xs font-bold uppercase tracking-widest mb-4">
+            <div class="w-8 h-px bg-brand-gold"></div>El Panorama Actual<div class="w-8 h-px bg-brand-gold"></div>
+          </div>
+          <h2 class="font-display text-4xl md:text-5xl text-white font-black mb-5">¿Por qué renovar tu unidad en 2026?</h2>
+          <p class="text-gray-500 text-lg max-w-2xl mx-auto">
+            Cada mes que esperas es dinero perdido. Tu flota envejecida erosiona márgenes, disponibilidad y competitividad.
+          </p>
+        </div>
+
+        <div class="bento-grid reveal">
+          <div class="bento-1 glass rounded-[var(--radius-card)] p-8 border border-white/6 card-hover relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-red-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 h-full flex flex-col justify-between">
+              <div>
+                <div class="inline-flex items-center gap-2 bg-red-500/10 text-red-400 text-xs font-semibold px-3 py-1.5 rounded-full border border-red-500/20 mb-6">
+                  <i class="fa-solid fa-triangle-exclamation"></i> Costos Ocultos
+                </div>
+                <h3 class="font-display text-2xl text-white font-bold mb-6">Lo que ya te está costando</h3>
+                <div class="space-y-4">
+                  <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0">
+                      <i class="fa-solid fa-clock text-red-400"></i>
+                    </div>
+                    <div>
+                      <div class="text-white font-semibold text-sm">Flota con alta antigüedad promedio</div>
+                      <div class="text-gray-500 text-xs mt-0.5">Más probabilidad de fallas, paros y sobrecostos operativos.</div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0">
+                      <i class="fa-solid fa-gas-pump text-red-400"></i>
+                    </div>
+                    <div>
+                      <div class="text-white font-semibold text-sm">Combustible y mantenimiento elevados</div>
+                      <div class="text-gray-500 text-xs mt-0.5">Unidades nuevas mejoran consumo, confiabilidad y disponibilidad.</div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0">
+                      <i class="fa-solid fa-ban text-red-400"></i>
+                    </div>
+                    <div>
+                      <div class="text-white font-semibold text-sm">Restricciones y presión regulatoria</div>
+                      <div class="text-gray-500 text-xs mt-0.5">Actualizar tu parque vehicular protege continuidad y cumplimiento.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 p-5 bg-white/4 rounded-xl border border-white/5">
+                <div class="flex justify-between items-end mb-3">
+                  <span class="text-gray-500 text-xs">Costo total operativo comparado</span>
+                  <span class="text-red-400 font-bold text-sm">Hasta +42%</span>
+                </div>
+                <div class="flex gap-3 items-end h-16">
+                  <div class="flex-1 flex flex-col items-center gap-1">
+                    <div class="w-full bg-brand-gold/80 rounded-t-md" style="height:40%"></div>
+                    <span class="text-[10px] text-gray-500">Nueva</span>
+                  </div>
+                  <div class="flex-1 flex flex-col items-center gap-1">
+                    <div class="w-full bg-red-500/80 rounded-t-md" style="height:100%"></div>
+                    <span class="text-[10px] text-gray-500">Antigua</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bento-2 stat-gradient rounded-[var(--radius-card)] p-6 border border-brand-gold/15 card-hover relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-brand-gold/10 via-transparent to-transparent pointer-events-none"></div>
+            <div class="relative z-10 h-full flex flex-col justify-between">
+              <div class="w-10 h-10 rounded-xl bg-brand-gold/20 border border-brand-gold/30 flex items-center justify-center mb-4">
+                <i class="fa-solid fa-percent text-brand-gold"></i>
+              </div>
+              <div>
+                <div class="font-display text-6xl font-black text-brand-gold leading-none">86<span class="text-3xl">%</span></div>
+                <div class="text-white font-semibold text-lg mt-2">Deducible este año</div>
+                <div class="text-gray-500 text-sm mt-1">En lugar del 25% anual tradicional</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bento-3 glass rounded-[var(--radius-card)] p-5 border border-green-500/15 card-hover flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-shield-halved text-green-400 text-xl"></i>
+            </div>
+            <div>
+              <div class="text-white font-semibold text-sm">Cumplimiento actualizado</div>
+              <div class="text-gray-500 text-xs mt-0.5">Más alineación con operación moderna y control empresarial.</div>
+            </div>
+          </div>
+
+          <div class="bento-4 glass rounded-[var(--radius-card)] p-6 border border-white/6 card-hover flex flex-col justify-between">
+            <div class="w-10 h-10 rounded-xl bg-brand-gold/15 border border-brand-gold/25 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-chart-line text-brand-gold"></i>
+            </div>
+            <div>
+              <div class="text-white font-semibold mb-1">Mayor eficiencia</div>
+              <div class="text-gray-500 text-xs">Mejor rendimiento y mejor lectura financiera por kilómetro recorrido.</div>
+            </div>
+          </div>
+
+          <div class="bento-5 glass rounded-[var(--radius-card)] p-6 border border-white/6 card-hover flex flex-col justify-between">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-road text-blue-400"></i>
+            </div>
+            <div>
+              <div class="text-white font-semibold mb-1">Operación continua</div>
+              <div class="text-gray-500 text-xs">Menos paros inesperados y más control sobre promesa de servicio.</div>
+            </div>
+          </div>
+
+          <div class="bento-6 rounded-[var(--radius-card)] p-6 border border-brand-gold/20 card-hover relative overflow-hidden" style="background: linear-gradient(135deg, #0d1a0a 0%, #0a180e 100%);">
+            <div class="absolute inset-0 bg-gradient-to-br from-green-500/8 to-transparent pointer-events-none"></div>
+            <div class="relative z-10 flex flex-col justify-between h-full">
+              <div class="w-10 h-10 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-4">
+                <i class="fa-solid fa-arrow-trend-up text-green-400"></i>
+              </div>
+              <div>
+                <div class="text-white font-semibold mb-1">Gasto → Estrategia</div>
+                <div class="text-gray-500 text-xs">Convierte tu inversión en una ventaja fiscal y comercial.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="plan-mexico" class="py-28 relative overflow-hidden" style="background: #070D1A;">
+      <div class="absolute inset-0 dot-grid opacity-40 pointer-events-none"></div>
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-gold/4 rounded-full blur-[80px] pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16 reveal">
+          <div class="inline-flex items-center gap-2 text-brand-gold text-xs font-bold uppercase tracking-widest mb-4">
+            <div class="w-8 h-px bg-brand-gold"></div>Estrategia Nacional<div class="w-8 h-px bg-brand-gold"></div>
+          </div>
+          <h2 class="font-display text-4xl md:text-5xl text-white font-black mb-5">¿Qué es el Plan México?</h2>
+          <p class="text-gray-500 text-lg max-w-3xl mx-auto">
+            Programa que permite la <strong class="text-white">deducción inmediata en un solo año fiscal</strong> para la adquisición de vehículos pesados nuevos aplicables bajo este esquema.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          <div class="glass rounded-[var(--radius-card)] p-8 border border-white/6 card-hover reveal reveal-delay-1 flex flex-col">
+            <div class="w-12 h-12 rounded-2xl bg-brand-teal/30 border border-brand-500/30 flex items-center justify-center mb-6">
+              <i class="fa-solid fa-gears text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-display text-2xl text-white font-bold mb-5">¿Cómo funciona?</h3>
+            <ul class="space-y-3 flex-grow">
+              <li class="flex items-start gap-3 text-sm">
+                <div class="w-5 h-5 rounded-full bg-brand-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <i class="fa-solid fa-check text-brand-gold text-[9px]"></i>
+                </div>
+                <span class="text-gray-400">Deduces hasta <strong class="text-white">86%</strong> del valor durante el ejercicio fiscal aplicable.</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <div class="w-5 h-5 rounded-full bg-brand-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <i class="fa-solid fa-check text-brand-gold text-[9px]"></i>
+                </div>
+                <span class="text-gray-400">Aplica a <strong class="text-white">unidades nuevas</strong> y requiere correcta estructuración documental.</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <div class="w-5 h-5 rounded-full bg-brand-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <i class="fa-solid fa-check text-brand-gold text-[9px]"></i>
+                </div>
+                <span class="text-gray-400">Requiere <strong class="text-white">validación previa</strong>. No debe comunicarse como beneficio automático.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="rounded-[var(--radius-card)] p-8 border border-brand-gold/30 card-hover reveal reveal-delay-2 flex flex-col relative overflow-hidden" style="background: linear-gradient(145deg, #0d1018 0%, #131b2e 60%, #1a2440 100%);">
+            <div class="absolute top-0 right-0 w-48 h-48 bg-brand-gold/8 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-32 h-32 bg-brand-gold/5 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="relative z-10 h-full flex flex-col">
+              <div class="inline-flex items-center gap-2 text-brand-gold text-[10px] font-bold uppercase tracking-widest bg-brand-gold/10 border border-brand-gold/20 px-3 py-1.5 rounded-full mb-6 self-start">
+                <i class="fa-solid fa-star"></i> Ejemplo de referencia
+              </div>
+              <div class="w-12 h-12 rounded-2xl bg-brand-gold flex items-center justify-center mb-5 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                <i class="fa-solid fa-calculator text-brand-900 text-xl"></i>
+              </div>
+              <h3 class="font-display text-2xl text-white font-bold mb-2">Tractocamión</h3>
+              <p class="text-gray-500 text-sm mb-6">Simulación comercial 2026</p>
+
+              <div class="space-y-4 flex-grow">
+                <div class="flex justify-between items-center py-3 border-b border-white/6 text-sm">
+                  <span class="text-gray-500">Inversión inicial</span>
+                  <span class="text-white font-semibold">$2,445,840 <span class="text-gray-600 text-xs">MXN</span></span>
+                </div>
+                <div class="flex justify-between items-center py-3 border-b border-white/6 text-sm">
+                  <span class="text-gray-500">Porcentaje deducible</span>
+                  <span class="text-brand-gold font-bold">86%</span>
+                </div>
+                <div class="bg-brand-gold/10 border border-brand-gold/25 rounded-xl p-4">
+                  <div class="text-xs text-gray-400 mb-1 uppercase tracking-wider">Deducción aplicable</div>
+                  <div class="font-display text-4xl font-black text-brand-gold">$2.1M</div>
+                  <div class="text-gray-500 text-xs mt-1">$2,103,422 MXN en el primer año</div>
+                </div>
+              </div>
+
+              <p class="text-xs text-gray-600 italic mt-5 relative z-10">
+                *Estrategia fiscal, no descuento directo. Consulta a tu contador.
+              </p>
+            </div>
+          </div>
+
+          <div class="glass rounded-[var(--radius-card)] p-8 border border-white/6 card-hover reveal reveal-delay-3 flex flex-col">
+            <div class="w-12 h-12 rounded-2xl bg-brand-600/50 border border-brand-500/30 flex items-center justify-center mb-6">
+              <i class="fa-solid fa-building-columns text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-display text-2xl text-white font-bold mb-5">Respaldo Institucional</h3>
+            <div class="flex-grow">
+              <div class="text-5xl font-display font-black text-white mb-2">2,000<span class="text-2xl text-gray-500 font-medium"> MDP</span></div>
+              <p class="text-gray-400 text-sm mb-6">
+                Bolsa comunicada para fortalecer la renovación del parque vehicular y acelerar inversión productiva.
+              </p>
+
+              <div class="w-full bg-white/5 rounded-full h-2 mb-2">
+                <div class="progress-bar h-2" style="width: 68%"></div>
+              </div>
+              <div class="flex justify-between text-xs text-gray-600">
+                <span>Disponibilidad referencial</span>
+                <span class="text-brand-gold font-semibold">Cupo limitado</span>
+              </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-white/3 rounded-xl border border-white/5">
+              <p class="text-gray-500 text-xs">
+                <i class="fa-solid fa-info-circle text-brand-gold mr-2"></i>La procedencia final depende de validación, tiempo y expediente.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="proceso" class="py-28 bg-brand-950 relative overflow-hidden">
+      <div class="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-brand-gold/20 to-transparent ml-[50%] hidden lg:block"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-16 reveal">
+          <div class="inline-flex items-center gap-2 text-brand-gold text-xs font-bold uppercase tracking-widest mb-4">
+            <div class="w-8 h-px bg-brand-gold"></div>Ejecución Estratégica<div class="w-8 h-px bg-brand-gold"></div>
+          </div>
+          <h2 class="font-display text-4xl md:text-5xl text-white font-black mb-5">La Ruta ELAM FAW</h2>
+          <p class="text-gray-500 text-lg max-w-2xl mx-auto">
+            Ocho pasos estructurados para llevarte de la validación al camión trabajando.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 reveal">
+          <div class="glass rounded-[var(--radius-card)] p-6 border border-white/6 card-hover group">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-xl bg-brand-gold/15 border border-brand-gold/25 flex items-center justify-center text-brand-gold font-display font-black text-sm group-hover:bg-brand-gold group-hover:text-brand-900 transition-all">01</div>
+              <div class="flex-1 h-px bg-white/5 group-hover:bg-brand-gold/30 transition-colors"></div>
+            </div>
+            <h4 class="text-white font-bold mb-2 text-sm">Revisamos tu caso</h4>
+            <p class="text-gray-600 text-xs leading-relaxed">Validamos factibilidad, perfil fiscal y necesidad operativa.</p>
+          </div>
+
+          <div class="glass rounded-[var(--radius-card)] p-6 border border-white/6 card-hover group reveal reveal-delay-1">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-xl bg-brand-gold/15 border border-brand-gold/25 flex items-center justify-center text-brand-gold font-display font-black text-sm group-hover:bg-brand-gold group-hover:text-brand-900 transition-all">02</div>
+              <div class="flex-1 h-px bg-white/5 group-hover:bg-brand-gold/30 transition-colors"></div>
+            </div>
+            <h4 class="text-white font-bold mb-2 text-sm">Preparamos tu expediente</h4>
+            <p class="text-gray-600 text-xs leading-relaxed">Pedimos solo lo necesario y ordenamos la documentación contigo.</p>
+          </div>
+
+          <div class="glass rounded-[var(--radius-card)] p-6 border border-white/6 card-hover group reveal reveal-delay-2">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-xl bg-brand-gold/15 border border-brand-gold/25 flex items-center justify-center text-brand-gold font-display font-black text-sm group-hover:bg-brand-gold group-hover:text-brand-900 transition-all">03</div>
+              <div class="flex-1 h-px bg-white/5 group-hover:bg-brand-gold/30 transition-colors"></div>
+            </div>
+            <h4 class="text-white font-bold mb-2 text-sm">Elegimos tu unidad</h4>
+            <p class="text-gray-600 text-xs leading-relaxed">Aterrizamos configuración, aplicación y propuesta comercial.</p>
+          </div>
+
+          <div class="glass rounded-[var(--radius-card)] p-6 border border-white/6 card-hover group reveal reveal-delay-3">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-xl bg-brand-gold/15 border border-brand-gold/25 flex items-center justify-center text-brand-gold font-display font-black text-sm group-hover:bg-brand-gold group-hover:text-brand-900 transition-all">04</div>
+              <div class="flex-1 h-px bg-white/5 group-hover:bg-brand-gold/30 transition-colors"></div>
+            </div>
+            <h4 class="text-white font-bold mb-2 text-sm">Envío de solicitud</h4>
+            <p class="text-gray-600 text-xs leading-relaxed">Integramos carta justificativa y presentación de soporte.</p>
+          </div>
+
+          <div class="glass rounded-[var(--radius-card)] p-6 border border-white/6 card-hover group reveal">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-xl bg-brand-gold/15 border border-brand-gold/25 flex items-center justify-center text-brand-gold font-display font-black text-sm group-hover:bg-brand-gold group-hover:text-brand-900 transition-all">05</div>
+              <div class="flex-1 h-px bg-white/5 group-hover:bg-brand-gold/30 transition-colors"></div>
+            </div>
+            <h4 class="text-white font-bold mb-2 text-sm">Constancia o respuesta</h4>
+            <p class="text-gray-600 text-xs leading-relaxed">Damos seguimiento al proceso de validación y resolución.</p>
+          </div>
+
+          <div class="glass rounded-[var(--radius-card)] p-6 border border-white/6 card-hover group reveal reveal-delay-1">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-xl bg-brand-gold/15 border border-brand-gold/25 flex items-center justify-center text-brand-gold font-display font-black text-sm group-hover:bg-brand-gold group-hover:text-brand-900 transition-all">06</div>
+              <div class="flex-1 h-px bg-white/5 group-hover:bg-brand-gold/30 transition-colors"></div>
+            </div>
+            <h4 class="text-white font-bold mb-2 text-sm">Compra y facturación</h4>
+            <p class="text-gray-600 text-xs leading-relaxed">Formalizamos operación, expediente de venta y entrega.</p>
+          </div>
+
+          <div class="glass rounded-[var(--radius-card)] p-6 border border-white/6 card-hover group reveal reveal-delay-2">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-xl bg-brand-gold/15 border border-brand-gold/25 flex items-center justify-center text-brand-gold font-display font-black text-sm group-hover:bg-brand-gold group-hover:text-brand-900 transition-all">07</div>
+              <div class="flex-1 h-px bg-white/5 group-hover:bg-brand-gold/30 transition-colors"></div>
+            </div>
+            <h4 class="text-white font-bold mb-2 text-sm">Aplicación fiscal</h4>
+            <p class="text-gray-600 text-xs leading-relaxed">Tu contador aplica el tratamiento conforme a tu caso.</p>
+          </div>
+
+          <div class="rounded-[var(--radius-card)] p-6 border border-brand-gold/30 card-hover group reveal reveal-delay-3 relative overflow-hidden" style="background: linear-gradient(135deg, #1a1500 0%, #2a2200 100%);">
+            <div class="absolute inset-0 bg-brand-gold/5 pointer-events-none"></div>
+            <div class="relative z-10">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-9 h-9 rounded-xl bg-brand-gold flex items-center justify-center text-brand-900 font-display font-black text-sm shadow-[0_0_12px_rgba(212,175,55,0.4)]">08</div>
+              </div>
+              <h4 class="text-brand-gold font-bold mb-2 text-sm">A producir</h4>
+              <p class="text-gray-400 text-xs leading-relaxed">Tu unidad ELAM FAW, integrada a tu operación y convertida en ventaja fiscal.</p>
+              <div class="mt-4 text-2xl">🚛</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-14 flex flex-wrap justify-center gap-3 reveal">
+          <div class="glass rounded-full px-5 py-2.5 border border-white/8 text-sm">
+            <span class="text-gray-500">Expediente</span>
+            <span class="text-brand-gold font-bold ml-2">3–10 días</span>
+          </div>
+          <div class="glass rounded-full px-5 py-2.5 border border-white/8 text-sm">
+            <span class="text-gray-500">Respuesta</span>
+            <span class="text-brand-gold font-bold ml-2">variable</span>
+          </div>
+          <div class="glass rounded-full px-5 py-2.5 border border-white/8 text-sm">
+            <span class="text-gray-500">Compra y registro</span>
+            <span class="text-brand-gold font-bold ml-2">según operación</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="requisitos" class="py-28 relative" style="background: #070D1A;">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+          <div class="inline-flex items-center gap-2 text-brand-gold text-xs font-bold uppercase tracking-widest mb-4">
+            <div class="w-8 h-px bg-brand-gold"></div>Validación Rápida<div class="w-8 h-px bg-brand-gold"></div>
+          </div>
+          <h2 class="font-display text-4xl md:text-5xl text-white font-black mb-5">¿Calificas para el beneficio?</h2>
+          <p class="text-gray-500 text-lg">Revísalo en 30 segundos.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 reveal">
+          <div class="glass rounded-[var(--radius-card)] p-6 border border-white/6 card-hover flex items-start gap-5">
+            <div class="w-12 h-12 rounded-2xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-id-card text-brand-gold text-xl"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-bold text-base mb-1" data-tip="Registro Federal de Contribuyentes activo y al corriente">RFC activo</h4>
+              <p class="text-gray-500 text-sm">Operando formalmente en México con actividad económica acreditable.</p>
+            </div>
+            <div class="ml-auto flex-shrink-0 w-6 h-6 rounded-full bg-green-500/15 border border-green-500/30 flex items-center justify-center">
+              <i class="fa-solid fa-check text-green-400 text-[10px]"></i>
+            </div>
+          </div>
+
+          <div class="glass rounded-[var(--radius-card)] p-6 border border-white/6 card-hover flex items-start gap-5">
+            <div class="w-12 h-12 rounded-2xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-file-circle-check text-brand-gold text-xl"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-bold text-base mb-1" data-tip="Artículo 32-D del Código Fiscal de la Federación">Opinión positiva 32-D</h4>
+              <p class="text-gray-500 text-sm">Sin adeudos fiscales que bloqueen tu expediente.</p>
+            </div>
+            <div class="ml-auto flex-shrink-0 w-6 h-6 rounded-full bg-green-500/15 border border-green-500/30 flex items-center justify-center">
+              <i class="fa-solid fa-check text-green-400 text-[10px]"></i>
+            </div>
+          </div>
+
+          <div class="glass rounded-[var(--radius-card)] p-6 border border-white/6 card-hover flex items-start gap-5">
+            <div class="w-12 h-12 rounded-2xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-signature text-brand-gold text-xl"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-bold text-base mb-1">e.firma vigente</h4>
+              <p class="text-gray-500 text-sm">Necesaria para soporte documental y trazabilidad del trámite.</p>
+            </div>
+            <div class="ml-auto flex-shrink-0 w-6 h-6 rounded-full bg-green-500/15 border border-green-500/30 flex items-center justify-center">
+              <i class="fa-solid fa-check text-green-400 text-[10px]"></i>
+            </div>
+          </div>
+
+          <div class="glass rounded-[var(--radius-card)] p-6 border border-white/6 card-hover flex items-start gap-5">
+            <div class="w-12 h-12 rounded-2xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-calendar-check text-brand-gold text-xl"></i>
+            </div>
+            <div>
+              <h4 class="text-white font-bold text-base mb-1">Operación comprobable</h4>
+              <p class="text-gray-500 text-sm">Con información financiera y actividad empresarial consistente.</p>
+            </div>
+            <div class="ml-auto flex-shrink-0 w-6 h-6 rounded-full bg-green-500/15 border border-green-500/30 flex items-center justify-center">
+              <i class="fa-solid fa-check text-green-400 text-[10px]"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-[var(--radius-card)] p-8 md:p-10 border border-brand-gold/20 reveal relative overflow-hidden" style="background: linear-gradient(135deg, #0d1018 0%, #141c30 100%);">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-brand-gold/6 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div>
+              <h3 class="font-display text-2xl text-white font-black mb-2">¿Cumples con esto?</h3>
+              <p class="text-gray-400 max-w-lg text-sm leading-relaxed">
+                Puedes iniciar tu validación de inmediato. Si todavía no cumples, te decimos exactamente qué ajustar y cómo avanzar.
+              </p>
+            </div>
+            <a href="#contacto" class="btn-gold text-brand-900 font-bold py-4 px-8 rounded-xl whitespace-nowrap text-sm flex-shrink-0">
+              Validar mi caso ahora
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="py-28 bg-brand-950 relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-gold/4 rounded-full blur-[100px]"></div>
+      </div>
+
+      <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-10 reveal">
+          <div class="inline-flex items-center gap-2 text-brand-gold text-xs font-bold uppercase tracking-widest mb-4">
+            <div class="w-8 h-px bg-brand-gold"></div>Acceso Directo<div class="w-8 h-px bg-brand-gold"></div>
+          </div>
+          <h2 class="font-display text-4xl md:text-5xl text-white font-black mb-4">Capitaliza tu inversión hoy</h2>
+          <p class="text-gray-500">
+            Déjanos tus datos. Un consultor experto estructurará tu proyecto para asegurar tu beneficio fiscal con camiones ELAM FAW.
+          </p>
+        </div>
+
+        <div class="glass-light rounded-[var(--radius-card)] p-8 md:p-10 shadow-[0_32px_80px_rgba(0,0,0,0.4)] reveal reveal-delay-1">
+          <form id="leadForm" class="space-y-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label for="Nombre" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">
+                  Nombre completo <span class="text-red-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="Nombre"
+                  name="Nombre"
+                  required
+                  placeholder="Ej. Roberto García"
+                  class="input-field w-full px-4 py-3 rounded-xl text-sm bg-white border border-gray-200 text-gray-800"
+                />
+              </div>
+
+              <div>
+                <label for="Empresa" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">
+                  Empresa
+                </label>
+                <input
+                  type="text"
+                  id="Empresa"
+                  name="Empresa"
+                  placeholder="Ej. Transportes del Bajío"
+                  class="input-field w-full px-4 py-3 rounded-xl text-sm bg-white border border-gray-200 text-gray-800"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label for="Email" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">
+                  Correo corporativo <span class="text-red-400">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="Email"
+                  name="Email"
+                  required
+                  placeholder="correo@tuempresa.com"
+                  class="input-field w-full px-4 py-3 rounded-xl text-sm bg-white border border-gray-200 text-gray-800"
+                />
+              </div>
+
+              <div>
+                <label for="Telefono" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">
+                  Teléfono <span class="text-red-400">*</span>
+                </label>
+                <input
+                  type="tel"
+                  id="Telefono"
+                  name="Telefono"
+                  required
+                  placeholder="477 000 0000"
+                  class="input-field w-full px-4 py-3 rounded-xl text-sm bg-white border border-gray-200 text-gray-800"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="Mensaje" class="block text-xs font-bold text-gray-600 uppercase tracking-widest mb-2">
+                Describe tus necesidades <span class="text-gray-400 normal-case font-normal">opcional</span>
+              </label>
+              <textarea
+                id="Mensaje"
+                name="Mensaje"
+                rows="3"
+                placeholder="Ej. Necesito 3 tractocamiones para ruta Bajío-Norte..."
+                class="input-field w-full px-4 py-3 rounded-xl text-sm bg-white border border-gray-200 text-gray-800 resize-none"
+              ></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn-gold w-full text-brand-900 font-bold py-4 px-8 rounded-xl flex justify-center items-center gap-2 text-sm tracking-wide">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Solicitar Análisis Estratégico</span>
+            </button>
+          </form>
+
+          <div class="mt-6 pt-5 border-t border-gray-100 flex items-center justify-center gap-4 text-xs text-gray-400 flex-wrap">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-lock text-gray-300"></i> Información confidencial</span>
+            <span class="w-px h-4 bg-gray-200 hidden sm:block"></span>
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-shield-halved text-gray-300"></i> Sin spam</span>
+            <span class="w-px h-4 bg-gray-200 hidden sm:block"></span>
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-bolt text-gray-300"></i> Respuesta estimada en 24h</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- LOGO ORIGINAL CONSERVADO -->
+        <div>
+          <span class="text-white font-bold text-xl tracking-wider block mb-4">ELAM<span class="text-brand-gold">FAW</span></span>
+          <p class="text-sm">
+            Especialistas en soluciones de transporte de carga y estrategias de inversión fiscal para el crecimiento empresarial en México.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Contacto Directo</h4>
+          <ul class="space-y-2 text-sm">
+            <li><i class="fa-solid fa-user text-brand-gold w-5"></i> Daniel Rivera Ayala</li>
+            <li><i class="fa-solid fa-phone text-brand-gold w-5"></i> 477 580 5988</li>
+            <li><i class="fa-solid fa-envelope text-brand-gold w-5"></i> daniel.rivera@elambajio.com</li>
+            <li>
+              <i class="fa-solid fa-globe text-brand-gold w-5"></i>
+              <a href="https://tuconsultor.github.io/HUB-NFC/" target="_blank" rel="noopener" class="hover:text-white transition-colors">
+                HUB-NFC
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Aviso Legal</h4>
+          <p class="text-xs leading-relaxed">
+            Este sitio web es de carácter informativo y promocional. No constituye asesoría fiscal formal. Se recomienda consultar directamente con su departamento contable o contador público para la aplicación precisa de los estímulos descritos.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-gray-800 text-center text-xs">
+        &copy; 2026 ELAM FAW Bajío. Todos los derechos reservados.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById("navbar");
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (window.scrollY > 60) {
+          navbar.classList.add("nav-scrolled");
+        } else {
+          navbar.classList.remove("nav-scrolled");
+        }
+      },
+      { passive: true }
+    );
+
+    const toggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    if (toggle && mobileMenu) {
+      toggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("open");
+        const icon = toggle.querySelector("i");
+        icon.classList.toggle("fa-bars");
+        icon.classList.toggle("fa-xmark");
+      });
+
+      mobileMenu.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", () => {
+          mobileMenu.classList.remove("open");
+          const icon = toggle.querySelector("i");
+          icon.classList.remove("fa-xmark");
+          icon.classList.add("fa-bars");
+        });
+      });
     }
-  }
-});
 
-const ctx2 = document.getElementById("chartTimeline").getContext("2d");
-new Chart(ctx2, {
-  type: "bar",
-  data: {
-    labels: ["Revisión escrito","Correcciones","Resolución comité","Emisión constancia","Notificación"],
-    datasets: [{ data:[6,3,30,7,4], backgroundColor:"rgba(220,38,38,0.7)", borderRadius:6, borderSkipped:false }]
-  },
-  options: {
-    indexAxis: "y",
-    plugins: { legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.parsed.x} días`}} },
-    scales: {
-      x: { ticks:{color:"#6b7280",font:{size:10}}, grid:{color:"rgba(255,255,255,0.04)"}, title:{display:true,text:"Días hábiles",color:"#6b7280"} },
-      y: { ticks:{color:"#9ca3af",font:{size:10}}, grid:{display:false} }
-    }
-  }
-});
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
 
-const ctx3 = document.getElementById("chartComparativo").getContext("2d");
-const years = ["Año 1","Año 2","Año 3","Año 4","Año 5","Año 6","Año 7","Año 8"];
-const depreciacion = [312500,312500,312500,312500,312500,312500,312500,187500];
-const dedImediata = [2150000,0,0,0,0,0,0,0];
-new Chart(ctx3, {
-  type: "bar",
-  data: {
-    labels: years,
-    datasets: [
-      { label:"Deducción Inmediata Plan México", data: dedImediata, backgroundColor:"rgba(220,38,38,0.75)", borderRadius:6 },
-      { label:"Depreciación Tradicional (12.5%/año)", data: depreciacion, backgroundColor:"rgba(255,255,255,0.12)", borderRadius:6 }
-    ]
-  },
-  options: {
-    plugins: {
-      legend:{labels:{color:"#9ca3af",font:{size:11}}},
-      tooltip:{callbacks:{label:c=>` ${c.dataset.label}: $${c.parsed.y.toLocaleString()} MXN`}}
-    },
-    scales: {
-      x:{ticks:{color:"#9ca3af"},grid:{color:"rgba(255,255,255,0.04)"}},
-      y:{ticks:{color:"#9ca3af",callback:v=>"$"+(v/1000)+"k"},grid:{color:"rgba(255,255,255,0.05)"}}
-    }
-  }
-});
-</script>
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+    const counterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const target = parseInt(el.dataset.target, 10) || 0;
+          let current = 0;
+          const step = Math.max(1, target / 60);
+
+          const timer = setInterval(() => {
+            current = Math.min(current + step, target);
+            el.innerHTML = `${Math.floor(current)}<span class="text-2xl">%</span>`;
+            if (current >= target) clearInterval(timer);
+          }, 16);
+
+          counterObserver.unobserve(el);
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    document.querySelectorAll(".counter").forEach((el) => counterObserver.observe(el));
+
+    const progressObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const bar = entry.target;
+          const width = bar.style.width;
+          bar.style.width = "0";
+          setTimeout(() => {
+            bar.style.width = width;
+          }, 200);
+          progressObserver.unobserve(bar);
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    document.querySelectorAll(".progress-bar").forEach((bar) => progressObserver.observe(bar));
+  </script>
+
+  <script src="assets/js/config.js" defer></script>
+  <script src="assets/js/form-handler.js" defer></script>
 </body>
 </html>
